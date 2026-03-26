@@ -82,6 +82,7 @@
             width: 250px;
             text-align: center;
             border: 1px solid #ffffff;
+            transition: 0.3s;
         }
         .card:hover {
     transform: scale(1.05);
@@ -99,7 +100,20 @@
 
         button:hover {
             background-color: #ffffff;
+            transform: scale(1.1);
         }
+        .fade-in {
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
     </style>
 
 </head>
@@ -119,38 +133,38 @@
         </div>
     </div>
 <div class="hero">
-    <h1>Pixel Craft Studio</h1>
-    <h2> Welcome to Pixel Craft Studio Offial Web Site</h2>
+    <h1 class="fade-in">Pixel Craft Studio</h1>
+    <h2 class="fade-in"> Welcome to Pixel Craft Studio Offial Web Site</h2>
 </div>
 
     <div class="container">
 
         <div class="card">
-            <h3>Logo Design</h3>
-            <p>Creative and modern logo designs.</p>
+            <h3 class="fade-in">Logo Design</h3>
+            <p class="fade-in">Creative and modern logo designs.</p>
         </div>
 
         <div class="card">
-            <h3>Social Media</h3>
-            <p>Engaging social media posts.</p>
+            <h3 class="fade-in">Social Media</h3>
+            <p class="fade-in">Engaging social media posts.</p>
         </div>
 
         <div class="card">
-            <h3>Video Editing</h3>
-            <p>Professional video editing services.</p>
+            <h3 class="fade-in">Video Editing</h3>
+            <p class="fade-in">Professional video editing services.</p>
         </div>
 
         <div class="card">
-            <h3>Banner Designing</h3>
-            <p>Creative and Modern Banner Design</p>
+            <h3 class="fade-in">Banner Designing</h3>
+            <p class="fade-in">Creative and Modern Banner Design</p>
         </div>
                 <div class="card">
-            <h3>Letter Head Designing</h3>
-            <p>Creative Letter Head Design for your Company</p>
+            <h3 class="fade-in">Letter Head Designing</h3>
+            <p class="fade-in">Creative Letter Head Design for your Company</p>
         </div>
                 <div class="card">
-            <h3>Leaflets Designing</h3>
-            <p>Creative and Modern Leaflets Design</p>
+            <h3 class="fade-in">Leaflets Designing</h3>
+            <p class="fade-in">Creative and Modern Leaflets Design</p>
         </div>
 
     </div>
