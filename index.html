@@ -27,6 +27,7 @@
 
         /* HERO */
         .hero {
+            background: linear-gradient(to right, #000000, #1a1a1a);
             text-align: center;
             padding: 100px 20px;
         }
@@ -73,8 +74,9 @@
         }
 
         .card {
-            transform: scale(1.05);
-            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px #ff4da6;
             background-color: rgb(21, 1, 153)1a1a;
             padding: 20px;
             border-radius: 10px;
@@ -82,6 +84,10 @@
             text-align: center;
             border: 1px solid #ffffff;
         }
+        .card:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
 
         button {
             background-color: #ffffff;
@@ -113,9 +119,10 @@
             <a href="Contact Us.html">Contact Us</a>
         </div>
     </div>
-
+<div class="hero">
     <h1>Pixel Craft Studio</h1>
     <h2> Welcome to Pixel Craft Studio Offial Web Site</h2>
+</div>
 
     <div class="container">
 
