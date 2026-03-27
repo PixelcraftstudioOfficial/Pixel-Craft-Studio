@@ -4,13 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Pixel Craft Studio</title>
-    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* Master Color Palette & Variables */
+        :root {
+            --primary-color: #4f46e5; /* Vibrant Indigo */
+            --secondary-color: #0ea5e9; /* Bright Sky Blue */
+            --dark-bg: #0f172a; /* Deep Slate */
+            --light-bg: #f8fafc; /* Soft Off-White */
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Advanced Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            opacity: 0;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        /* Glassmorphism Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px); /* Blurred glass effect */
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        .navbar .logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Navbar Hover Underline Animation */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--white);
+        }
+
+        /* Main Content Spacing */
+        main {
+            padding-top: 100px;
+            min-height: 80vh;
+        }
+
+        /* Page Headers */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 20px;
+        }
+
+        .page-header h2 {
+            font-size: 3rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* About Us Section */
+        .about-container {
+            max-width: 900px;
+            margin: 20px auto 60px;
+            background: var(--white);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .about-container h2 {
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .about-container p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        /* Premium Gradient Button */
+        .btn-premium {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 25px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Professional Footer */
+        .footer-pro {
+            background: var(--dark-bg);
+            color: #cbd5e1;
+            padding: 60px 5% 30px;
+            font-size: 0.95rem;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            color: var(--white);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            color: #64748b;
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <nav class="navbar fade-in">
-            <h1 class="logo">Pixel Craft Studio</h1>
+        <nav class="navbar animate-fade-in">
+            <h1 class="logo"><span>Pixel</span> Craft Studio</h1>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="Designs.html">Our Designs</a></li>
@@ -22,12 +281,12 @@
     </header>
 
     <main>
-        <div class="page-header slide-up">
+        <div class="page-header animate-fade-up" style="animation-delay: 0.1s;">
             <h2>Our Story</h2>
             <p>Passionate about transforming your ideas into stunning visual realities.</p>
         </div>
 
-        <section class="about-container slide-up">
+        <section class="about-container animate-fade-up" style="animation-delay: 0.3s;">
             <h2>Elevating Brands Through Creative Design</h2>
             
             <p>Welcome to Pixel Craft Studio! Established in 2021, we are a passionate creative studio dedicated to helping businesses establish a strong, memorable visual identity.</p>
@@ -36,14 +295,39 @@
             
             <p>From crafting striking modern logos and engaging social media content to professional video editing and polished corporate materials like letterheads, banners, and leaflets, we handle every detail with precision and creativity. At Pixel Craft Studio, your vision is our canvas. Let's build something amazing together.</p>
             
-            <div style="margin-top: 30px;">
-                <a href="https://wa.link/dgf22q" class="btn" target="_blank">Start Your Project With Us</a>
+            <div style="margin-top: 40px;">
+                <a href="https://wa.link/dgf22q" class="btn-premium" target="_blank">Start Your Project With Us</a>
             </div>
         </section>
     </main>
 
-    <footer class="fade-in">
-        <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
+    <footer class="footer-pro animate-fade-in" style="animation-delay: 0.5s;">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Pixel Craft Studio</h3>
+                <p>Delivering high-quality digital and print design solutions to elevate your brand's presence.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Designs.html">Portfolio</a></li>
+                    <li><a href="Services.html">Our Services</a></li>
+                    <li><a href="Contact Us.html">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Get In Touch</h4>
+                <p><strong>Phone & WhatsApp:</strong> +94 76 639 0768</p>
+                <p><strong>Available:</strong> Mon - Fri, 9AM - 6PM</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
+        </div>
     </footer>
 
 </body>
