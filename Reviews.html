@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews - Pixel Craft Studio</title>
+    
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    
+    <style>
+        /* --- IMPORT FONTS & VARIABLES --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #0ea5e9;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --star-color: #fbbf24; /* Gold color for stars */
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* --- GENERAL RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--light-bg); color: var(--text-main); line-height: 1.7; overflow-x: hidden; }
+
+        /* --- GLOBAL ANIMATIONS --- */
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; opacity: 0; }
+        .animate-fade-in { animation: fadeIn 1s ease-in-out forwards; }
+
+        /* --- GLASSMORPHISM NAVBAR --- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); letter-spacing: 1px; transition: font-size 0.3s ease; }
+        .navbar .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .nav-links { list-style: none; display: flex; gap: 30px; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 1rem; font-weight: 500; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--gradient); transition: width 0.3s ease; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1001; }
+        .menu-toggle .bar { width: 25px; height: 3px; background-color: var(--white); transition: all 0.3s ease-in-out; border-radius: 3px; }
+
+        /* --- BUTTONS --- */
+        .btn-premium { display: inline-block; background: var(--gradient); color: var(--white); padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; transition: all 0.4s ease; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); border: none; cursor: pointer; text-align: center; }
+        .btn-premium:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 25px rgba(79, 70, 229, 0.4); }
+
+        /* --- MAIN SPACING & HEADERS --- */
+        main { padding-top: 100px; min-height: 80vh; }
+        .page-header { text-align: center; padding: 60px 20px 20px; }
+        .page-header h2 { font-size: 3rem; color: var(--text-main); font-weight: 700; margin-bottom: 10px; }
+        .page-header p { font-size: 1.1rem; color: var(--text-muted); }
+
+        /* --- REVIEWS LAYOUT --- */
+        .reviews-wrapper { max-width: 900px; margin: 0 auto 80px; padding: 0 5%; }
+
+        /* Review Form */
+        .review-form-container { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); margin-bottom: 60px; }
+        .review-form-container h3 { font-size: 1.8rem; margin-bottom: 25px; color: var(--text-main); text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-main); font-size: 0.95rem; }
+        input[type="text"], select, textarea { width: 100%; padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 1rem; font-family: 'Poppins', sans-serif; color: var(--text-main); background-color: #f8fafc; transition: all 0.3s ease; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); background-color: var(--white); }
+        textarea { resize: vertical; min-height: 100px; }
+
+        /* Review Grid Display */
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .review-card { background: var(--white); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.3s ease; }
+        .review-card:hover { transform: translateY(-5px); }
+        .stars { color: var(--star-color); font-size: 1.5rem; margin-bottom: 15px; letter-spacing: 2px; }
+        .review-text { font-size: 1.05rem; color: var(--text-muted); font-style: italic; margin-bottom: 20px; line-height: 1.6; }
+        .reviewer-info { border-top: 1px solid #f1f5f9; padding-top: 15px; }
+        .reviewer-name { font-weight: 600; color: var(--text-main); font-size: 1.1rem; }
+
+        /* --- PROFESSIONAL FOOTER --- */
+        .footer-pro { background: var(--dark-bg); color: #cbd5e1; padding: 60px 5% 30px; font-size: 0.95rem; border-top: 5px solid var(--primary-color); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+        .footer-brand h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 15px; }
+        .footer-brand p { color: #94a3b8; margin-bottom: 20px; }
+        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
+        .footer-links ul { list-style: none; }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a { color: #cbd5e1; text-decoration: none; transition: color 0.3s ease; }
+        .footer-links ul li a:hover { color: var(--secondary-color); }
+        .footer-contact p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; color: var(--secondary-color); }
+        .footer-bottom { text-align: center; padding-top: 30px; color: #64748b; }
+
+        /* =========================================
+           MOBILE OPTIMIZATION RULES 
+           ========================================= */
+        @media (max-width: 768px) {
+            /* Navbar Mobile Fixes */
+            .navbar .logo { font-size: 1.4rem; white-space: nowrap; }
+            .navbar { padding: 15px 5%; }
+            .menu-toggle { display: flex; }
+            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(15, 23, 42, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+            .nav-links.active { max-height: 400px; }
+            .nav-links li { width: 100%; }
+            .nav-links a { display: block; padding: 15px 0; }
+            
+            #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
+            #mobile-menu.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+            /* Content Mobile Fixes */
+            .page-header h2 { font-size: 2.2rem; }
+            .review-form-container { padding: 25px 20px; }
+            .btn-premium { width: 100%; } /* Makes button full width on mobile */
+            .reviews-grid { grid-template-columns: 1fr; } /* Stacks reviews on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar animate-fade-in">
+            <h1 class="logo"><span>Pixel</span> Craft Studio</h1>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Designs.html">Our Designs</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="About Us.html">About Us</a></li>
+                <li><a href="Reviews.html" class="active">Reviews</a></li>
+                <li><a href="Contact Us.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header animate-fade-up" style="animation-delay: 0.1s;">
+            <h2>Client Testimonials</h2>
+            <p>See what our amazing clients have to say about working with us.</p>
+        </div>
+
+        <section class="reviews-wrapper">
+            
+            <div class="review-form-container animate-fade-up" style="animation-delay: 0.2s;">
+                <h3>Leave a Review</h3>
+                <form id="addReviewForm">
+                    <div class="form-group">
+                        <label for="reviewerName">Your Name / Company</label>
+                        <input type="text" id="reviewerName" placeholder="e.g. John Doe" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reviewRating">Rating</label>
+                        <select id="reviewRating" required>
+                            <option value="5">★★★★★ (5 Stars) - Excellent</option>
+                            <option value="4">★★★★☆ (4 Stars) - Very Good</option>
+                            <option value="3">★★★☆☆ (3 Stars) - Good</option>
+                            <option value="2">★★☆☆☆ (2 Stars) - Fair</option>
+                            <option value="1">★☆☆☆☆ (1 Star) - Poor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewText">Your Experience</label>
+                        <textarea id="reviewText" placeholder="Tell us how Pixel Craft Studio helped your brand..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-premium">Submit Review</button>
+                </form>
+            </div>
+
+            <div class="section-header" style="text-align: center; margin-bottom: 30px;">
+                <h2 style="font-size: 2rem; color: var(--text-main);">Recent Reviews</h2>
+            </div>
+
+            <div class="reviews-grid" id="reviewsContainer">
+                </div>
+
+        </section>
+    </main>
+
+    <footer class="footer-pro">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Pixel Craft Studio</h3>
+                <p>Delivering high-quality digital and print design solutions to elevate your brand's presence.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Designs.html">Portfolio</a></li>
+                    <li><a href="Services.html">Our Services</a></li>
+                    <li><a href="Reviews.html">Reviews</a></li>
+                    <li><a href="Contact Us.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Get In Touch</h4>
+                <p><strong>Phone & WhatsApp:</strong> +94 76 639 0768</p>
+                <p><strong>Available:</strong> Mon - Fri, 9AM - 6PM</p>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: #cbd5e1; text-decoration: none;">Facebook</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const menuToggle = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('#nav-links');
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('is-active');
+            navLinks.classList.toggle('active');
+        });
+
+        // 2. Reviews Logic (using Local Storage)
+        const reviewForm = document.getElementById('addReviewForm');
+        const reviewsContainer = document.getElementById('reviewsContainer');
+
+        // Pre-loaded "Dummy" reviews so the page isn't empty
+        const defaultReviews = [
+            {
+                name: "Sarah Jenkins",
+                rating: 5,
+                text: "Pixel Craft Studio completely transformed our brand. The modern logo design they delivered was exactly what we needed to stand out. Highly recommended!"
+            },
+            {
+                name: "David K. - TechStart",
+                rating: 5,
+                text: "Incredible video editing skills. The cinematic promo video they created for us generated so much engagement on our social media channels."
+            }
+        ];
+
+        // Function to load and display reviews
+        function renderReviews() {
+            // Get reviews from browser storage, or use defaults if none exist
+            let storedReviews = JSON.parse(localStorage.getItem('pixelCraftReviews'));
+            if (!storedReviews || storedReviews.length === 0) {
+                storedReviews = defaultReviews;
+                localStorage.setItem('pixelCraftReviews', JSON.stringify(storedReviews));
+            }
+
+            // Clear container before drawing
+            reviewsContainer.innerHTML = '';
+
+            // Reverse the array so the newest review shows up first
+            const displayReviews = [...storedReviews].reverse();
+
+            // Loop through and create HTML for each review
+            displayReviews.forEach((review, index) => {
+                // Create star string
+                const goldStars = '★'.repeat(review.rating);
+                const greyStars = '☆'.repeat(5 - review.rating);
+                
+                // Add delay animation based on index
+                const delay = (index * 0.1) + 0.3;
+
+                const card = document.createElement('div');
+                card.className = 'review-card animate-fade-up';
+                card.style.animationDelay = `${delay}s`;
+                
+                card.innerHTML = `
+                    <div class="stars">${goldStars}${greyStars}</div>
+                    <p class="review-text">"${review.text}"</p>
+                    <div class="reviewer-info">
+                        <div class="reviewer-name">${review.name}</div>
+                    </div>
+                `;
+                reviewsContainer.appendChild(card);
+            });
+        }
+
+        // Listen for new review submissions
+        reviewForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop page reload
+
+            // Get user input
+            const name = document.getElementById('reviewerName').value;
+            const rating = parseInt(document.getElementById('reviewRating').value);
+            const text = document.getElementById('reviewText').value;
+
+            // Create new review object
+            const newReview = { name, rating, text };
+
+            // Get existing reviews, add new one, save back to storage
+            let storedReviews = JSON.parse(localStorage.getItem('pixelCraftReviews')) || defaultReviews;
+            storedReviews.push(newReview);
+            localStorage.setItem('pixelCraftReviews', JSON.stringify(storedReviews));
+
+            // Redraw the screen to show the new review instantly
+            renderReviews();
+
+            // Clear the form
+            reviewForm.reset();
+            
+            // Show a quick alert
+            alert("Thank you! Your review has been submitted successfully.");
+        });
+
+        // Run the render function as soon as the page loads
+        document.addEventListener('DOMContentLoaded', renderReviews);
+    </script>
+
+</body>
+</html>
