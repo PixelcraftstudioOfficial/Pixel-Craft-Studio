@@ -1,95 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Designs</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #333;
-        }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .design-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .design-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .design-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .design-info {
-            padding: 15px;
-            text-align: center;
-        }
-        
-        .design-info h3 {
-            color: #333;
-            margin-bottom: 5px;
-        }
-    </style>
-</head>
+    <title>Our Designs - Pixel Craft Studio</title>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
-    <h1>Our Designs</h1>
-    
-    <div class="gallery">
-        <div class="design-card">
-            <img src="Image 1.jpg" alt="Design 1">
-            <div class="design-info"><h3>Our Post</h3></div>
-        </div>
-        <div class="design-card">
-            <img src="Image 2.jpg" alt="Design 2">
-            <div class="design-info"><h3>Banner</h3></div>
-        </div>
-        <div class="design-card">
-            <img src="Image 3.jpg" alt="Design 3">
-            <div class="design-info"><h3>Social Media Post</h3></div>
-        </div>
-        <div class="design-card">
-            <img src="Image 4.jpg" alt="Design 4">
-            <div class="design-info"><h3>Banner</h3></div>
-        </div>
-        <div class="design-card">
-            <img src="Image 5.jpg" alt="Design 5">
-            <div class="design-info"><h3>Banner Design</h3></div>
-        </div>
-        <div class="design-card">
-            <img src="Image 6.png" alt="Design 6">
-            <div class="design-info"><h3>Scial Media Post</h3></div>
-        </div>
 
-    </div>
+    <header>
+        <nav class="navbar">
+            <h1 class="logo">Pixel Craft Studio</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Designs.html" class="active">Our Designs</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="About Us.html">About Us</a></li>
+                <li><a href="Contact Us.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="portfolio-gallery">
+            <div class="gallery-header">
+                <h2>Our Creative Showcase</h2>
+                <p>Explore some of the recent projects we have brought to life for our clients.</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="Image 1.jpg" alt="Creative Logo Design">
+                    <h3>Logo Design</h3>
+                    <p>Creative and modern logo designs that define your brand.</p>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="Image 2.jpg" alt="Social Media Posts">
+                    <h3>Social Media</h3>
+                    <p>Engaging social media posts to grow your digital presence.</p>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="Image 3.jpg" alt="Professional Video Editing">
+                    <h3>Video Editing</h3>
+                    <p>Professional video editing services for all platforms.</p>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="Image 4.jpg" alt="Modern Banner Design">
+                    <h3>Banner Designing</h3>
+                    <p>Creative and modern banner designs for your campaigns.</p>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="Image 5.jpg" alt="Company Letterhead">
+                    <h3>Letterhead Designing</h3>
+                    <p>Professional letterhead designs for your company.</p>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="Image 6.png" alt="Creative Leaflets">
+                    <h3>Leaflets Designing</h3>
+                    <p>Creative and modern leaflet designs for marketing.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
+        <a href="https://wa.link/dgf22q" class="footer-btn" target="_blank">Contact Now on WhatsApp</a>
+    </footer>
+
 </body>
 </html>
