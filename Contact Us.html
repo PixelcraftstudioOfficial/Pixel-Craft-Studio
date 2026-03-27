@@ -222,29 +222,6 @@
             min-height: 120px;
         }
 
-        /* File Upload Styling */
-        input[type="file"] {
-            padding: 10px;
-            background: #f1f5f9;
-            border: 1px dashed #cbd5e1;
-            cursor: pointer;
-        }
-
-        input[type="file"]::file-selector-button {
-            background: var(--dark-bg);
-            color: var(--white);
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            margin-right: 15px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        input[type="file"]::file-selector-button:hover {
-            background: var(--primary-color);
-        }
-
         /* Premium Gradient Button */
         .btn-premium {
             display: inline-block;
@@ -370,66 +347,67 @@
         <section class="contact-wrapper">
             <div class="contact-form-container animate-fade-up" style="animation-delay: 0.3s;">
                 <h3>Project Inquiry</h3>
-                <form action="#" method="POST" enctype="multipart/form-data">
+                <form id="whatsappForm">
                     
                     <div class="form-row">
                         <div class="form-group">
                             <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                            <input type="text" id="name" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                            <input type="email" id="email" placeholder="john@example.com" required>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="phone">Phone / WhatsApp</label>
-                            <input type="tel" id="phone" name="phone" placeholder="+94 76 XXX XXXX">
+                            <input type="tel" id="phone" placeholder="+94 76 XXX XXXX">
                         </div>
                         <div class="form-group">
                             <label for="business">Business / Brand Name</label>
-                            <input type="text" id="business" name="business" placeholder="Company Name (Optional)">
+                            <input type="text" id="business" placeholder="Company Name (Optional)">
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="form-group">
                             <label for="service">Service Interested In</label>
-                            <select id="service" name="service">
+                            <select id="service" required>
                                 <option value="" disabled selected>Select a service...</option>
-                                <option value="logo">Logo Design</option>
-                                <option value="video">Video Editing</option>
-                                <option value="social">Social Media Design</option>
-                                <option value="banner">Banner Design</option>
-                                <option value="print">Leaflets / Letterheads</option>
-                                <option value="other">Multiple / Other</option>
+                                <option value="Logo Design">Logo Design</option>
+                                <option value="Video Editing">Video Editing</option>
+                                <option value="Social Media Design">Social Media Design</option>
+                                <option value="Banner Design">Banner Design</option>
+                                <option value="Leaflets / Letterheads">Leaflets / Letterheads</option>
+                                <option value="Multiple / Other">Multiple / Other</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="budget">Estimated Budget</label>
-                            <select id="budget" name="budget">
+                            <select id="budget" required>
                                 <option value="" disabled selected>Select an option...</option>
-                                <option value="basic">Basic / Starter Budget</option>
-                                <option value="standard">Standard Budget</option>
-                                <option value="premium">Premium / Corporate Budget</option>
-                                <option value="unsure">Not sure yet</option>
+                                <option value="Basic / Starter Budget">Basic / Starter Budget</option>
+                                <option value="Standard Budget">Standard Budget</option>
+                                <option value="Premium / Corporate Budget">Premium / Corporate Budget</option>
+                                <option value="Not sure yet">Not sure yet</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="message">Project Description</label>
-                        <textarea id="message" name="message" placeholder="Tell us a little bit about what you are looking to achieve..." required></textarea>
+                        <textarea id="message" placeholder="Tell us a little bit about what you are looking to achieve..." required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="attachment">Attach References or Assets (Optional)</label>
-                        <input type="file" id="attachment" name="attachment" accept="image/*, .pdf, .zip, .rar" multiple>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; font-style: italic;">
+                            * Note: If you have image references or files, please attach them directly in the chat once WhatsApp opens!
+                        </p>
                     </div>
 
-                    <button type="submit" class="btn-premium">Submit Inquiry</button>
+                    <button type="submit" class="btn-premium">Send via WhatsApp</button>
                 </form>
             </div>
 
@@ -483,6 +461,50 @@
             <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop the page from refreshing
+
+            // Gather the values the user typed in
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value || 'Not provided';
+            const business = document.getElementById('business').value || 'Not provided';
+            const service = document.getElementById('service').value;
+            const budget = document.getElementById('budget').value;
+            const message = document.getElementById('message').value;
+
+            // Format how the message will look inside WhatsApp
+            // Using asterisks (*) makes the text bold in WhatsApp
+            const whatsappMessage = `*New Project Inquiry - Pixel Craft Studio*
+            
+*Name:* ${name}
+*Email:* ${email}
+*Phone:* ${phone}
+*Business:* ${business}
+
+*Service Needed:* ${service}
+*Budget Range:* ${budget}
+
+*Project Details:*
+${message}
+
+_(Client note: Please attach any reference files to this chat now!)_`;
+
+            // Encode the text so it works safely in a web link
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+
+            // The WhatsApp number (No plus sign, just the country code and number)
+            const whatsappNumber = "94766390768";
+
+            // Create the final link
+            const waLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            // Open the link in a new tab/window
+            window.open(waLink, '_blank');
+        });
+    </script>
 
 </body>
 </html>
