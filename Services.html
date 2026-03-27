@@ -1,112 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services</title>
+    <title>Services - Pixel Craft Studio</title>
+    
     <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* Master Color Palette & Variables */
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #0ea5e9;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* General Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
-        
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 20px;
+
+        /* Advanced Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            opacity: 0;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        /* Glassmorphism Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        .navbar .logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+        /* Main Content Spacing */
+        main {
+            padding-top: 100px;
+            min-height: 80vh;
+        }
+
+        /* Page Headers */
+        .page-header {
             text-align: center;
+            padding: 60px 20px 20px;
         }
-        
-        .header h1 {
-            font-size: 2.5em;
+
+        .page-header h2 {
+            font-size: 3rem;
+            color: var(--text-main);
+            font-weight: 700;
             margin-bottom: 10px;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
         }
-        
+
+        /* Services Grid Layout */
+        .services-container {
+            padding: 20px 5%;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
-            margin-top: 40px;
         }
-        
+
         .service-card {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: var(--white);
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
+            text-align: left;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
-        
+
         .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border-bottom: 3px solid var(--primary-color);
         }
-        
+
         .service-card h3 {
-            color: #667eea;
+            font-size: 1.5rem;
             margin-bottom: 15px;
-            font-size: 1.5em;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        
+
+        /* Little decorative dot next to the service title */
+        .service-card h3::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: var(--gradient);
+            border-radius: 50%;
+        }
+
         .service-card p {
-            color: #666;
-            font-size: 0.95em;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.8;
         }
+
+        /* Professional Footer */
+        .footer-pro {
+            background: var(--dark-bg);
+            color: #cbd5e1;
+            padding: 60px 5% 30px;
+            font-size: 0.95rem;
+            border-top: 5px solid var(--primary-color);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 15px; }
+        .footer-brand p { color: #94a3b8; margin-bottom: 20px; }
+        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
+        .footer-links ul { list-style: none; }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a { color: #cbd5e1; text-decoration: none; transition: color 0.3s ease; }
+        .footer-links ul li a:hover { color: var(--secondary-color); }
+        .footer-contact p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .footer-bottom { text-align: center; padding-top: 30px; color: #64748b; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Our Services</h1>
-        <p>Professional Design & Video Editing Solutions</p>
-    </div>
-    
-    <div class="container">
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>Logo Design</h3>
-                <p>Create unique and memorable logos that represent your brand identity.</p>
+
+    <header>
+        <nav class="navbar animate-fade-in">
+            <h1 class="logo"><span>Pixel</span> Craft Studio</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Designs.html">Our Designs</a></li>
+                <li><a href="Services.html" class="active">Services</a></li>
+                <li><a href="About Us.html">About Us</a></li>
+                <li><a href="Contact Us.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header animate-fade-up" style="animation-delay: 0.1s;">
+            <h2>What We Do</h2>
+            <p>Comprehensive design solutions tailored to elevate your brand.</p>
+        </div>
+
+        <section class="services-container">
+            <div class="services-grid">
+                
+                <div class="service-card animate-fade-up" style="animation-delay: 0.2s;">
+                    <h3>Logo Design</h3>
+                    <p>We create striking, memorable logos that capture the core identity of your business and leave a lasting impression on your audience.</p>
+                </div>
+
+                <div class="service-card animate-fade-up" style="animation-delay: 0.3s;">
+                    <h3>Social Media</h3>
+                    <p>Consistent, engaging, and high-quality posts designed specifically for your brand's voice across all major social platforms.</p>
+                </div>
+
+                <div class="service-card animate-fade-up" style="animation-delay: 0.4s;">
+                    <h3>Video Editing</h3>
+                    <p>From promotional clips to corporate presentations, we edit your raw footage into polished, dynamic, and professional videos.</p>
+                </div>
+
+                <div class="service-card animate-fade-up" style="animation-delay: 0.5s;">
+                    <h3>Banner Designing</h3>
+                    <p>Eye-catching digital and print banners creatively designed to grab attention and communicate your message instantly.</p>
+                </div>
+
+                <div class="service-card animate-fade-up" style="animation-delay: 0.6s;">
+                    <h3>Letterhead Designing</h3>
+                    <p>Clean, formal, and branded letterheads that ensure your corporate communications always look official and professional.</p>
+                </div>
+
+                <div class="service-card animate-fade-up" style="animation-delay: 0.7s;">
+                    <h3>Leaflet Designing</h3>
+                    <p>Creative leaflet and flyer layouts perfect for marketing campaigns, product launches, and informational handouts.</p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-pro animate-fade-in" style="animation-delay: 0.9s;">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Pixel Craft Studio</h3>
+                <p>Delivering high-quality digital and print design solutions to elevate your brand's presence.</p>
             </div>
             
-            <div class="service-card">
-                <h3>Banner Design</h3>
-                <p>Eye-catching banners for web and print that grab attention.</p>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Designs.html">Portfolio</a></li>
+                    <li><a href="Services.html">Our Services</a></li>
+                    <li><a href="Contact Us.html">Contact Us</a></li>
+                </ul>
             </div>
-            
-            <div class="service-card">
-                <h3>Leaflets</h3>
-                <p>Professional leaflets and brochures to promote your business.</p>
-            </div>
-            
-            <div class="service-card">
-                <h3>Letterheads</h3>
-                <p>Corporate letterheads that maintain consistent branding.</p>
-            </div>
-            
-            <div class="service-card">
-                <h3>Business Cards</h3>
-                <p>Elegant business cards that make a lasting impression.</p>
-            </div>
-            
-            <div class="service-card">
-                <h3>Video Editing</h3>
-                <p>Professional video editing and post-production services.</p>
+
+            <div class="footer-contact">
+                <h4>Get In Touch</h4>
+                <p><strong>Phone & WhatsApp:</strong> +94 76 639 0768</p>
+                <p><strong>Available:</strong> Mon - Fri, 9AM - 6PM</p>
             </div>
         </div>
-    </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
