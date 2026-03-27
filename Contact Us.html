@@ -237,6 +237,7 @@
             border: none;
             cursor: pointer;
             width: 100%;
+            text-align: center;
         }
 
         .btn-premium:hover {
@@ -407,7 +408,7 @@
                         </p>
                     </div>
 
-                    <button type="submit" class="btn-premium">Send via WhatsApp</button>
+                    <button type="button" class="btn-premium" onclick="sendToWhatsApp()">Send via WhatsApp</button>
                 </form>
             </div>
 
@@ -463,10 +464,17 @@
     </footer>
 
     <script>
-        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop the page from refreshing
+        function sendToWhatsApp() {
+            // 1. Grab the form element
+            const form = document.getElementById('whatsappForm');
 
-            // Gather the values the user typed in
+            // 2. Check if all "required" fields are filled out
+            if (!form.checkValidity()) {
+                form.reportValidity(); // This forces the browser to show the "Please fill out this field" tooltips
+                return; // Stop the script if the form isn't fully filled out
+            }
+
+            // 3. Gather the values
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = document.getElementById('phone').value || 'Not provided';
@@ -475,8 +483,7 @@
             const budget = document.getElementById('budget').value;
             const message = document.getElementById('message').value;
 
-            // Format how the message will look inside WhatsApp
-            // Using asterisks (*) makes the text bold in WhatsApp
+            // 4. Format the text for WhatsApp
             const whatsappMessage = `*New Project Inquiry - Pixel Craft Studio*
             
 *Name:* ${name}
@@ -492,18 +499,14 @@ ${message}
 
 _(Client note: Please attach any reference files to this chat now!)_`;
 
-            // Encode the text so it works safely in a web link
+            // 5. Safely encode the message for a web link
             const encodedMessage = encodeURIComponent(whatsappMessage);
-
-            // The WhatsApp number (No plus sign, just the country code and number)
             const whatsappNumber = "94766390768";
 
-            // Create the final link
+            // 6. Redirect the browser directly to WhatsApp instead of opening a popup
             const waLink = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-            // Open the link in a new tab/window
-            window.open(waLink, '_blank');
-        });
+            window.location.href = waLink;
+        }
     </script>
 
 </body>
