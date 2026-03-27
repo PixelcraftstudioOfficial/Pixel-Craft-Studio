@@ -1,143 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
+    <title>Contact Us - Pixel Craft Studio</title>
+    
     <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* Master Color Palette & Variables */
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #0ea5e9;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        /* General Reset */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #0f0462;
-            padding: 20px;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+
+        /* Advanced Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .animate-fade-up {
+            animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            opacity: 0;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in-out forwards;
+        }
+
+        /* Glassmorphism Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 20px 5%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 1px;
+        }
+
+        .navbar .logo span {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+
+        /* Main Content Spacing */
+        main {
+            padding-top: 100px;
+            min-height: 80vh;
+        }
+
+        /* Page Headers */
+        .page-header {
             text-align: center;
+            padding: 60px 20px 20px;
         }
+
+        .page-header h2 {
+            font-size: 3rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .page-header p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        /* Contact Section Layout */
+        .contact-wrapper {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Contact Form Styles */
+        .contact-form-container {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .contact-form-container h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+        }
+
         label {
             display: block;
             margin-bottom: 8px;
-            color: #555;
-            font-weight: bold;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.95rem;
         }
-        input, textarea {
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+            padding: 14px 18px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
         }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background-color: var(--white);
+        }
+
         textarea {
             resize: vertical;
-            min-height: 150px;
+            min-height: 120px;
         }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
+
+        /* File Upload Styling */
+        input[type="file"] {
+            padding: 10px;
+            background: #f1f5f9;
+            border: 1px dashed #cbd5e1;
             cursor: pointer;
-            margin-bottom: 10px; /* Added spacing between buttons */
         }
-        button:hover {
-            background-color: #0056b3;
+
+        input[type="file"]::file-selector-button {
+            background: var(--dark-bg);
+            color: var(--white);
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
+
+        input[type="file"]::file-selector-button:hover {
+            background: var(--primary-color);
+        }
+
+        /* Premium Gradient Button */
+        .btn-premium {
+            display: inline-block;
+            background: var(--gradient);
+            color: var(--white);
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Contact Information Styles */
+        .contact-info-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+        }
+
         .whatsapp-btn {
-            background-color: #25D366; /* WhatsApp Green */
+            display: inline-block;
+            background-color: #25D366;
+            color: var(--white);
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: background 0.3s ease, transform 0.3s ease;
         }
+
         .whatsapp-btn:hover {
-            background-color: #128C7E;
+            background-color: #1ebe5d;
+            transform: scale(1.05);
         }
-        .contact-info {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            text-align: center;
-            color: #666;
+
+        /* Professional Footer */
+        .footer-pro {
+            background: var(--dark-bg);
+            color: #cbd5e1;
+            padding: 60px 5% 30px;
+            font-size: 0.95rem;
+            border-top: 5px solid var(--primary-color);
         }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 15px; }
+        .footer-brand p { color: #94a3b8; margin-bottom: 20px; }
+        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
+        .footer-links ul { list-style: none; }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a { color: #cbd5e1; text-decoration: none; transition: color 0.3s ease; }
+        .footer-links ul li a:hover { color: var(--secondary-color); }
+        .footer-contact p { margin-bottom: 10px; }
+        .footer-bottom { text-align: center; padding-top: 30px; color: #64748b; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Contact Us</h1>
-        <form onsubmit="sendToWhatsApp(event)">
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            
-            <button type="submit">Send Message via WhatsApp</button>
-            
-            <a href="https://wa.link/dgf22q" target="_blank" style="text-decoration: none;">
-                <button type="button" class="whatsapp-btn">Just Chat on WhatsApp</button>
-            </a>
-        </form>
-        <div class="contact-info">
-            <p><strong>Email:</strong> pixelcraftstudiosrilanka@gmail.com</p>
-            <p><strong>Phone:</strong> 076 6390 768</p>
+
+    <header>
+        <nav class="navbar animate-fade-in">
+            <h1 class="logo"><span>Pixel</span> Craft Studio</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Designs.html">Our Designs</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="About Us.html">About Us</a></li>
+                <li><a href="Contact Us.html" class="active">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header animate-fade-up" style="animation-delay: 0.1s;">
+            <h2>Start Your Project</h2>
+            <p>Tell us about your vision. We are ready to bring it to life.</p>
         </div>
-    </div>
 
-    <script>
-        function sendToWhatsApp(event) {
-            // Prevent the form from reloading the page
-            event.preventDefault();
+        <section class="contact-wrapper">
+            <div class="contact-form-container animate-fade-up" style="animation-delay: 0.3s;">
+                <h3>Project Inquiry</h3>
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                        </div>
+                    </div>
 
-            // Get values from the form
-            var name = document.getElementById("name").value;
-            var email = document.getElementById("email").value;
-            var subject = document.getElementById("subject").value;
-            var message = document.getElementById("message").value;
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone / WhatsApp</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+94 76 XXX XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="business">Business / Brand Name</label>
+                            <input type="text" id="business" name="business" placeholder="Company Name (Optional)">
+                        </div>
+                    </div>
 
-            // Format the message using WhatsApp bold formatting (*) and new lines (\n)
-            var whatsappMessage = "Hello PixelCraft Studio! I have a new inquiry:\n\n" +
-                                  "*Name:* " + name + "\n" +
-                                  "*Email:* " + email + "\n" +
-                                  "*Subject:* " + subject + "\n" +
-                                  "*Message:* " + message;
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service" name="service">
+                                <option value="" disabled selected>Select a service...</option>
+                                <option value="logo">Logo Design</option>
+                                <option value="video">Video Editing</option>
+                                <option value="social">Social Media Design</option>
+                                <option value="banner">Banner Design</option>
+                                <option value="print">Leaflets / Letterheads</option>
+                                <option value="other">Multiple / Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Estimated Budget</label>
+                            <select id="budget" name="budget">
+                                <option value="" disabled selected>Select an option...</option>
+                                <option value="basic">Basic / Starter Budget</option>
+                                <option value="standard">Standard Budget</option>
+                                <option value="premium">Premium / Corporate Budget</option>
+                                <option value="unsure">Not sure yet</option>
+                            </select>
+                        </div>
+                    </div>
 
-            // Encode the text so it works in a URL
-            var encodedMessage = encodeURIComponent(whatsappMessage);
+                    <div class="form-group">
+                        <label for="message">Project Description</label>
+                        <textarea id="message" name="message" placeholder="Tell us a little bit about what you are looking to achieve..." required></textarea>
+                    </div>
 
-            // Construct the WhatsApp URL using the Sri Lanka country code (94)
-            var whatsappURL = "https://wa.me/94766390768?text=" + encodedMessage;
+                    <div class="form-group">
+                        <label for="attachment">Attach References or Assets (Optional)</label>
+                        <input type="file" id="attachment" name="attachment" accept="image/*, .pdf, .zip, .rar" multiple>
+                    </div>
 
-            // Open WhatsApp in a new tab
-            window.open(whatsappURL, '_blank');
-        }
-    </script>
+                    <button type="submit" class="btn-premium">Submit Inquiry</button>
+                </form>
+            </div>
+
+            <div class="contact-info-container">
+                <div class="info-card animate-fade-up" style="animation-delay: 0.4s;">
+                    <h4>Direct Message</h4>
+                    <p>Need a quick answer? The fastest way to reach us is directly through WhatsApp.</p>
+                    <a href="https://wa.link/dgf22q" class="whatsapp-btn" target="_blank">Chat on WhatsApp</a>
+                </div>
+
+                <div class="info-card animate-fade-up" style="animation-delay: 0.5s;">
+                    <h4>Contact Details</h4>
+                    <p><strong>Phone:</strong> +94 76 639 0768</p>
+                    <p><strong>Location:</strong> Sri Lanka</p>
+                </div>
+
+                <div class="info-card animate-fade-up" style="animation-delay: 0.6s;">
+                    <h4>Business Hours</h4>
+                    <p>Monday - Friday</p>
+                    <p>9:00 AM - 6:00 PM</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-pro animate-fade-in" style="animation-delay: 0.7s;">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Pixel Craft Studio</h3>
+                <p>Delivering high-quality digital and print design solutions to elevate your brand's presence.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Designs.html">Portfolio</a></li>
+                    <li><a href="Services.html">Our Services</a></li>
+                    <li><a href="About Us.html">About Us</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Get In Touch</h4>
+                <p><strong>Phone & WhatsApp:</strong> +94 76 639 0768</p>
+                <p><strong>Available:</strong> Mon - Fri, 9AM - 6PM</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
