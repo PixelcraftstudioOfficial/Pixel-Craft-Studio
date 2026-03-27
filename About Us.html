@@ -124,6 +124,28 @@
         .nav-links a:hover, .nav-links a.active {
             color: var(--white);
         }
+        /* --- MOBILE MENU STYLES --- */
+        .menu-toggle {
+            display: none; /* Hidden on desktop */
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--white);
+            transition: all 0.3s ease-in-out;
+            border-radius: 3px;
+        }
+
+        /* Mobile Responsive Rules */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex; /* Show hamburger on mobile */
+            }
 
         /* Main Content Spacing */
         main {
