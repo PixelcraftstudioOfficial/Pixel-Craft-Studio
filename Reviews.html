@@ -19,7 +19,7 @@
             --text-main: #1e293b;
             --text-muted: #64748b;
             --white: #ffffff;
-            --star-color: #fbbf24; /* Gold color for stars */
+            --star-color: #fbbf24;
             --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
 
@@ -52,6 +52,7 @@
         /* --- BUTTONS --- */
         .btn-premium { display: inline-block; background: var(--gradient); color: var(--white); padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; transition: all 0.4s ease; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); border: none; cursor: pointer; text-align: center; }
         .btn-premium:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 25px rgba(79, 70, 229, 0.4); }
+        .btn-premium:disabled { opacity: 0.7; cursor: not-allowed; }
 
         /* --- MAIN SPACING & HEADERS --- */
         main { padding-top: 100px; min-height: 80vh; }
@@ -79,6 +80,7 @@
         .review-text { font-size: 1.05rem; color: var(--text-muted); font-style: italic; margin-bottom: 20px; line-height: 1.6; }
         .reviewer-info { border-top: 1px solid #f1f5f9; padding-top: 15px; }
         .reviewer-name { font-weight: 600; color: var(--text-main); font-size: 1.1rem; }
+        .loading-text { text-align: center; color: var(--text-muted); width: 100%; grid-column: 1 / -1; }
 
         /* --- PROFESSIONAL FOOTER --- */
         .footer-pro { background: var(--dark-bg); color: #cbd5e1; padding: 60px 5% 30px; font-size: 0.95rem; border-top: 5px solid var(--primary-color); }
@@ -93,11 +95,7 @@
         .footer-contact p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; color: var(--secondary-color); }
         .footer-bottom { text-align: center; padding-top: 30px; color: #64748b; }
 
-        /* =========================================
-           MOBILE OPTIMIZATION RULES 
-           ========================================= */
         @media (max-width: 768px) {
-            /* Navbar Mobile Fixes */
             .navbar .logo { font-size: 1.4rem; white-space: nowrap; }
             .navbar { padding: 15px 5%; }
             .menu-toggle { display: flex; }
@@ -110,11 +108,10 @@
             #mobile-menu.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-            /* Content Mobile Fixes */
             .page-header h2 { font-size: 2.2rem; }
             .review-form-container { padding: 25px 20px; }
-            .btn-premium { width: 100%; } /* Makes button full width on mobile */
-            .reviews-grid { grid-template-columns: 1fr; } /* Stacks reviews on mobile */
+            .btn-premium { width: 100%; }
+            .reviews-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -173,7 +170,7 @@
                         <textarea id="reviewText" placeholder="Tell us how Pixel Craft Studio helped your brand..." required></textarea>
                     </div>
 
-                    <button type="submit" class="btn-premium">Submit Review</button>
+                    <button type="submit" id="submitBtn" class="btn-premium">Submit Review</button>
                 </form>
             </div>
 
@@ -182,7 +179,8 @@
             </div>
 
             <div class="reviews-grid" id="reviewsContainer">
-                </div>
+                <div class="loading-text">Loading reviews...</div>
+            </div>
 
         </section>
     </main>
@@ -215,56 +213,70 @@
         </div>
     </footer>
 
+    <!-- Mobile Menu Script -->
     <script>
-        // 1. Mobile Menu Toggle
         const menuToggle = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('#nav-links');
         menuToggle.addEventListener('click', function() {
             menuToggle.classList.toggle('is-active');
             navLinks.classList.toggle('active');
         });
+    </script>
 
-        // 2. Reviews Logic (using Local Storage)
+    <!-- Firebase Real-time Reviews Script -->
+    <script type="module">
+        // Import Firebase core and Firestore database functions
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } 
+        from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDeB7_uqC-sk3fbNyMZmWe8wZjrbYvyBrY",
+            authDomain: "pixel-craft-c6717.firebaseapp.com",
+            projectId: "pixel-craft-c6717",
+            storageBucket: "pixel-craft-c6717.firebasestorage.app",
+            messagingSenderId: "540712193494",
+            appId: "1:540712193494:web:79afc5be7a96ece0b12877",
+            measurementId: "G-TNNHDKSQDT"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // UI Elements
         const reviewForm = document.getElementById('addReviewForm');
         const reviewsContainer = document.getElementById('reviewsContainer');
+        const submitBtn = document.getElementById('submitBtn');
 
-        // Pre-loaded "Dummy" reviews so the page isn't empty
-        const defaultReviews = [
-            {
-                name: "Chathuranga Perera",
-                rating: 5,
-                text: "Pixel Craft Studio completely transformed our brand. The modern logo design they delivered was exactly what we needed to stand out. Highly recommended!"
-            },
-            {
-                name: "Supun Manuranga",
-                rating: 5,
-                text: "Incredible video editing skills. The cinematic promo video they created for us generated so much engagement on our social media channels."
-            }
-        ];
+        // Reference to the 'reviews' collection in Firestore
+        const reviewsCollection = collection(db, "reviews");
 
-        // Function to load and display reviews
-        function renderReviews() {
-            // Get reviews from browser storage, or use defaults if none exist
-            let storedReviews = JSON.parse(localStorage.getItem('pixelCraftReviews'));
-            if (!storedReviews || storedReviews.length === 0) {
-                storedReviews = defaultReviews;
-                localStorage.setItem('pixelCraftReviews', JSON.stringify(storedReviews));
+        // 1. Fetch and Listen for Real-Time Updates (onSnapshot)
+        // We order them by 'createdAt' in descending order (newest first)
+        const q = query(reviewsCollection, orderBy("createdAt", "desc"));
+
+        onSnapshot(q, (snapshot) => {
+            reviewsContainer.innerHTML = ''; // Clear loading text / existing reviews
+            
+            if (snapshot.empty) {
+                reviewsContainer.innerHTML = '<div class="loading-text">No reviews yet. Be the first to leave one!</div>';
+                return;
             }
 
-            // Clear container before drawing
-            reviewsContainer.innerHTML = '';
-
-            // Reverse the array so the newest review shows up first
-            const displayReviews = [...storedReviews].reverse();
-
-            // Loop through and create HTML for each review
-            displayReviews.forEach((review, index) => {
-                // Create star string
-                const goldStars = '★'.repeat(review.rating);
-                const greyStars = '☆'.repeat(5 - review.rating);
+            let index = 0;
+            snapshot.forEach((doc) => {
+                const review = doc.data();
                 
-                // Add delay animation based on index
-                const delay = (index * 0.1) + 0.3;
+                // Skip if somehow the review is missing basic fields
+                if (!review.name || !review.text) return;
+
+                const rating = parseInt(review.rating) || 5;
+                const goldStars = '★'.repeat(rating);
+                const greyStars = '☆'.repeat(5 - rating);
+                
+                const delay = (index * 0.1) + 0.1;
 
                 const card = document.createElement('div');
                 card.className = 'review-card animate-fade-up';
@@ -278,39 +290,43 @@
                     </div>
                 `;
                 reviewsContainer.appendChild(card);
+                index++;
             });
-        }
+        }, (error) => {
+            console.error("Error fetching reviews:", error);
+            reviewsContainer.innerHTML = '<div class="loading-text" style="color: red;">Error loading reviews. Check database rules.</div>';
+        });
 
-        // Listen for new review submissions
-        reviewForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Stop page reload
+        // 2. Submit New Review to Firestore
+        reviewForm.addEventListener('submit', async function(e) {
+            e.preventDefault(); 
+            
+            submitBtn.textContent = "Submitting...";
+            submitBtn.disabled = true;
 
-            // Get user input
             const name = document.getElementById('reviewerName').value;
             const rating = parseInt(document.getElementById('reviewRating').value);
             const text = document.getElementById('reviewText').value;
 
-            // Create new review object
-            const newReview = { name, rating, text };
+            try {
+                // Add a new document with a generated id to the 'reviews' collection
+                await addDoc(reviewsCollection, {
+                    name: name,
+                    rating: rating,
+                    text: text,
+                    createdAt: serverTimestamp() // Adds server time automatically
+                });
 
-            // Get existing reviews, add new one, save back to storage
-            let storedReviews = JSON.parse(localStorage.getItem('pixelCraftReviews')) || defaultReviews;
-            storedReviews.push(newReview);
-            localStorage.setItem('pixelCraftReviews', JSON.stringify(storedReviews));
-
-            // Redraw the screen to show the new review instantly
-            renderReviews();
-
-            // Clear the form
-            reviewForm.reset();
-            
-            // Show a quick alert
-            alert("Thank you! Your review has been submitted successfully.");
+                reviewForm.reset(); // Clear the form
+                alert("Thank you! Your review has been submitted successfully.");
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("An error occurred. Please make sure Firestore Database is created and rules are set.");
+            } finally {
+                submitBtn.textContent = "Submit Review";
+                submitBtn.disabled = false;
+            }
         });
-
-        // Run the render function as soon as the page loads
-        document.addEventListener('DOMContentLoaded', renderReviews);
     </script>
-
 </body>
 </html>
