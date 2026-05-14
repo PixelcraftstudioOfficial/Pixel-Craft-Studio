@@ -3,123 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Reviews - Pixel Craft Studio</title>
+    <title>Customer Reviews - Premium Creative Agency</title>
     
     <link rel="icon" type="image/png" href="Favicon.png">
     
     <style>
-        /* --- IMPORT FONTS & VARIABLES --- */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        /* --- IMPORT PREMIUM FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
 
+        /* --- LUXURY COLOR VARIABLES --- */
         :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #0ea5e9;
-            --dark-bg: #0f172a;
-            --light-bg: #f8fafc;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --white: #ffffff;
-            --star-color: #fbbf24;
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --primary-color: #D4AF37; /* Premium Gold */
+            --secondary-color: #F3E5AB; /* Light Gold */
+            --dark-bg: #050505; /* Deep Black */
+            --light-bg: #0a0a0a; /* Soft Matte Black */
+            --card-bg: #111111;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --gradient: linear-gradient(135deg, var(--primary-color), #AA801E);
         }
 
         /* --- GENERAL RESET --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--light-bg); color: var(--text-main); line-height: 1.7; overflow-x: hidden; }
+        body { background-color: var(--light-bg); color: var(--text-main); font-family: 'Poppins', sans-serif; line-height: 1.7; overflow-x: hidden; }
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
 
         /* --- GLOBAL ANIMATIONS --- */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
         .animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; opacity: 0; }
-        .animate-fade-in { animation: fadeIn 1s ease-in-out forwards; }
+        
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- GLASSMORPHISM NAVBAR --- */
-        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); letter-spacing: 1px; transition: font-size 0.3s ease; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .navbar .logo { font-size: 2rem; font-weight: 800; color: var(--text-main); letter-spacing: 1px; }
         .navbar .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .nav-links { list-style: none; display: flex; gap: 30px; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 1rem; font-weight: 500; transition: all 0.3s ease; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--gradient); transition: width 0.3s ease; }
+        .nav-links { list-style: none; display: flex; gap: 35px; }
+        .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background: var(--gradient); transition: width 0.3s ease; }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
 
-        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1001; }
-        .menu-toggle .bar { width: 25px; height: 3px; background-color: var(--white); transition: all 0.3s ease-in-out; border-radius: 3px; }
-
-        /* --- BUTTONS --- */
-        .btn-premium { display: inline-block; background: var(--gradient); color: var(--white); padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; transition: all 0.4s ease; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); border: none; cursor: pointer; text-align: center; }
-        .btn-premium:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 15px 25px rgba(79, 70, 229, 0.4); }
-        .btn-premium:disabled { opacity: 0.7; cursor: not-allowed; }
-
-        /* --- MAIN SPACING & HEADERS --- */
-        main { padding-top: 100px; min-height: 80vh; }
-        .page-header { text-align: center; padding: 60px 20px 20px; }
-        .page-header h2 { font-size: 3rem; color: var(--text-main); font-weight: 700; margin-bottom: 10px; }
-        .page-header p { font-size: 1.1rem; color: var(--text-muted); }
-
-        /* --- REVIEWS LAYOUT --- */
-        .reviews-wrapper { max-width: 900px; margin: 0 auto 80px; padding: 0 5%; }
-
-        /* Review Form */
-        .review-form-container { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); margin-bottom: 60px; }
-        .review-form-container h3 { font-size: 1.8rem; margin-bottom: 25px; color: var(--text-main); text-align: center; }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-main); font-size: 0.95rem; }
-        input[type="text"], select, textarea { width: 100%; padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 1rem; font-family: 'Poppins', sans-serif; color: var(--text-main); background-color: #f8fafc; transition: all 0.3s ease; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); background-color: var(--white); }
-        textarea { resize: vertical; min-height: 100px; }
-
-        /* Review Grid Display */
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .review-card { background: var(--white); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.02); transition: transform 0.3s ease; }
-        .review-card:hover { transform: translateY(-5px); }
-        .stars { color: var(--star-color); font-size: 1.5rem; margin-bottom: 15px; letter-spacing: 2px; }
-        .review-text { font-size: 1.05rem; color: var(--text-muted); font-style: italic; margin-bottom: 20px; line-height: 1.6; }
-        .reviewer-info { border-top: 1px solid #f1f5f9; padding-top: 15px; }
-        .reviewer-name { font-weight: 600; color: var(--text-main); font-size: 1.1rem; }
-        .loading-text { text-align: center; color: var(--text-muted); width: 100%; grid-column: 1 / -1; }
-
-        /* --- PROFESSIONAL FOOTER --- */
-        .footer-pro { background: var(--dark-bg); color: #cbd5e1; padding: 60px 5% 30px; font-size: 0.95rem; border-top: 5px solid var(--primary-color); }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .footer-brand h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 15px; }
-        .footer-brand p { color: #94a3b8; margin-bottom: 20px; }
-        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
-        .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 12px; }
-        .footer-links ul li a { color: #cbd5e1; text-decoration: none; transition: color 0.3s ease; }
-        .footer-links ul li a:hover { color: var(--secondary-color); }
-        .footer-contact p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; color: var(--secondary-color); }
-        .footer-bottom { text-align: center; padding-top: 30px; color: #64748b; }
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
+        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--primary-color); transition: all 0.3s ease; }
 
         @media (max-width: 768px) {
-            .navbar .logo { font-size: 1.4rem; white-space: nowrap; }
-            .navbar { padding: 15px 5%; }
+            .navbar .logo { font-size: 1.6rem; }
             .menu-toggle { display: flex; }
-            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(15, 23, 42, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-            .nav-links.active { max-height: 400px; }
-            .nav-links li { width: 100%; }
+            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(10, 10, 10, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+            .nav-links.active { max-height: 400px; padding: 20px 0; }
             .nav-links a { display: block; padding: 15px 0; }
-            
             #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
             #mobile-menu.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-            .page-header h2 { font-size: 2.2rem; }
-            .review-form-container { padding: 25px 20px; }
-            .btn-premium { width: 100%; }
-            .reviews-grid { grid-template-columns: 1fr; }
         }
+
+        /* --- BUTTONS --- */
+        .btn-premium { display: inline-block; background: var(--gradient); color: var(--dark-bg); padding: 16px 36px; text-decoration: none; border-radius: 4px; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s ease; border: none; cursor: pointer; width: 100%; text-align: center; }
+        .btn-premium:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3); }
+        .btn-premium:disabled { opacity: 0.7; cursor: not-allowed; }
+
+        /* --- MAIN SPACING & HEADERS --- */
+        main { padding-top: 130px; min-height: 80vh; }
+        .page-header { text-align: center; padding: 40px 20px 20px; }
+        .page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 700; margin-bottom: 15px; }
+        .page-header h2 span { color: var(--primary-color); font-style: italic; }
+        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 300; }
+
+        /* --- REVIEWS LAYOUT --- */
+        .reviews-wrapper { max-width: 900px; margin: 0 auto 100px; padding: 0 5%; }
+
+        /* Review Form */
+        .review-form-container { background: var(--card-bg); padding: 50px 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 80px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .review-form-container h3 { font-size: 2rem; margin-bottom: 30px; color: var(--text-main); text-align: center; font-weight: 600; }
+        .form-group { margin-bottom: 25px; }
+        
+        label { display: block; margin-bottom: 10px; font-weight: 400; color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        input[type="text"], select, textarea { width: 100%; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; font-size: 1rem; font-family: 'Poppins', sans-serif; color: var(--white); background-color: rgba(255,255,255,0.02); transition: all 0.3s ease; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); background-color: rgba(255,255,255,0.05); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2); }
+        select option { background-color: var(--dark-bg); color: var(--white); }
+        textarea { resize: vertical; min-height: 120px; }
+
+        /* Review Grid Display */
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .review-card { background: var(--card-bg); padding: 40px 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .review-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .review-card:hover { transform: translateY(-5px); background: #151515; }
+        .review-card:hover::before { transform: scaleX(1); }
+        
+        .stars { color: var(--primary-color); font-size: 1.5rem; margin-bottom: 15px; letter-spacing: 2px; }
+        .review-text { font-size: 1rem; color: var(--text-muted); font-style: italic; margin-bottom: 20px; line-height: 1.8; font-weight: 300; }
+        .reviewer-info { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; }
+        .reviewer-name { font-weight: 500; color: var(--white); font-size: 1.05rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .loading-text { text-align: center; color: var(--primary-color); width: 100%; grid-column: 1 / -1; font-style: italic; font-weight: 300; }
+
+        /* --- FLOATING WHATSAPP BUTTON --- */
+        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 25px rgba(37, 211, 102, 0.5); }
+        .float-wa svg { width: 35px; height: 35px; fill: white; }
+
+        /* --- PROFESSIONAL FOOTER --- */
+        .footer-pro { background: var(--dark-bg); padding: 80px 5% 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .footer-brand h3 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 20px; }
+        .footer-brand p { color: var(--text-muted); font-weight: 300; line-height: 1.8; }
+        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 25px; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem;}
+        .footer-links ul { list-style: none; }
+        .footer-links ul li { margin-bottom: 15px; }
+        .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-weight: 300; }
+        .footer-links ul li a:hover { color: var(--primary-color); }
+        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-weight: 300; }
+        .footer-contact span { color: var(--primary-color); font-weight: 500; }
+        .footer-bottom { text-align: center; padding-top: 30px; color: #555; font-weight: 300; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <nav class="navbar animate-fade-in">
-            <h1 class="logo"><span>Pixel</span> Craft Studio</h1>
+        <nav class="navbar">
+            <h1 class="logo">Pixel<span>Craft</span></h1>
             
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
@@ -129,35 +135,35 @@
 
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="Designs.html">Our Designs</a></li>
+                <li><a href="Designs.html">Portfolio</a></li>
                 <li><a href="Services.html">Services</a></li>
-                <li><a href="About Us.html">About Us</a></li>
+                <li><a href="About Us.html">Agency</a></li>
                 <li><a href="Reviews.html" class="active">Reviews</a></li>
-                <li><a href="Contact Us.html">Contact Us</a></li>
+                <li><a href="Contact Us.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <div class="page-header animate-fade-up" style="animation-delay: 0.1s;">
-            <h2>Client Testimonials</h2>
-            <p>See what our amazing clients have to say about working with us.</p>
+        <div class="page-header reveal">
+            <h2>Client <span>Testimonials</span></h2>
+            <p>See what our esteemed clients have to say about partnering with us.</p>
         </div>
 
         <section class="reviews-wrapper">
             
-            <div class="review-form-container animate-fade-up" style="animation-delay: 0.2s;">
+            <div class="review-form-container reveal">
                 <h3>Leave a Review</h3>
                 <form id="addReviewForm">
                     <div class="form-group">
                         <label for="reviewerName">Your Name / Company</label>
-                        <input type="text" id="reviewerName" placeholder="e.g. John Doe" required>
+                        <input type="text" id="reviewerName" placeholder="e.g. John Doe / XYZ Corp" required>
                     </div>
                     
                     <div class="form-group">
                         <label for="reviewRating">Rating</label>
                         <select id="reviewRating" required>
-                            <option value="5">★★★★★ (5 Stars) - Excellent</option>
+                            <option value="5">★★★★★ (5 Stars) - Outstanding</option>
                             <option value="4">★★★★☆ (4 Stars) - Very Good</option>
                             <option value="3">★★★☆☆ (3 Stars) - Good</option>
                             <option value="2">★★☆☆☆ (2 Stars) - Fair</option>
@@ -167,47 +173,55 @@
 
                     <div class="form-group">
                         <label for="reviewText">Your Experience</label>
-                        <textarea id="reviewText" placeholder="Tell us how Pixel Craft Studio helped your brand..." required></textarea>
+                        <textarea id="reviewText" placeholder="Share your experience working with Pixel Craft Studio..." required></textarea>
                     </div>
 
-                    <button type="submit" id="submitBtn" class="btn-premium">Submit Review</button>
+                    <button type="submit" id="submitBtn" class="btn-premium">Submit Testimonial</button>
                 </form>
             </div>
 
-            <div class="section-header" style="text-align: center; margin-bottom: 30px;">
-                <h2 style="font-size: 2rem; color: var(--text-main);">Recent Reviews</h2>
+            <div class="section-header reveal" style="text-align: center; margin-bottom: 50px;">
+                <h2 style="font-size: 2.5rem; color: var(--text-main); font-family: 'Playfair Display', serif;">Recent <span>Reviews</span></h2>
             </div>
 
-            <div class="reviews-grid" id="reviewsContainer">
-                <div class="loading-text">Loading reviews...</div>
+            <div class="reviews-grid reveal" id="reviewsContainer">
+                <div class="loading-text">Loading client testimonials...</div>
             </div>
 
         </section>
     </main>
 
-    <footer class="footer-pro">
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.link/dgf22q" class="float-wa" target="_blank" title="Chat with us on WhatsApp">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92 13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0 13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98 1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0 01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6 11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1 .1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95 2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85 1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
+    </a>
+
+    <footer class="footer-pro reveal">
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Pixel Craft Studio</h3>
-                <p>Delivering high-quality digital and print design solutions to elevate your brand's presence.</p>
+                <p>Delivering high-quality, premium digital and print design solutions to elevate your brand's presence globally.</p>
             </div>
+            
             <div class="footer-links">
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="Designs.html">Portfolio</a></li>
                     <li><a href="Services.html">Our Services</a></li>
-                    <li><a href="Reviews.html">Reviews</a></li>
                     <li><a href="Contact Us.html">Contact Us</a></li>
                 </ul>
             </div>
+
             <div class="footer-contact">
                 <h4>Get In Touch</h4>
-                <p><strong>Phone & WhatsApp:</strong> +94 76 639 0768</p>
-                <p><strong>Available:</strong> Mon - Fri, 9AM - 6PM</p>
-                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: #cbd5e1; text-decoration: none;">Facebook</a>
+                <p>Phone & WA: <span>+94 76 639 0768</span></p>
+                <p>Available: <span>Mon - Sun, 9AM - 10PM</span></p>
+                <br>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--primary-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Follow on Facebook</a>
             </div>
         </div>
+        
         <div class="footer-bottom">
             <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
         </div>
@@ -217,20 +231,35 @@
     <script>
         const menuToggle = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('#nav-links');
+        
         menuToggle.addEventListener('click', function() {
             menuToggle.classList.toggle('is-active');
             navLinks.classList.toggle('active');
         });
+
+        // Scroll Reveal Animation Logic
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        document.addEventListener("DOMContentLoaded", reveal);
     </script>
 
-    <!-- Firebase Real-time Reviews Script -->
+    <!-- Firebase Real-time Reviews Script (Unchanged functionality, slightly adjusted HTML output for dark theme) -->
     <script type="module">
-        // Import Firebase core and Firestore database functions
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } 
         from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
 
-        // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDeB7_uqC-sk3fbNyMZmWe8wZjrbYvyBrY",
             authDomain: "pixel-craft-c6717.firebaseapp.com",
@@ -241,24 +270,18 @@
             measurementId: "G-TNNHDKSQDT"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // UI Elements
         const reviewForm = document.getElementById('addReviewForm');
         const reviewsContainer = document.getElementById('reviewsContainer');
         const submitBtn = document.getElementById('submitBtn');
-
-        // Reference to the 'reviews' collection in Firestore
         const reviewsCollection = collection(db, "reviews");
 
-        // 1. Fetch and Listen for Real-Time Updates (onSnapshot)
-        // We order them by 'createdAt' in descending order (newest first)
         const q = query(reviewsCollection, orderBy("createdAt", "desc"));
 
         onSnapshot(q, (snapshot) => {
-            reviewsContainer.innerHTML = ''; // Clear loading text / existing reviews
+            reviewsContainer.innerHTML = ''; 
             
             if (snapshot.empty) {
                 reviewsContainer.innerHTML = '<div class="loading-text">No reviews yet. Be the first to leave one!</div>';
@@ -268,13 +291,12 @@
             let index = 0;
             snapshot.forEach((doc) => {
                 const review = doc.data();
-                
-                // Skip if somehow the review is missing basic fields
                 if (!review.name || !review.text) return;
 
                 const rating = parseInt(review.rating) || 5;
                 const goldStars = '★'.repeat(rating);
-                const greyStars = '☆'.repeat(5 - rating);
+                // Lower opacity for empty stars to fit the dark theme
+                const greyStars = '☆'.repeat(5 - rating); 
                 
                 const delay = (index * 0.1) + 0.1;
 
@@ -283,7 +305,7 @@
                 card.style.animationDelay = `${delay}s`;
                 
                 card.innerHTML = `
-                    <div class="stars">${goldStars}${greyStars}</div>
+                    <div class="stars">${goldStars}<span style="color: #333; opacity: 0.5;">${greyStars}</span></div>
                     <p class="review-text">"${review.text}"</p>
                     <div class="reviewer-info">
                         <div class="reviewer-name">${review.name}</div>
@@ -297,7 +319,6 @@
             reviewsContainer.innerHTML = '<div class="loading-text" style="color: red;">Error loading reviews. Check database rules.</div>';
         });
 
-        // 2. Submit New Review to Firestore
         reviewForm.addEventListener('submit', async function(e) {
             e.preventDefault(); 
             
@@ -309,21 +330,20 @@
             const text = document.getElementById('reviewText').value;
 
             try {
-                // Add a new document with a generated id to the 'reviews' collection
                 await addDoc(reviewsCollection, {
                     name: name,
                     rating: rating,
                     text: text,
-                    createdAt: serverTimestamp() // Adds server time automatically
+                    createdAt: serverTimestamp() 
                 });
 
-                reviewForm.reset(); // Clear the form
+                reviewForm.reset();
                 alert("Thank you! Your review has been submitted successfully.");
             } catch (error) {
                 console.error("Error adding document: ", error);
                 alert("An error occurred. Please make sure Firestore Database is created and rules are set.");
             } finally {
-                submitBtn.textContent = "Submit Review";
+                submitBtn.textContent = "Submit Testimonial";
                 submitBtn.disabled = false;
             }
         });
