@@ -3,148 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Craft Studio - Creative Design & Video Agency</title>
+    <title>Pixel Craft Studio - Premium Creative Agency</title>
     <link rel="icon" type="image/png" href="Favicon.png">
+    
     <style>
-        /* --- IMPORT FONTS & VARIABLES --- */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        /* --- IMPORT PREMIUM FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
 
+        /* --- LUXURY COLOR VARIABLES --- */
         :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #0ea5e9;
-            --dark-bg: #0f172a;
-            --light-bg: #f8fafc;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --white: #ffffff;
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --primary-color: #D4AF37; /* Premium Gold */
+            --secondary-color: #F3E5AB; /* Light Gold */
+            --dark-bg: #050505; /* Deep Black */
+            --light-bg: #0a0a0a; /* Soft Matte Black */
+            --card-bg: #111111;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --gradient: linear-gradient(135deg, var(--primary-color), #AA801E);
         }
 
         /* --- GENERAL RESET --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--light-bg); color: var(--text-main); line-height: 1.7; overflow-x: hidden; }
+        body { background-color: var(--light-bg); color: var(--text-main); font-family: 'Poppins', sans-serif; line-height: 1.7; overflow-x: hidden; }
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
 
-        /* --- GLOBAL ANIMATIONS --- */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* --- SCROLL REVEAL ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards; opacity: 0; }
-        .animate-fade-in { animation: fadeIn 1s ease-in-out forwards; }
-
         /* --- GLASSMORPHISM NAVBAR --- */
-        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--white); letter-spacing: 1px; transition: font-size 0.3s ease; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .navbar .logo { font-size: 2rem; font-weight: 800; color: var(--text-main); letter-spacing: 1px; }
         .navbar .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .nav-links { list-style: none; display: flex; gap: 30px; }
-        .nav-links a { color: #cbd5e1; text-decoration: none; font-size: 1rem; font-weight: 500; transition: all 0.3s ease; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background: var(--gradient); transition: width 0.3s ease; }
+        .nav-links { list-style: none; display: flex; gap: 35px; }
+        .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background: var(--gradient); transition: width 0.3s ease; }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
 
-        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; z-index: 1001; }
-        .menu-toggle .bar { width: 25px; height: 3px; background-color: var(--white); transition: all 0.3s ease-in-out; border-radius: 3px; }
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
+        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--primary-color); transition: all 0.3s ease; }
 
         @media (max-width: 768px) {
-            .navbar .logo { font-size: 1.4rem; white-space: nowrap; }
-            .navbar { padding: 15px 5%; }
+            .navbar .logo { font-size: 1.6rem; }
             .menu-toggle { display: flex; }
-            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(15, 23, 42, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-            .nav-links.active { max-height: 400px; }
-            .nav-links li { width: 100%; }
+            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(10, 10, 10, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+            .nav-links.active { max-height: 400px; padding: 20px 0; }
             .nav-links a { display: block; padding: 15px 0; }
             #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
             #mobile-menu.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
 
-        /* --- BUTTONS --- */
-        .btn-premium { display: inline-block; background: var(--gradient); color: var(--white); padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; transition: all 0.4s ease; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); border: none; cursor: pointer; }
-        .btn-premium:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 25px rgba(79, 70, 229, 0.4); }
-        .btn-outline { display: inline-block; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 12px 30px; text-decoration: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; transition: all 0.4s ease; background: transparent; }
-        .btn-outline:hover { background: var(--primary-color); color: var(--white); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(79, 70, 229, 0.2); }
+        /* --- LUXURY BUTTONS --- */
+        .btn-premium { display: inline-block; background: var(--gradient); color: var(--dark-bg); padding: 16px 36px; text-decoration: none; border-radius: 4px; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s ease; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15); border: none; cursor: pointer; }
+        .btn-premium:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3); }
+        .btn-outline { display: inline-block; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 15px 36px; text-decoration: none; border-radius: 4px; font-size: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s ease; background: transparent; }
+        .btn-outline:hover { background: var(--primary-color); color: var(--dark-bg); }
 
-        /* --- SPLIT HERO SECTION --- */
-        main { padding-top: 100px; min-height: 80vh; }
-        .hero-container { display: flex; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 60px 5%; gap: 50px; }
+        /* --- HERO SECTION --- */
+        main { padding-top: 100px; }
+        .hero-container { display: flex; align-items: center; justify-content: space-between; max-width: 1300px; margin: 0 auto; padding: 80px 5%; gap: 60px; min-height: 80vh; }
         .hero-content { flex: 1; }
-        .hero-content h1 { font-size: 3.5rem; color: var(--text-main); font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
-        
-        /* The Typing Text Span */
-        .typing-text { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; min-width: 280px; }
-        .cursor { display: inline-block; width: 3px; height: 1em; background-color: var(--primary-color); animation: blink 1s step-end infinite; vertical-align: bottom; margin-left: 2px; }
+        .hero-content h1 { font-size: 4.5rem; color: var(--text-main); font-weight: 700; line-height: 1.1; margin-bottom: 25px; }
+        .typing-text { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; }
+        .cursor { display: inline-block; width: 2px; height: 1em; background-color: var(--primary-color); animation: blink 1s step-end infinite; vertical-align: bottom; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 40px; max-width: 500px; }
+        .hero-content p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 50px; max-width: 550px; font-weight: 300; }
         .hero-buttons { display: flex; gap: 20px; }
-        
-        .hero-image { flex: 1; text-align: right; }
-        .hero-image img { width: 100%; max-width: 500px; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.1); animation: float 6s ease-in-out infinite; object-fit: cover; }
+        .hero-image { flex: 1; position: relative; }
+        .hero-image img { width: 100%; max-width: 550px; border-radius: 10px; animation: float 6s ease-in-out infinite; object-fit: cover; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border: 1px solid rgba(212, 175, 55, 0.2); }
 
         @media (max-width: 900px) {
-            .hero-container { flex-direction: column; text-align: center; padding: 40px 5%; }
-            .hero-content h1 { font-size: 2.8rem; }
+            .hero-container { flex-direction: column; text-align: center; padding: 40px 5%; margin-top: 40px; }
+            .hero-content h1 { font-size: 3rem; }
             .hero-content p { margin: 0 auto 30px; }
             .hero-buttons { justify-content: center; flex-wrap: wrap; }
-            .typing-text { min-width: auto; }
         }
 
         /* --- CLIENT LOGO TICKER --- */
-        .client-ticker { background: var(--white); padding: 30px 0; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05); overflow: hidden; display: flex; white-space: nowrap; margin-bottom: 60px; }
+        .client-ticker { background: var(--dark-bg); padding: 40px 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); overflow: hidden; display: flex; white-space: nowrap; margin-bottom: 100px; }
         .ticker-track { display: flex; animation: scrollTicker 30s linear infinite; }
-        .ticker-track span { font-size: 1.2rem; font-weight: 700; color: #cbd5e1; margin: 0 40px; text-transform: uppercase; letter-spacing: 2px; }
+        .ticker-track span { font-size: 1.1rem; font-family: 'Playfair Display', serif; color: #444; margin: 0 50px; text-transform: uppercase; letter-spacing: 3px; }
 
         /* --- SECTION HEADERS --- */
-        .section-header { text-align: center; margin-bottom: 50px; padding: 0 20px; }
-        .section-header h2 { font-size: 2.5rem; color: var(--text-main); font-weight: 700; margin-bottom: 15px; }
-        .section-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; padding: 0 20px; }
+        .section-header h2 { font-size: 3rem; color: var(--text-main); font-weight: 600; margin-bottom: 15px; }
+        .section-header h2 span { color: var(--primary-color); font-style: italic; }
+        .section-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 300; }
 
         /* --- MINI GALLERY --- */
-        .mini-gallery { max-width: 1200px; margin: 0 auto 80px; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .gallery-card { border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; group; cursor: pointer; }
-        .gallery-card img { width: 100%; height: 250px; object-fit: cover; transition: transform 0.5s ease; display: block; }
-        .gallery-card:hover img { transform: scale(1.1); }
-        .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(15,23,42,0.9), transparent); padding: 30px 20px 20px; color: var(--white); transform: translateY(20px); opacity: 0; transition: all 0.4s ease; }
+        .mini-gallery { max-width: 1300px; margin: 0 auto 100px; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .gallery-card { border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; border: 1px solid rgba(255,255,255,0.05); }
+        .gallery-card img { width: 100%; height: 350px; object-fit: cover; transition: transform 0.7s ease; display: block; filter: brightness(0.8); }
+        .gallery-card:hover img { transform: scale(1.05); filter: brightness(1); }
+        .gallery-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 40px 30px 30px; color: var(--white); transform: translateY(20px); opacity: 0; transition: all 0.4s ease; }
         .gallery-card:hover .gallery-overlay { transform: translateY(0); opacity: 1; }
-        .gallery-overlay h4 { font-size: 1.2rem; font-weight: 600; }
+        .gallery-overlay h4 { font-size: 1.5rem; font-weight: 400; margin-bottom: 5px; color: var(--primary-color); }
 
         /* --- SERVICES GRID --- */
-        .grid-container { padding: 0 5%; max-width: 1200px; margin: 0 auto 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .card { background: var(--white); border-radius: 15px; padding: 40px 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.4s ease, box-shadow 0.4s ease; border: 1px solid rgba(0,0,0,0.02); text-align: left; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); border-bottom: 3px solid var(--primary-color); }
-        .card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); display: flex; align-items: center; gap: 10px; }
-        .card h3::before { content: ''; display: inline-block; width: 12px; height: 12px; background: var(--gradient); border-radius: 50%; }
-        .card p { font-size: 1rem; color: var(--text-muted); line-height: 1.7; }
+        .grid-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 120px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .card { background: var(--card-bg); border-radius: 8px; padding: 50px 40px; transition: all 0.4s ease; border: 1px solid rgba(255,255,255,0.03); position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .card:hover { transform: translateY(-10px); background: #151515; }
+        .card:hover::before { transform: scaleX(1); }
+        .card h3 { font-size: 1.6rem; margin-bottom: 20px; color: var(--text-main); font-weight: 600; }
+        .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
 
         /* --- FINAL CTA BANNER --- */
-        .cta-banner { background: var(--gradient); padding: 80px 5%; text-align: center; color: var(--white); margin-top: 40px; }
-        .cta-banner h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; }
-        .cta-banner p { font-size: 1.2rem; margin-bottom: 40px; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto; }
-        .btn-white { display: inline-block; background: var(--white); color: var(--primary-color); padding: 16px 40px; text-decoration: none; border-radius: 50px; font-size: 1.2rem; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .btn-white:hover { transform: scale(1.05); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.2); border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .cta-banner h2 { font-size: 3.5rem; font-weight: 600; margin-bottom: 20px; color: var(--white); }
+        .cta-banner p { font-size: 1.2rem; margin-bottom: 40px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto; font-weight: 300; }
+        
+        /* --- FLOATING WHATSAPP BUTTON --- */
+        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 25px rgba(37, 211, 102, 0.5); }
+        .float-wa svg { width: 35px; height: 35px; fill: white; }
 
         /* --- PROFESSIONAL FOOTER --- */
-        .footer-pro { background: var(--dark-bg); color: #cbd5e1; padding: 60px 5% 30px; font-size: 0.95rem; border-top: 5px solid rgba(255,255,255,0.05); }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .footer-brand h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 15px; }
-        .footer-brand p { color: #94a3b8; margin-bottom: 20px; }
-        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
+        .footer-pro { background: var(--dark-bg); padding: 80px 5% 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .footer-brand h3 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 20px; }
+        .footer-brand p { color: var(--text-muted); font-weight: 300; line-height: 1.8; }
+        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 25px; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem;}
         .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 12px; }
-        .footer-links ul li a { color: #cbd5e1; text-decoration: none; transition: color 0.3s ease; }
-        .footer-links ul li a:hover { color: var(--secondary-color); }
-        .footer-contact p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; color: var(--secondary-color); }
-        .footer-bottom { text-align: center; padding-top: 30px; color: #64748b; }
+        .footer-links ul li { margin-bottom: 15px; }
+        .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-weight: 300; }
+        .footer-links ul li a:hover { color: var(--primary-color); }
+        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-weight: 300; }
+        .footer-contact span { color: var(--primary-color); font-weight: 500; }
+        .footer-bottom { text-align: center; padding-top: 30px; color: #555; font-weight: 300; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <nav class="navbar animate-fade-in">
-            <h1 class="logo"><span>Pixel</span> Craft Studio</h1>
+        <nav class="navbar">
+            <h1 class="logo">Pixel<span>Craft</span></h1>
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -152,141 +153,121 @@
             </div>
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="Designs.html">Our Designs</a></li>
+                <li><a href="Designs.html">Portfolio</a></li>
                 <li><a href="Services.html">Services</a></li>
-                <li><a href="About Us.html">About Us</a></li>
-                <li><a href="Contact Us.html">Contact Us</a></li>
+                <li><a href="About Us.html">Agency</a></li>
                 <li><a href="Reviews.html">Reviews</a></li>
+                <li><a href="Contact Us.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-                <div class="client-ticker animate-fade-up" style="animation-delay: 0.3s;">
-            <div class="ticker-track">
-                <span>CORPORATE BRANDING</span>
-                <span>•</span>
-                <span>STARTUP LOGOS</span>
-                <span>•</span>
-                <span>YOUTUBE EDITING</span>
-                <span>•</span>
-                <span>SOCIAL MEDIA MGT</span>
-                <span>•</span>
-                <span>COMMERCIAL BANNERS</span>
-                <span>•</span>
-                <span>CORPORATE BRANDING</span>
-                <span>•</span>
-                <span>STARTUP LOGOS</span>
-                <span>•</span>
-                <span>YOUTUBE EDITING</span>
-                <span>•</span>
-                <span>SOCIAL MEDIA MGT</span>
-                <span>•</span>
-                <span>COMMERCIAL BANNERS</span>
-            </div>
-        </div>
-        <section class="hero-container animate-fade-up" style="animation-delay: 0.1s;">
+        <!-- Hero Section -->
+        <section class="hero-container reveal">
             <div class="hero-content">
                 <h1>Elevate Your Brand With <br>
                     <span class="typing-text" id="typewriter"></span><span class="cursor"></span>
                 </h1>
-                <p>We are a professional design studio specializing in turning your ideas into stunning visual realities. Let us bring your vision to life.</p>
+                <p>We are a premium design studio specializing in turning your ideas into stunning visual realities. Stop blending in, start standing out.</p>
                 <div class="hero-buttons">
                     <a href="Contact Us.html" class="btn-premium">Start a Project</a>
                     <a href="Designs.html" class="btn-outline">View Portfolio</a>
                 </div>
             </div>
             <div class="hero-image">
-                <img src="Image 6.png" alt="Creative Design Graphics" style="background-color: #e2e8f0;"> 
+                <!-- Replace 'Image 6.png' with a high-quality dark themed or minimal image -->
+                <img src="Image 6.png" alt="Creative Design Graphics" style="background-color: #111;"> 
             </div>
         </section>
 
-        <div class="client-ticker animate-fade-up" style="animation-delay: 0.3s;">
+        <!-- Single Ticker Section -->
+        <div class="client-ticker reveal">
             <div class="ticker-track">
-                <span>CORPORATE BRANDING</span>
-                <span>•</span>
-                <span>STARTUP LOGOS</span>
-                <span>•</span>
-                <span>YOUTUBE EDITING</span>
-                <span>•</span>
-                <span>SOCIAL MEDIA MGT</span>
-                <span>•</span>
-                <span>COMMERCIAL BANNERS</span>
-                <span>•</span>
-                <span>CORPORATE BRANDING</span>
-                <span>•</span>
-                <span>STARTUP LOGOS</span>
-                <span>•</span>
-                <span>YOUTUBE EDITING</span>
-                <span>•</span>
-                <span>SOCIAL MEDIA MGT</span>
-                <span>•</span>
-                <span>COMMERCIAL BANNERS</span>
+                <span>Corporate Branding</span><span>•</span>
+                <span>Luxury Logos</span><span>•</span>
+                <span>Cinematic Video</span><span>•</span>
+                <span>Social Media Mgt</span><span>•</span>
+                <span>UI/UX Design</span><span>•</span>
+                <span>Corporate Branding</span><span>•</span>
+                <span>Luxury Logos</span><span>•</span>
+                <span>Cinematic Video</span><span>•</span>
+                <span>Social Media Mgt</span><span>•</span>
+                <span>UI/UX Design</span>
             </div>
         </div>
 
-        <div class="section-header animate-fade-up" style="animation-delay: 0.4s;">
-            <h2>Recent Masterpieces</h2>
-            <p>A sneak peek at what we've been working on lately.</p>
+        <!-- Portfolio Section -->
+        <div class="section-header reveal">
+            <h2>Recent <span>Masterpieces</span></h2>
+            <p>A curated selection of our finest visual craftsmanship.</p>
         </div>
-        <section class="mini-gallery animate-fade-up" style="animation-delay: 0.5s;">
+        <section class="mini-gallery reveal">
             <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="Image 1.jpg" alt="Logo Work" style="background-color: #e2e8f0;">
-                <div class="gallery-overlay"><h4>Modern Logo Design</h4></div>
+                <img src="Image 1.jpg" alt="Logo Work" style="background-color: #111;">
+                <div class="gallery-overlay"><h4>Brand Identity</h4><p>Modern & Minimalist</p></div>
             </div>
             <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="Image 2.jpg" alt="Social Media Work" style="background-color: #e2e8f0;">
-                <div class="gallery-overlay"><h4>Social Campaign Visuals</h4></div>
+                <img src="Image 2.jpg" alt="Social Media Work" style="background-color: #111;">
+                <div class="gallery-overlay"><h4>Digital Campaigns</h4><p>High Conversion Visuals</p></div>
             </div>
             <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="Image 4.jpg" alt="Video Work" style="background-color: #e2e8f0;">
-                <div class="gallery-overlay"><h4>Cinematic Video Editing</h4></div>
+                <img src="Image 4.jpg" alt="Video Work" style="background-color: #111;">
+                <div class="gallery-overlay"><h4>Cinematic Edits</h4><p>Engaging Video Content</p></div>
             </div>
         </section>
 
-        <div class="section-header animate-fade-up" style="animation-delay: 0.6s;">
-            <h2>Our Expertise</h2>
-            <p>Comprehensive design solutions tailored to help you dominate your market.</p>
+        <!-- Services Section -->
+        <div class="section-header reveal">
+            <h2>Our <span>Expertise</span></h2>
+            <p>Comprehensive, premium design solutions tailored for market leaders.</p>
         </div>
-        <section class="grid-container animate-fade-up" style="animation-delay: 0.7s;">
-            <div class="card">
+        <section class="grid-container">
+            <div class="card reveal">
                 <h3>Logo Design</h3>
-                <p>Creative and modern logo designs that perfectly capture the identity of your business.</p>
+                <p>Creative and timeless brand marks that perfectly capture the essence of your premium identity.</p>
             </div>
-            <div class="card">
+            <div class="card reveal">
                 <h3>Social Media</h3>
-                <p>Engaging social media posts designed to grow your audience and boost your digital presence.</p>
+                <p>Aesthetic, high-converting social media grids designed to grow your audience and boost authority.</p>
             </div>
-            <div class="card">
+            <div class="card reveal">
                 <h3>Video Editing</h3>
-                <p>Professional video editing services to make your footage cinematic and dynamic.</p>
+                <p>Dynamic, cinematic video editing services to make your digital content impossible to ignore.</p>
             </div>
-            <div class="card">
-                <h3>Banner Designing</h3>
-                <p>Eye-catching and modern banner designs for your digital and print marketing campaigns.</p>
+            <div class="card reveal">
+                <h3>Commercial Banners</h3>
+                <p>Eye-catching, high-resolution designs for your digital and print marketing campaigns.</p>
             </div>
-            <div class="card">
-                <h3>Letterhead Designing</h3>
-                <p>Clean and professional letterhead designs tailored for your company's official communications.</p>
+            <div class="card reveal">
+                <h3>Corporate Identity</h3>
+                <p>Clean and professional letterheads, business cards, and brand guidelines for corporate communications.</p>
             </div>
-            <div class="card">
-                <h3>Leaflets Designing</h3>
-                <p>Creative and modern leaflet designs crafted to effectively market your products or services.</p>
+            <div class="card reveal">
+                <h3>Print Media</h3>
+                <p>Luxurious leaflet and brochure designs crafted to physically represent the quality of your services.</p>
             </div>
         </section>
 
-        <section class="cta-banner">
-            <h2>Ready to transform your brand?</h2>
-            <p>Stop blending in. Let Pixel Craft Studio create visual assets that demand attention and drive results.</p>
-            <a href="https://wa.link/dgf22q" class="btn-white" target="_blank">Message Us on WhatsApp</a>
+        <!-- CTA Section -->
+        <section class="cta-banner reveal">
+            <h2>Ready to redefine your brand?</h2>
+            <p>Let Pixel Craft Studio create visual assets that demand respect and drive extraordinary results.</p>
+            <br>
+            <a href="https://wa.link/dgf22q" class="btn-premium" target="_blank">Consult With Us Today</a>
         </section>
     </main>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.link/dgf22q" class="float-wa" target="_blank" title="Chat with us on WhatsApp">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92 13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0 13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98 1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0 01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6 11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1 .1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95 2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85 1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
+    </a>
 
     <footer class="footer-pro">
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Pixel Craft Studio</h3>
-                <p>Delivering high-quality digital and print design solutions to elevate your brand's presence.</p>
+                <p>Delivering high-quality, premium digital and print design solutions to elevate your brand's presence globally.</p>
             </div>
             <div class="footer-links">
                 <h4>Quick Links</h4>
@@ -299,9 +280,10 @@
             </div>
             <div class="footer-contact">
                 <h4>Get In Touch</h4>
-                <p><strong>Phone & WhatsApp:</strong> +94 76 639 0768</p>
-                <p><strong>Available:</strong> Mon - Sun, 9AM - 10PM</p>
-                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: #cbd5e1; text-decoration: none;">Facebook</a>
+                <p>Phone & WA: <span>+94 76 639 0768</span></p>
+                <p>Available: <span>Mon - Sun, 9AM - 10PM</span></p>
+                <br>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--primary-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Follow on Facebook</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -310,7 +292,7 @@
     </footer>
 
     <script>
-        // 1. Mobile Menu Toggle Logic
+        // 1. Mobile Menu Toggle
         const menuToggle = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('#nav-links');
         menuToggle.addEventListener('click', function() {
@@ -318,11 +300,11 @@
             navLinks.classList.toggle('active');
         });
 
-        // 2. Dynamic Typing Effect Logic
-        const textArray = ["Creative Design.", "Video Editing.", "Social Media.", "Bold Branding."];
+        // 2. Dynamic Typing Effect
+        const textArray = ["Premium Design.", "Cinematic Video.", "Bold Branding.", "Digital Growth."];
         const typingDelay = 100;
         const erasingDelay = 50;
-        const newTextDelay = 2000; // Delay between current and next text
+        const newTextDelay = 2000;
         let textArrayIndex = 0;
         let charIndex = 0;
         const typedTextSpan = document.getElementById("typewriter");
@@ -349,8 +331,25 @@
             }
         }
 
-        document.addEventListener("DOMContentLoaded", function() { // On DOM Load initiate the effect
+        // 3. Scroll Reveal Animation Logic (New Feature)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // when to trigger the animation
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+
+        document.addEventListener("DOMContentLoaded", function() { 
             if(textArray.length) setTimeout(type, newTextDelay + 250);
+            reveal(); // Trigger reveal once on load
         });
     </script>
 
