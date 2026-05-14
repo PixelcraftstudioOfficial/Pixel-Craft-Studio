@@ -3,299 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - Pixel Craft Studio</title>
+    <title>Our Services - Premium Creative Agency</title>
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
-        /* Import Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        /* --- IMPORT PREMIUM FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
 
-        /* Master Color Palette & Variables */
+        /* --- LUXURY COLOR VARIABLES --- */
         :root {
-            --primary-color: #4f46e5;
-            --secondary-color: #0ea5e9;
-            --dark-bg: #0f172a;
-            --light-bg: #f8fafc;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --white: #ffffff;
-            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --primary-color: #D4AF37; /* Premium Gold */
+            --secondary-color: #F3E5AB; /* Light Gold */
+            --dark-bg: #050505; /* Deep Black */
+            --light-bg: #0a0a0a; /* Soft Matte Black */
+            --card-bg: #111111;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --gradient: linear-gradient(135deg, var(--primary-color), #AA801E);
         }
 
-        /* General Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
+        /* --- GENERAL RESET --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        body { background-color: var(--light-bg); color: var(--text-main); font-family: 'Poppins', sans-serif; line-height: 1.7; overflow-x: hidden; }
+        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
 
-        body {
-            background-color: var(--light-bg);
-            color: var(--text-main);
-            line-height: 1.7;
-            overflow-x: hidden;
-        }
+        /* --- SCROLL REVEAL ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Advanced Animations */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* --- GLASSMORPHISM NAVBAR --- */
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .navbar .logo { font-size: 2rem; font-weight: 800; color: var(--text-main); letter-spacing: 1px; }
+        .navbar .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .animate-fade-up {
-            animation: fadeUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-            opacity: 0;
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 1s ease-in-out forwards;
-        }
-
-        /* Glassmorphism Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 20px 5%;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .navbar .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--white);
-            letter-spacing: 1px;
-            transition: font-size 0.3s ease;
-        }
-
-        .navbar .logo span {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #cbd5e1;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: var(--gradient);
-            transition: width 0.3s ease;
-        }
-
+        .nav-links { list-style: none; display: flex; gap: 35px; }
+        .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background: var(--gradient); transition: width 0.3s ease; }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
 
-        /* --- MOBILE MENU STYLES --- */
-        .menu-toggle {
-            display: none; 
-            flex-direction: column;
-            cursor: pointer;
-            gap: 5px;
-            z-index: 1001;
-        }
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
+        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--primary-color); transition: all 0.3s ease; }
 
-        .menu-toggle .bar {
-            width: 25px;
-            height: 3px;
-            background-color: var(--white);
-            transition: all 0.3s ease-in-out;
-            border-radius: 3px;
-        }
-
-        /* Mobile Responsive Rules (FULLY CORRECTED) */
         @media (max-width: 768px) {
-            .navbar .logo {
-                font-size: 1.3rem;
-                white-space: nowrap; 
-            }
-
-            .navbar {
-                padding: 15px 5%;
-            }
-
-            .menu-toggle {
-                display: flex; 
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(15, 23, 42, 0.98);
-                flex-direction: column;
-                text-align: center;
-                gap: 0;
-                max-height: 0; 
-                overflow: hidden;
-                transition: max-height 0.4s ease-in-out;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            }
-
-            .nav-links.active {
-                max-height: 400px; 
-            }
-
-            .nav-links li {
-                width: 100%;
-            }
-
-            .nav-links a {
-                display: block;
-                padding: 15px 0;
-            }
-
+            .navbar .logo { font-size: 1.6rem; }
+            .menu-toggle { display: flex; }
+            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(10, 10, 10, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+            .nav-links.active { max-height: 400px; padding: 20px 0; }
+            .nav-links a { display: block; padding: 15px 0; }
             #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
             #mobile-menu.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
-        /* -------------------------- */
 
-        /* Main Content Spacing */
-        main {
-            padding-top: 100px;
-            min-height: 80vh;
-        }
+        /* --- PAGE HEADER --- */
+        main { padding-top: 130px; min-height: 80vh; }
+        .page-header { text-align: center; padding: 40px 20px 60px; }
+        .page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 700; margin-bottom: 15px; }
+        .page-header h2 span { color: var(--primary-color); font-style: italic; }
+        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 300; }
 
-        /* Page Headers */
-        .page-header {
-            text-align: center;
-            padding: 60px 20px 20px;
-        }
+        /* --- SERVICES GRID --- */
+        .services-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 100px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        
+        .card { background: var(--card-bg); border-radius: 8px; padding: 50px 40px; transition: all 0.4s ease; border: 1px solid rgba(255,255,255,0.03); position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .card:hover { transform: translateY(-10px); background: #151515; }
+        .card:hover::before { transform: scaleX(1); }
+        .card h3 { font-size: 1.6rem; margin-bottom: 20px; color: var(--text-main); font-weight: 600; display: flex; align-items: center; gap: 15px; }
+        .card h3::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--gradient); transform: rotate(45deg); }
+        .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
 
-        .page-header h2 {
-            font-size: 3rem;
-            color: var(--text-main);
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
+        /* --- CTA SECTION --- */
+        .cta-banner { background: var(--card-bg); padding: 80px 5%; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.2); border-bottom: 1px solid rgba(212, 175, 55, 0.2); margin-bottom: 80px;}
+        .cta-banner h2 { font-size: 2.8rem; font-weight: 600; margin-bottom: 20px; color: var(--white); }
+        .cta-banner p { font-size: 1.1rem; margin-bottom: 30px; color: var(--text-muted); font-weight: 300; }
+        .btn-premium { display: inline-block; background: var(--gradient); color: var(--dark-bg); padding: 16px 36px; text-decoration: none; border-radius: 4px; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s ease; border: none; cursor: pointer; }
+        .btn-premium:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3); }
 
-        .page-header p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-        }
+        /* --- FLOATING WHATSAPP BUTTON --- */
+        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
+        .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 25px rgba(37, 211, 102, 0.5); }
+        .float-wa svg { width: 35px; height: 35px; fill: white; }
 
-        /* Services Grid Layout */
-        .services-container {
-            padding: 20px 5%;
-            max-width: 1200px;
-            margin: 0 auto 60px;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.02);
-            text-align: left;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-            border-bottom: 3px solid var(--primary-color);
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .service-card h3::before {
-            content: '';
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            background: var(--gradient);
-            border-radius: 50%;
-        }
-
-        .service-card p {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        /* Professional Footer */
-        .footer-pro {
-            background: var(--dark-bg);
-            color: #cbd5e1;
-            padding: 60px 5% 30px;
-            font-size: 0.95rem;
-            border-top: 5px solid var(--primary-color);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-bottom: 40px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-brand h3 { color: var(--white); font-size: 1.5rem; margin-bottom: 15px; }
-        .footer-brand p { color: #94a3b8; margin-bottom: 20px; }
-        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 20px; font-weight: 600; }
+        /* --- PROFESSIONAL FOOTER --- */
+        .footer-pro { background: var(--dark-bg); padding: 80px 5% 30px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .footer-brand h3 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 20px; }
+        .footer-brand p { color: var(--text-muted); font-weight: 300; line-height: 1.8; }
+        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 25px; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem;}
         .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 12px; }
-        .footer-links ul li a { color: #cbd5e1; text-decoration: none; transition: color 0.3s ease; }
-        .footer-links ul li a:hover { color: var(--secondary-color); }
-        .footer-contact p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; color: var(--secondary-color); }
-        .footer-bottom { text-align: center; padding-top: 30px; color: #64748b; }
+        .footer-links ul li { margin-bottom: 15px; }
+        .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-weight: 300; }
+        .footer-links ul li a:hover { color: var(--primary-color); }
+        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-weight: 300; }
+        .footer-contact span { color: var(--primary-color); font-weight: 500; }
+        .footer-bottom { text-align: center; padding-top: 30px; color: #555; font-weight: 300; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
     <header>
-        <nav class="navbar animate-fade-in">
-            <h1 class="logo"><span>Pixel</span> Craft Studio</h1>
+        <nav class="navbar">
+            <h1 class="logo">Pixel<span>Craft</span></h1>
             
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
@@ -305,63 +116,75 @@
 
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="Designs.html">Our Designs</a></li>
+                <li><a href="Designs.html">Portfolio</a></li>
                 <li><a href="Services.html" class="active">Services</a></li>
-                <li><a href="About Us.html">About Us</a></li>
-                <li><a href="Contact Us.html">Contact Us</a></li>
+                <li><a href="About Us.html">Agency</a></li>
                 <li><a href="Reviews.html">Reviews</a></li>
+                <li><a href="Contact Us.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <div class="page-header animate-fade-up" style="animation-delay: 0.1s;">
-            <h2>What We Do</h2>
-            <p>Comprehensive design solutions tailored to elevate your brand.</p>
+        <div class="page-header reveal">
+            <h2>Our <span>Expertise</span></h2>
+            <p>Comprehensive, premium design solutions tailored to elevate your brand above the competition.</p>
         </div>
 
         <section class="services-container">
             <div class="services-grid">
                 
-                <div class="service-card animate-fade-up" style="animation-delay: 0.2s;">
+                <div class="card reveal">
                     <h3>Logo Design</h3>
-                    <p>We create striking, memorable logos that capture the core identity of your business and leave a lasting impression on your audience.</p>
+                    <p>We create striking, memorable logos that capture the core identity of your business. A premium brand mark that leaves a lasting impression on your audience.</p>
                 </div>
 
-                <div class="service-card animate-fade-up" style="animation-delay: 0.3s;">
+                <div class="card reveal">
                     <h3>Social Media</h3>
-                    <p>Consistent, engaging, and high-quality posts designed specifically for your brand's voice across all major social platforms.</p>
+                    <p>Consistent, aesthetic, and high-quality posts designed specifically for your brand's voice across all major social platforms to drive real engagement.</p>
                 </div>
 
-                <div class="service-card animate-fade-up" style="animation-delay: 0.4s;">
+                <div class="card reveal">
                     <h3>Video Editing</h3>
-                    <p>From promotional clips to corporate presentations, we edit your raw footage into polished, dynamic, and professional videos.</p>
+                    <p>From promotional clips to corporate presentations, we edit your raw footage into polished, cinematic, and highly dynamic videos.</p>
                 </div>
 
-                <div class="service-card animate-fade-up" style="animation-delay: 0.5s;">
-                    <h3>Banner Designing</h3>
-                    <p>Eye-catching digital and print banners creatively designed to grab attention and communicate your message instantly.</p>
+                <div class="card reveal">
+                    <h3>Commercial Banners</h3>
+                    <p>Eye-catching digital and print banners creatively designed to grab attention instantly and communicate your marketing message with authority.</p>
                 </div>
 
-                <div class="service-card animate-fade-up" style="animation-delay: 0.6s;">
-                    <h3>Letterhead Designing</h3>
-                    <p>Clean, formal, and branded letterheads that ensure your corporate communications always look official and professional.</p>
+                <div class="card reveal">
+                    <h3>Corporate Identity</h3>
+                    <p>Clean, formal, and branded letterheads and business cards that ensure your corporate communications always look official and prestigious.</p>
                 </div>
 
-                <div class="service-card animate-fade-up" style="animation-delay: 0.7s;">
-                    <h3>Leaflet Designing</h3>
-                    <p>Creative leaflet and flyer layouts perfect for marketing campaigns, product launches, and informational handouts.</p>
+                <div class="card reveal">
+                    <h3>Print Media</h3>
+                    <p>Luxurious leaflet and flyer layouts perfect for premium marketing campaigns, high-end product launches, and informational handouts.</p>
                 </div>
 
             </div>
         </section>
+
+        <!-- New Call To Action Section for Services Page -->
+        <section class="cta-banner reveal">
+            <h2>See a service you need?</h2>
+            <p>Let's discuss how we can tailor our expertise to achieve your business goals.</p>
+            <a href="Contact Us.html" class="btn-premium">Request a Quote</a>
+        </section>
     </main>
 
-    <footer class="footer-pro animate-fade-in" style="animation-delay: 0.9s;">
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.link/dgf22q" class="float-wa" target="_blank" title="Chat with us on WhatsApp">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92 13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0 13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98 1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0 01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6 11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1 .1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95 2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85 1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
+    </a>
+
+    <footer class="footer-pro reveal">
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Pixel Craft Studio</h3>
-                <p>Delivering high-quality digital and print design solutions to elevate your brand's presence.</p>
+                <p>Delivering high-quality, premium digital and print design solutions to elevate your brand's presence globally.</p>
             </div>
             
             <div class="footer-links">
@@ -376,9 +199,10 @@
 
             <div class="footer-contact">
                 <h4>Get In Touch</h4>
-                <p><strong>Phone & WhatsApp:</strong> +94 76 639 0768</p>
-                <p><strong>Available:</strong> Mon - Fri, 9AM - 6PM</p>
-                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: #cbd5e1; text-decoration: none;">Facebook</a>
+                <p>Phone & WA: <span>+94 76 639 0768</span></p>
+                <p>Available: <span>Mon - Sun, 9AM - 10PM</span></p>
+                <br>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--primary-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Follow on Facebook</a>
             </div>
         </div>
         
@@ -388,6 +212,7 @@
     </footer>
 
     <script>
+        // 1. Mobile Menu Toggle
         const menuToggle = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('#nav-links');
 
@@ -395,6 +220,25 @@
             menuToggle.classList.toggle('is-active');
             navLinks.classList.toggle('active');
         });
+
+        // 2. Scroll Reveal Animation Logic
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // when to trigger the animation
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        
+        // Trigger reveal once on load to show elements already in view
+        document.addEventListener("DOMContentLoaded", reveal);
     </script>
 
 </body>
