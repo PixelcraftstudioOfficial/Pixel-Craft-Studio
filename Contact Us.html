@@ -3,52 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Premium Creative Agency</title>
+    <title>Contact Us - Modern Creative Agency</title>
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
-        /* --- IMPORT PREMIUM FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
+        /* --- IMPORT MODERN TECH FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
-        /* --- LUXURY COLOR VARIABLES --- */
+        /* --- MODERN TECH COLOR VARIABLES --- */
         :root {
-            --primary-color: #D4AF37; /* Premium Gold */
-            --secondary-color: #F3E5AB; /* Light Gold */
-            --dark-bg: #050505; /* Deep Black */
-            --light-bg: #0a0a0a; /* Soft Matte Black */
-            --card-bg: #111111;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --gradient: linear-gradient(135deg, var(--primary-color), #AA801E);
+            --primary: #3b82f6; /* Bright Blue */
+            --secondary: #8b5cf6; /* Vibrant Purple */
+            --accent: #06b6d4; /* Cyan */
+            --bg-deep: #030712; /* Very dark slate/black */
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-text: linear-gradient(135deg, #60a5fa, #c084fc);
+            --gradient-bg: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
-        /* --- GENERAL RESET --- */
+        /* --- GENERAL RESET & BACKGROUND --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--light-bg); color: var(--text-main); font-family: 'Poppins', sans-serif; line-height: 1.7; overflow-x: hidden; }
-        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.7; 
+            overflow-x: hidden;
+            /* Modern Glowing Background Orbs */
+            background-image: 
+                radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+        
+        h1, h2, h3, h4, .logo { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         /* --- SCROLL REVEAL ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- GLASSMORPHISM NAVBAR --- */
-        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .navbar .logo { font-size: 2rem; font-weight: 800; color: var(--text-main); letter-spacing: 1px; }
-        .navbar .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
+        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+        .navbar .logo span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .nav-links { list-style: none; display: flex; gap: 35px; }
-        .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background: var(--gradient); transition: width 0.3s ease; }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
 
         .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
-        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--primary-color); transition: all 0.3s ease; }
+        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
 
         @media (max-width: 768px) {
-            .navbar .logo { font-size: 1.6rem; }
+            .navbar .logo { font-size: 1.5rem; }
             .menu-toggle { display: flex; }
-            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(10, 10, 10, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(3, 7, 18, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid var(--card-border); }
             .nav-links.active { max-height: 400px; padding: 20px 0; }
             .nav-links a { display: block; padding: 15px 0; }
             #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
@@ -59,61 +71,64 @@
         /* --- PAGE HEADER --- */
         main { padding-top: 130px; min-height: 80vh; }
         .page-header { text-align: center; padding: 40px 20px 40px; }
-        .page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 700; margin-bottom: 15px; }
-        .page-header h2 span { color: var(--primary-color); font-style: italic; }
-        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 300; }
+        .page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .page-header h2 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 400; }
 
         /* --- CONTACT LAYOUT --- */
         .contact-wrapper { max-width: 1300px; margin: 0 auto 100px; padding: 0 5%; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; }
         @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; gap: 40px; } }
 
         /* Form Container */
-        .contact-form-container { background: var(--card-bg); padding: 50px 40px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
-        .contact-form-container h3 { font-size: 2rem; margin-bottom: 30px; color: var(--text-main); font-weight: 600; }
+        .contact-form-container { background: var(--card-bg); padding: 50px 40px; border-radius: 20px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        .contact-form-container h3 { font-size: 2rem; margin-bottom: 30px; color: var(--text-main); font-weight: 700; letter-spacing: -0.5px; }
         .form-group { margin-bottom: 25px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
         @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
         
-        label { display: block; margin-bottom: 10px; font-weight: 400; color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-        input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; font-size: 1rem; font-family: 'Poppins', sans-serif; color: var(--white); background-color: rgba(255,255,255,0.02); transition: all 0.3s ease; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-color); background-color: rgba(255,255,255,0.05); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2); }
-        select option { background-color: var(--dark-bg); color: var(--white); }
+        label { display: block; margin-bottom: 10px; font-weight: 500; color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; color: var(--text-main); background-color: rgba(255,255,255,0.02); transition: all 0.3s ease; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: rgba(96, 165, 250, 0.5); background-color: rgba(255,255,255,0.05); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+        select option { background-color: var(--bg-deep); color: var(--text-main); }
         textarea { resize: vertical; min-height: 140px; }
 
-        .btn-premium { display: inline-block; background: var(--gradient); color: var(--dark-bg); padding: 18px 36px; text-decoration: none; border-radius: 4px; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s ease; border: none; cursor: pointer; width: 100%; text-align: center; }
-        .btn-premium:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.3); }
+        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 16px 36px; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; width: 100%; text-align: center; }
+        .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
 
         /* Info Cards Container */
         .contact-info-container { display: flex; flex-direction: column; gap: 30px; }
-        .info-card { background: var(--card-bg); padding: 40px 30px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03); transition: all 0.4s ease; position: relative; overflow: hidden; }
-        .info-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
-        .info-card:hover { transform: translateY(-5px); background: #151515; }
-        .info-card:hover::before { transform: scaleX(1); }
-        .info-card h4 { font-size: 1.5rem; margin-bottom: 15px; color: var(--text-main); }
-        .info-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 8px; font-weight: 300; }
-        .info-card p strong { color: var(--white); font-weight: 500; }
+        .info-card { background: var(--card-bg); padding: 40px 30px; border-radius: 16px; border: 1px solid var(--card-border); transition: all 0.4s ease; position: relative; overflow: hidden; backdrop-filter: blur(10px); }
         
-        .whatsapp-btn { display: inline-block; border: 1px solid #25D366; color: #25D366; padding: 12px 28px; border-radius: 4px; text-decoration: none; font-weight: 500; margin-top: 20px; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
-        .whatsapp-btn:hover { background-color: #25D366; color: var(--dark-bg); }
+        /* Modern Mouse Glow Effect for Cards */
+        .info-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 1; }
+        .info-card:hover::before { opacity: 1; }
+        .info-card:hover { transform: translateY(-5px); border-color: rgba(96, 165, 250, 0.3); background: rgba(255,255,255,0.04); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2); }
+        
+        .info-card h4 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); font-weight: 700; position: relative; z-index: 2; }
+        .info-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 8px; font-weight: 400; position: relative; z-index: 2; }
+        .info-card p strong { color: var(--text-main); font-weight: 600; }
+        
+        .whatsapp-btn { display: inline-block; border: 1px solid #25D366; color: #25D366; background: rgba(37, 211, 102, 0.05); padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; margin-top: 20px; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; position: relative; z-index: 2; }
+        .whatsapp-btn:hover { background-color: #25D366; color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
 
         /* --- FLOATING WHATSAPP BUTTON --- */
-        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 25px rgba(37, 211, 102, 0.5); }
-        .float-wa svg { width: 35px; height: 35px; fill: white; }
+        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; }
+        .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5); }
+        .float-wa svg { width: 32px; height: 32px; fill: white; }
 
-        /* --- PROFESSIONAL FOOTER --- */
-        .footer-pro { background: var(--dark-bg); padding: 80px 5% 30px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .footer-brand h3 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 20px; }
-        .footer-brand p { color: var(--text-muted); font-weight: 300; line-height: 1.8; }
-        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 25px; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem;}
+        /* --- CLEAN FOOTER --- */
+        .footer-pro { background: rgba(3,7,18,0.8); padding: 80px 5% 30px; border-top: 1px solid var(--card-border); backdrop-filter: blur(10px); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
+        .footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.95rem; }
+        .footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 25px; font-weight: 600; }
         .footer-links ul { list-style: none; }
         .footer-links ul li { margin-bottom: 15px; }
-        .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-weight: 300; }
-        .footer-links ul li a:hover { color: var(--primary-color); }
-        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-weight: 300; }
-        .footer-contact span { color: var(--primary-color); font-weight: 500; }
-        .footer-bottom { text-align: center; padding-top: 30px; color: #555; font-weight: 300; font-size: 0.9rem; }
+        .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-size: 0.95rem; }
+        .footer-links ul li a:hover { color: var(--text-main); }
+        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-size: 0.95rem; }
+        .footer-contact span { color: var(--primary); font-weight: 500; }
+        .footer-bottom { text-align: center; padding-top: 30px; color: var(--text-muted); font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -142,7 +157,7 @@
     <main>
         <div class="page-header reveal">
             <h2>Let's Talk <span>Business</span></h2>
-            <p>Tell us about your vision. We are ready to bring it to life with precision and style.</p>
+            <p>Tell us about your vision. We are ready to build it with precision and modern technology.</p>
         </div>
 
         <section class="contact-wrapper">
@@ -174,14 +189,13 @@
                             <label for="service">Service Interested In</label>
                             <select id="service" required>
                                 <option value="" disabled selected>Select a service...</option>
-                                <option value="Logo Design">Logo Design</option>
-                                <option value="Video Editing">Video Editing</option>
-                                <option value="Social Media Design">Social Media Design</option>
-                                <option value="Banner Design">Banner Design</option>
-                                <option value="Leaflets / Letterheads">Leaflets / Letterheads</option>
-                                <option value="T shirt Designing">T-Shirt Designing</option>
-                                <option value="Bill Book">Bill Book Designing</option>
-                                <option value="Multiple / Other">Multiple / Other</option>
+                                <option value="Brand Identity / Logo">Brand Identity / Logo</option>
+                                <option value="UI/UX & Web Design">UI/UX & Web Design</option>
+                                <option value="Video Production">Video Production</option>
+                                <option value="Digital Marketing / Social Media">Digital Marketing / Social Media</option>
+                                <option value="Commercial Banners">Commercial Banners</option>
+                                <option value="Print & Packaging">Print & Packaging</option>
+                                <option value="Multiple Services">Multiple Services</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -190,39 +204,40 @@
                                 <option value="" disabled selected>Select an option...</option>
                                 <option value="Basic / Starter Budget">Basic / Starter Budget</option>
                                 <option value="Standard Budget">Standard Budget</option>
-                                <option value="Premium / Corporate Budget">Premium / Corporate Budget</option>
-                                <option value="Not sure yet">Not sure yet</option>
+                                <option value="Premium / Enterprise Budget">Premium / Enterprise Budget</option>
+                                <option value="To be discussed">To be discussed</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="message">Project Description</label>
-                        <textarea id="message" placeholder="Tell us a little bit about what you are looking to achieve..." required></textarea>
+                        <textarea id="message" placeholder="Tell us about your project goals, timelines, and requirements..." required></textarea>
                     </div>
                     <div class="form-group">
-                        <p style="font-size: 0.9rem; color: var(--primary-color); margin-bottom: 15px; font-style: italic; opacity: 0.8;">
-                            * Note: If you have image references or files, please attach them directly in the chat once WhatsApp opens!
+                        <p style="font-size: 0.85rem; color: var(--primary); margin-bottom: 15px; opacity: 0.8;">
+                            <span style="font-weight: 600;">* Pro Tip:</span> If you have image references or files, you can attach them directly in the chat once WhatsApp opens.
                         </p>
                     </div>
-                    <button type="button" class="btn-premium" onclick="sendToWhatsApp()">Send via WhatsApp</button>
+                    <button type="button" class="btn-modern" onclick="sendToWhatsApp()">Send via WhatsApp</button>
                 </form>
             </div>
 
-            <div class="contact-info-container">
-                <div class="info-card reveal">
+            <div class="contact-info-container" id="info-cards">
+                <div class="info-card reveal card-hover">
                     <h4>Direct Message</h4>
-                    <p>Need a quick answer? The fastest way to reach us is directly through WhatsApp.</p>
+                    <p>Need a quick response? The fastest way to reach our team is directly through WhatsApp.</p>
                     <a href="https://wa.link/dgf22q" class="whatsapp-btn" target="_blank">Chat on WhatsApp</a>
                 </div>
-                <div class="info-card reveal">
+                <div class="info-card reveal card-hover">
                     <h4>Contact Details</h4>
                     <p><strong>Phone:</strong> +94 76 639 0768</p>
+                    <p><strong>Email:</strong> hello@pixelcraft.lk</p>
                     <p><strong>Location:</strong> Sri Lanka (Global Services)</p>
                 </div>
-                <div class="info-card reveal">
+                <div class="info-card reveal card-hover">
                     <h4>Business Hours</h4>
                     <p><strong>Monday - Sunday</strong></p>
-                    <p>9:00 AM - 10:00 PM</p>
+                    <p>9:00 AM - 10:00 PM (LKT)</p>
                 </div>
             </div>
         </section>
@@ -233,29 +248,29 @@
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92 13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0 13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98 1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0 01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6 11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1 .1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95 2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85 1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
     </a>
 
-    <footer class="footer-pro reveal">
+    <footer class="footer-pro">
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Pixel Craft Studio</h3>
-                <p>Delivering high-quality, premium digital and print design solutions to elevate your brand's presence globally.</p>
+                <p>Crafting next-generation digital experiences and robust brand identities for the modern web.</p>
             </div>
             
             <div class="footer-links">
-                <h4>Quick Links</h4>
+                <h4>Navigation</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="Designs.html">Portfolio</a></li>
-                    <li><a href="Services.html">Our Services</a></li>
-                    <li><a href="Contact Us.html">Contact Us</a></li>
+                    <li><a href="Designs.html">Work</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="Contact Us.html">Contact</a></li>
                 </ul>
             </div>
 
             <div class="footer-contact">
-                <h4>Get In Touch</h4>
-                <p>Phone & WA: <span>+94 76 639 0768</span></p>
-                <p>Available: <span>Mon - Sun, 9AM - 10PM</span></p>
+                <h4>Connect</h4>
+                <p>Phone: <span>+94 76 639 0768</span></p>
+                <p>Email: <span>hello@pixelcraft.lk</span></p>
                 <br>
-                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--primary-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Follow on Facebook</a>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Facebook ↗</a>
             </div>
         </div>
         
@@ -265,7 +280,7 @@
     </footer>
 
     <script>
-        // 1. Mobile Menu Toggle Logic
+        // 1. Mobile Menu Toggle
         const menuToggle = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('#nav-links');
 
@@ -291,7 +306,18 @@
         window.addEventListener("scroll", reveal);
         document.addEventListener("DOMContentLoaded", reveal);
 
-        // 3. WhatsApp Form Submit Logic
+        // 3. Modern Mouse Glow Effect on Info Cards
+        document.getElementById("info-cards").onmousemove = e => {
+            for(const card of document.getElementsByClassName("card-hover")) {
+                const rect = card.getBoundingClientRect(),
+                      x = e.clientX - rect.left,
+                      y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        };
+
+        // 4. WhatsApp Form Submit Logic
         function sendToWhatsApp() {
             const form = document.getElementById('whatsappForm');
             if (!form.checkValidity()) {
