@@ -3,52 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Designs - Premium Creative Agency</title>
+    <title>Our Work - Modern Creative Agency</title>
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
-        /* --- IMPORT PREMIUM FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap');
+        /* --- IMPORT MODERN TECH FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
-        /* --- LUXURY COLOR VARIABLES --- */
+        /* --- MODERN TECH COLOR VARIABLES --- */
         :root {
-            --primary-color: #D4AF37; /* Premium Gold */
-            --secondary-color: #F3E5AB; /* Light Gold */
-            --dark-bg: #050505; /* Deep Black */
-            --light-bg: #0a0a0a; /* Soft Matte Black */
-            --card-bg: #111111;
-            --text-main: #ffffff;
-            --text-muted: #a0a0a0;
-            --gradient: linear-gradient(135deg, var(--primary-color), #AA801E);
+            --primary: #3b82f6; /* Bright Blue */
+            --secondary: #8b5cf6; /* Vibrant Purple */
+            --accent: #06b6d4; /* Cyan */
+            --bg-deep: #030712; /* Very dark slate/black */
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-text: linear-gradient(135deg, #60a5fa, #c084fc);
+            --gradient-bg: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
-        /* --- GENERAL RESET --- */
+        /* --- GENERAL RESET & BACKGROUND --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--light-bg); color: var(--text-main); font-family: 'Poppins', sans-serif; line-height: 1.7; overflow-x: hidden; }
-        h1, h2, h3, h4, .logo { font-family: 'Playfair Display', serif; }
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.7; 
+            overflow-x: hidden;
+            /* Modern Glowing Background Orbs */
+            background-image: 
+                radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+        
+        h1, h2, h3, h4, .logo { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         /* --- SCROLL REVEAL ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- GLASSMORPHISM NAVBAR --- */
-        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .navbar .logo { font-size: 2rem; font-weight: 800; color: var(--text-main); letter-spacing: 1px; }
-        .navbar .logo span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
+        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+        .navbar .logo span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
         .nav-links { list-style: none; display: flex; gap: 35px; }
-        .nav-links a { color: #d1d5db; text-decoration: none; font-size: 0.95rem; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0; background: var(--gradient); transition: width 0.3s ease; }
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary-color); }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
 
         .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
-        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--primary-color); transition: all 0.3s ease; }
+        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
 
         @media (max-width: 768px) {
-            .navbar .logo { font-size: 1.6rem; }
+            .navbar .logo { font-size: 1.5rem; }
             .menu-toggle { display: flex; }
-            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(10, 10, 10, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(3, 7, 18, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid var(--card-border); }
             .nav-links.active { max-height: 400px; padding: 20px 0; }
             .nav-links a { display: block; padding: 15px 0; }
             #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
@@ -59,49 +71,51 @@
         /* --- PAGE HEADER --- */
         main { padding-top: 130px; min-height: 80vh; }
         .page-header { text-align: center; padding: 40px 20px 20px; }
-        .page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 700; margin-bottom: 15px; }
-        .page-header h2 span { color: var(--primary-color); font-style: italic; }
-        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 300; }
+        .page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .page-header h2 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 400; }
 
-        /* --- PORTFOLIO FILTERS (NEW) --- */
+        /* --- PORTFOLIO FILTERS --- */
         .portfolio-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 50px; padding: 0 5%; }
-        .filter-btn { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: var(--text-muted); padding: 8px 24px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; font-family: 'Poppins', sans-serif; font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-        .filter-btn:hover, .filter-btn.active { border-color: var(--primary-color); color: var(--primary-color); background: rgba(212, 175, 55, 0.05); }
+        .filter-btn { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: var(--text-muted); padding: 10px 24px; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500; backdrop-filter: blur(10px); }
+        .filter-btn:hover, .filter-btn.active { border-color: rgba(96, 165, 250, 0.5); color: #fff; background: rgba(59, 130, 246, 0.1); box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
 
         /* --- GALLERY GRID --- */
         .gallery-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 100px; }
         .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
         
-        .gallery-item { background: var(--card-bg); border-radius: 8px; padding: 25px; border: 1px solid rgba(255,255,255,0.03); text-align: left; transition: all 0.5s ease; position: relative; overflow: hidden; }
-        .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: var(--gradient); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; z-index: 2; }
-        .gallery-item:hover { transform: translateY(-10px); background: #151515; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-        .gallery-item:hover::before { transform: scaleX(1); }
+        .gallery-item { background: var(--card-bg); border-radius: 20px; padding: 25px; border: 1px solid var(--card-border); text-align: left; transition: all 0.5s ease; position: relative; overflow: hidden; backdrop-filter: blur(10px); }
         
-        .image-wrapper { overflow: hidden; border-radius: 4px; margin-bottom: 25px; position: relative; }
-        .gallery-item img { width: 100%; height: 250px; object-fit: cover; transition: all 0.6s ease; display: block; filter: brightness(0.7); }
-        .gallery-item:hover img { transform: scale(1.08); filter: brightness(1.1); }
+        /* Modern Mouse Glow Effect */
+        .gallery-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 1; }
+        .gallery-item:hover::before { opacity: 1; }
+        .gallery-item:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
         
-        .gallery-item h3 { font-size: 1.5rem; margin-bottom: 10px; color: var(--text-main); font-weight: 600; }
-        .gallery-item p { font-size: 0.95rem; color: var(--text-muted); font-weight: 300; line-height: 1.6; }
+        .image-wrapper { overflow: hidden; border-radius: 12px; margin-bottom: 25px; position: relative; z-index: 2; border: 1px solid rgba(255,255,255,0.05); }
+        .gallery-item img { width: 100%; height: 260px; object-fit: cover; transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1); display: block; opacity: 0.85; filter: grayscale(20%); }
+        .gallery-item:hover img { transform: scale(1.05); opacity: 1; filter: grayscale(0%); }
+        
+        .gallery-item h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--text-main); font-weight: 700; position: relative; z-index: 2; }
+        .gallery-item p { font-size: 0.95rem; color: var(--text-muted); font-weight: 400; line-height: 1.6; position: relative; z-index: 2; }
 
         /* --- FLOATING WHATSAPP BUTTON --- */
-        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px; background-color: #25d366; color: #FFF; border-radius: 50px; text-align: center; font-size: 30px; box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; text-decoration: none; }
-        .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 25px rgba(37, 211, 102, 0.5); }
-        .float-wa svg { width: 35px; height: 35px; fill: white; }
+        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; }
+        .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5); }
+        .float-wa svg { width: 32px; height: 32px; fill: white; }
 
-        /* --- PROFESSIONAL FOOTER --- */
-        .footer-pro { background: var(--dark-bg); padding: 80px 5% 30px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .footer-brand h3 { color: var(--primary-color); font-size: 1.8rem; margin-bottom: 20px; }
-        .footer-brand p { color: var(--text-muted); font-weight: 300; line-height: 1.8; }
-        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 1.2rem; margin-bottom: 25px; font-family: 'Poppins', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem;}
+        /* --- CLEAN FOOTER --- */
+        .footer-pro { background: rgba(3,7,18,0.8); padding: 80px 5% 30px; border-top: 1px solid var(--card-border); backdrop-filter: blur(10px); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
+        .footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.95rem; }
+        .footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 25px; font-weight: 600; }
         .footer-links ul { list-style: none; }
         .footer-links ul li { margin-bottom: 15px; }
-        .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-weight: 300; }
-        .footer-links ul li a:hover { color: var(--primary-color); }
-        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-weight: 300; }
-        .footer-contact span { color: var(--primary-color); font-weight: 500; }
-        .footer-bottom { text-align: center; padding-top: 30px; color: #555; font-weight: 300; font-size: 0.9rem; }
+        .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-size: 0.95rem; }
+        .footer-links ul li a:hover { color: var(--text-main); }
+        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-size: 0.95rem; }
+        .footer-contact span { color: var(--primary); font-weight: 500; }
+        .footer-bottom { text-align: center; padding-top: 30px; color: var(--text-muted); font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -130,54 +144,54 @@
     <main>
         <div class="page-header reveal">
             <h2>Creative <span>Showcase</span></h2>
-            <p>Explore a curated selection of recent masterpieces we have brought to life for our premium clients.</p>
+            <p>Explore a curated selection of our most impactful digital and branding projects.</p>
         </div>
 
         <!-- Visual Filter Tabs -->
         <div class="portfolio-filters reveal">
             <button class="filter-btn active">All Work</button>
-            <button class="filter-btn">Branding</button>
-            <button class="filter-btn">Digital</button>
-            <button class="filter-btn">Video</button>
+            <button class="filter-btn">Brand Identity</button>
+            <button class="filter-btn">Digital Marketing</button>
+            <button class="filter-btn">Motion Graphics</button>
         </div>
 
-        <section class="gallery-container">
+        <section class="gallery-container" id="cards">
             <div class="gallery-grid">
                 
-                <div class="gallery-item reveal">
-                    <div class="image-wrapper"><img src="Image 1.jpg" alt="Creative Logo Design" style="background-color: #111;"></div>
-                    <h3>Logo Design</h3>
-                    <p>Minimalist and timeless logo designs engineered to establish a commanding brand presence.</p>
+                <div class="gallery-item reveal card-hover">
+                    <div class="image-wrapper"><img src="Image 1.jpg" alt="Creative Logo Design" style="background-color: #0f172a;"></div>
+                    <h3>Brand Identity</h3>
+                    <p>Minimalist and timeless logo designs engineered to establish a commanding digital presence.</p>
                 </div>
                 
-                <div class="gallery-item reveal">
-                    <div class="image-wrapper"><img src="Image 2.jpg" alt="Social Media Posts" style="background-color: #111;"></div>
-                    <h3>Social Media</h3>
-                    <p>Aesthetic, high-converting digital campaigns crafted to maximize your online engagement.</p>
+                <div class="gallery-item reveal card-hover">
+                    <div class="image-wrapper"><img src="Image 2.jpg" alt="Social Media Posts" style="background-color: #0f172a;"></div>
+                    <h3>Social Media Campaigns</h3>
+                    <p>Aesthetic, data-driven digital campaigns crafted to maximize online engagement and ROI.</p>
                 </div>
                 
-                <div class="gallery-item reveal">
-                    <div class="image-wrapper"><img src="image 3.jpg" alt="Professional Video Editing" style="background-color: #111;"></div>
+                <div class="gallery-item reveal card-hover">
+                    <div class="image-wrapper"><img src="image 3.jpg" alt="Professional Video Editing" style="background-color: #0f172a;"></div>
                     <h3>Cinematic Edits</h3>
-                    <p>Professional, dynamic video editing services tailored for high-end digital platforms.</p>
+                    <p>Professional, dynamic video editing and motion graphics tailored for high-end platforms.</p>
                 </div>
                 
-                <div class="gallery-item reveal">
-                    <div class="image-wrapper"><img src="Image 4.jpg" alt="Modern Banner Design" style="background-color: #111;"></div>
+                <div class="gallery-item reveal card-hover">
+                    <div class="image-wrapper"><img src="Image 4.jpg" alt="Modern Banner Design" style="background-color: #0f172a;"></div>
                     <h3>Commercial Banners</h3>
                     <p>Visually striking banner layouts designed to capture attention and communicate authority.</p>
                 </div>
                 
-                <div class="gallery-item reveal">
-                    <div class="image-wrapper"><img src="Image 5.jpg" alt="Company Letterhead" style="background-color: #111;"></div>
+                <div class="gallery-item reveal card-hover">
+                    <div class="image-wrapper"><img src="Image 5.jpg" alt="Company Letterhead" style="background-color: #0f172a;"></div>
                     <h3>Corporate Identity</h3>
                     <p>Clean, formal, and strictly branded stationery designed for elite corporate communications.</p>
                 </div>
                 
-                <div class="gallery-item reveal">
-                    <div class="image-wrapper"><img src="Image 6.png" alt="Creative Leaflets" style="background-color: #111;"></div>
+                <div class="gallery-item reveal card-hover">
+                    <div class="image-wrapper"><img src="Image 6.png" alt="Creative Leaflets" style="background-color: #0f172a;"></div>
                     <h3>Print Media</h3>
-                    <p>Luxurious print designs and brochures crafted to physically represent your brand's excellence.</p>
+                    <p>Premium print designs and packaging crafted to physically represent your brand's excellence.</p>
                 </div>
 
             </div>
@@ -189,32 +203,29 @@
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92 13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0 13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98 1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0 01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6 11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1 .1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95 2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85 1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
     </a>
 
-    <footer class="footer-pro reveal">
+    <footer class="footer-pro">
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Pixel Craft Studio</h3>
-                <p>Delivering high-quality, premium digital and print design solutions to elevate your brand's presence globally.</p>
+                <p>Crafting next-generation digital experiences and robust brand identities for the modern web.</p>
             </div>
-            
             <div class="footer-links">
-                <h4>Quick Links</h4>
+                <h4>Navigation</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="Designs.html">Portfolio</a></li>
-                    <li><a href="Services.html">Our Services</a></li>
-                    <li><a href="Contact Us.html">Contact Us</a></li>
+                    <li><a href="Designs.html">Work</a></li>
+                    <li><a href="Services.html">Services</a></li>
+                    <li><a href="About Us.html">Agency</a></li>
                 </ul>
             </div>
-
             <div class="footer-contact">
-                <h4>Get In Touch</h4>
-                <p>Phone & WA: <span>+94 76 639 0768</span></p>
-                <p>Available: <span>Mon - Sun, 9AM - 10PM</span></p>
+                <h4>Connect</h4>
+                <p>Phone: <span>+94 76 639 0768</span></p>
+                <p>Email: <span>hello@pixelcraft.lk</span></p>
                 <br>
-                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--primary-color); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Follow on Facebook</a>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Facebook ↗</a>
             </div>
         </div>
-        
         <div class="footer-bottom">
             <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
         </div>
@@ -247,7 +258,7 @@
         window.addEventListener("scroll", reveal);
         document.addEventListener("DOMContentLoaded", reveal);
         
-        // 3. Optional: Filter Button Visual Toggle (No JS filtering logic added to keep it simple, just visual active state)
+        // 3. Filter Button Visual Toggle
         const filterBtns = document.querySelectorAll('.filter-btn');
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -255,6 +266,17 @@
                 btn.classList.add('active');
             });
         });
+
+        // 4. Modern Mouse Glow Effect on Cards
+        document.getElementById("cards").onmousemove = e => {
+            for(const card of document.getElementsByClassName("card-hover")) {
+                const rect = card.getBoundingClientRect(),
+                      x = e.clientX - rect.left,
+                      y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
+        };
     </script>
 
 </body>
