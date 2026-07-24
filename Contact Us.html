@@ -289,14 +289,15 @@ textarea { resize: vertical; min-height: 140px; }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-// IMPORTANT: REPLACE THESE WITH YOUR FIREBASE CONFIG VALUES!
+// Exact Firebase Config provided
 const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_PROJECT_ID.appspot.com",
-messagingSenderId: "YOUR_SENDER_ID",
-appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyDeB7_uqC-sk3fbNyMZmWe8wZjrbYvyBrY",
+  authDomain: "pixel-craft-c6717.firebaseapp.com",
+  projectId: "pixel-craft-c6717",
+  storageBucket: "pixel-craft-c6717.firebasestorage.app",
+  messagingSenderId: "540712193494",
+  appId: "1:540712193494:web:79afc5be7a96ece0b12877",
+  measurementId: "G-TNNHDKSQDT"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -350,7 +351,7 @@ window.open(`https://wa.me/94766390768?text=${msg}`, '_blank');
 }
 </script>
 
-<!-- --- UI LOGIC SCRIPT (Kept exactly the same) --- -->
+<!-- --- UI LOGIC SCRIPT --- -->
 <script>
 const menuToggle = document.querySelector('#mobile-menu');
 const navLinks = document.querySelector('#nav-links');
