@@ -7,15 +7,14 @@
 <link rel="icon" type="image/png" href="Favicon.png">
 <style>
 /* --- IMPORT MODERN TECH FONTS --- */
-@import
-url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sa
-ns:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
 /* --- MODERN TECH COLOR VARIABLES --- */
 :root {
---primary: #3b82f6; /* Bright Blue */
---secondary: #8b5cf6; /* Vibrant Purple */
---accent: #06b6d4; /* Cyan */
---bg-deep: #030712; /* Very dark slate/black */
+--primary: #3b82f6;
+--secondary: #8b5cf6;
+--accent: #06b6d4;
+--bg-deep: #030712;
 --card-bg: rgba(255, 255, 255, 0.03);
 --card-border: rgba(255, 255, 255, 0.08);
 --text-main: #f8fafc;
@@ -33,38 +32,30 @@ color: var(--text-main);
 font-family: 'Inter', sans-serif;
 line-height: 1.7;
 overflow-x: hidden;
-/* Modern Glowing Background Orbs */
-background-image:
-radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
-radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+background-image: radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%), radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
 background-attachment: fixed;
 }
+
 h1, h2, h3, h4, .logo { font-family: 'Plus Jakarta Sans', sans-serif; }
+
 /* --- SCROLL REVEAL ANIMATIONS --- */
 .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
 .reveal.active { opacity: 1; transform: translateY(0); }
+
 /* --- GLASSMORPHISM NAVBAR --- */
-.navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3,
-7, 18, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 20px 5%;
-position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
-.navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px;
-}
-.navbar .logo span { background: var(--gradient-text); -webkit-background-clip: text;
--webkit-text-fill-color: transparent; }
+.navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
+.navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+.navbar .logo span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .nav-links { list-style: none; display: flex; gap: 35px; }
-.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight:
-500; transition: color 0.3s ease; }
-.nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 15px rgba(255,
-255, 255, 0.3); }
+.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s ease; }
+.nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
 .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
-.menu-toggle .bar { width: 30px; height: 2px; background-color: var(--text-main); transition: all
-0.3s ease; }
+.menu-toggle .bar { width: 30px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
+
 @media (max-width: 768px) {
 .navbar .logo { font-size: 1.5rem; }
 .menu-toggle { display: flex; }
-.nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(3, 7, 18,
-0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition:
-max-height 0.4s ease-in-out; border-bottom: 1px solid var(--card-border); }
+.nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(3, 7, 18, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid var(--card-border); }
 .nav-links.active { max-height: 400px; padding: 20px 0; }
 .nav-links a { display: block; padding: 15px 0; }
 #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
@@ -75,102 +66,66 @@ max-height 0.4s ease-in-out; border-bottom: 1px solid var(--card-border); }
 /* --- PAGE HEADER --- */
 main { padding-top: 130px; min-height: 80vh; }
 .page-header { text-align: center; padding: 40px 20px 40px; }
-.page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 800; margin-bottom:
-15px; letter-spacing: -1px; }
-.page-header h2 span { background: var(--gradient-text); -webkit-background-clip: text;
--webkit-text-fill-color: transparent; }
-.page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto;
-font-weight: 400; }
+.page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+.page-header h2 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 400; }
+
 /* --- CONTACT LAYOUT --- */
-.contact-wrapper { max-width: 1300px; margin: 0 auto 100px; padding: 0 5%; display: grid;
-grid-template-columns: 1.5fr 1fr; gap: 60px; }
+.contact-wrapper { max-width: 1300px; margin: 0 auto 100px; padding: 0 5%; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; }
 @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; gap: 40px; } }
-/* Form Container */
-.contact-form-container { background: var(--card-bg); padding: 50px 40px; border-radius: 20px;
-border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 25px 50px -12px
-rgba(0,0,0,0.5); }
-.contact-form-container h3 { font-size: 2rem; margin-bottom: 30px; color: var(--text-main);
-font-weight: 700; letter-spacing: -0.5px; }
+
+.contact-form-container { background: var(--card-bg); padding: 50px 40px; border-radius: 20px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+.contact-form-container h3 { font-size: 2rem; margin-bottom: 30px; color: var(--text-main); font-weight: 700; letter-spacing: -0.5px; }
 .form-group { margin-bottom: 25px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
 @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
-label { display: block; margin-bottom: 10px; font-weight: 500; color: var(--text-muted); font-size:
-0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding:
-16px 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 1rem; font-family:
-'Inter', sans-serif; color: var(--text-main); background-color: rgba(255,255,255,0.02); transition: all
-0.3s ease; }
-input:focus, select:focus, textarea:focus { outline: none; border-color: rgba(96, 165, 250, 0.5);
-background-color: rgba(255,255,255,0.05); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
+
+label { display: block; margin-bottom: 10px; font-weight: 500; color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
+input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; color: var(--text-main); background-color: rgba(255,255,255,0.02); transition: all 0.3s ease; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: rgba(96, 165, 250, 0.5); background-color: rgba(255,255,255,0.05); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
 select option { background-color: var(--bg-deep); color: var(--text-main); }
 textarea { resize: vertical; min-height: 140px; }
-.btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 16px
-36px; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: 600; text-transform:
-uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130,
-246, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; width: 100%; text-align: center;
-}
-.btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246,
-0.4); }
+
+.btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 16px 36px; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; width: 100%; text-align: center; }
+.btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
 .btn-modern:disabled { opacity: 0.7; cursor: not-allowed; transform: none; box-shadow: none; }
+
 /* Success Message Box */
-.success-message { display: none; text-align: center; background: rgba(16, 185, 129, 0.1);
-border: 1px solid rgba(16, 185, 129, 0.3); padding: 40px 20px; border-radius: 15px; }
+.success-message { display: none; text-align: center; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 40px 20px; border-radius: 15px; }
 .success-message h3 { color: #10b981; font-size: 1.8rem; margin-bottom: 15px; }
 .success-message p { color: var(--text-main); font-size: 1.1rem; margin-bottom: 10px; }
-.success-message .order-id { font-size: 1.3rem; font-weight: 700; color: var(--primary);
-letter-spacing: 2px; margin: 15px 0; background: rgba(59, 130, 246, 0.1); padding: 10px;
-border-radius: 8px; display: inline-block; }
+.success-message .order-id { font-size: 1.3rem; font-weight: 700; color: var(--primary); letter-spacing: 2px; margin: 15px 0; background: rgba(59, 130, 246, 0.1); padding: 10px; border-radius: 8px; display: inline-block; }
 
 /* Info Cards Container */
 .contact-info-container { display: flex; flex-direction: column; gap: 30px; }
-.info-card { background: var(--card-bg); padding: 40px 30px; border-radius: 16px; border: 1px
-solid var(--card-border); transition: all 0.4s ease; position: relative; overflow: hidden; backdrop-filter:
-blur(10px); }
-.info-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255,
-0.06), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 1; }
+.info-card { background: var(--card-bg); padding: 40px 30px; border-radius: 16px; border: 1px solid var(--card-border); transition: all 0.4s ease; position: relative; overflow: hidden; backdrop-filter: blur(10px); }
+.info-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 1; }
 .info-card:hover::before { opacity: 1; }
-.info-card:hover { transform: translateY(-5px); border-color: rgba(96, 165, 250, 0.3);
-background: rgba(255,255,255,0.04); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2); }
-.info-card h4 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); font-weight: 700;
-position: relative; z-index: 2; }
-.info-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 8px; font-weight: 400;
-position: relative; z-index: 2; }
+.info-card:hover { transform: translateY(-5px); border-color: rgba(96, 165, 250, 0.3); background: rgba(255,255,255,0.04); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2); }
+.info-card h4 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); font-weight: 700; position: relative; z-index: 2; }
+.info-card p { color: var(--text-muted); font-size: 1rem; margin-bottom: 8px; font-weight: 400; position: relative; z-index: 2; }
 .info-card p strong { color: var(--text-main); font-weight: 600; }
-.whatsapp-btn { display: inline-block; border: 1px solid #25D366; color: #25D366; background:
-rgba(37, 211, 102, 0.05); padding: 12px 28px; border-radius: 50px; text-decoration: none;
-font-weight: 600; margin-top: 20px; transition: all 0.3s ease; text-transform: uppercase;
-letter-spacing: 1px; font-size: 0.9rem; position: relative; z-index: 2; }
-.whatsapp-btn:hover { background-color: #25D366; color: #fff; box-shadow: 0 0 15px rgba(37,
-211, 102, 0.4); }
+.whatsapp-btn { display: inline-block; border: 1px solid #25D366; color: #25D366; background: rgba(37, 211, 102, 0.05); padding: 12px 28px; border-radius: 50px; text-decoration: none; font-weight: 600; margin-top: 20px; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; position: relative; z-index: 2; }
+.whatsapp-btn:hover { background-color: #25D366; color: #fff; box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
+
 /* --- FLOATING WHATSAPP BUTTON --- */
-.float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px;
-background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center;
-justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all
-0.3s ease; }
+.float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; }
 .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5); }
 .float-wa svg { width: 32px; height: 32px; fill: white; }
+
 /* --- CLEAN FOOTER --- */
-.footer-pro { background: rgba(3,7,18,0.8); padding: 80px 5% 30px; border-top: 1px solid
-var(--card-border); backdrop-filter: blur(10px); }
-.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:
-50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid
-var(--card-border); }
-.footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px; font-weight:
-800; letter-spacing: -0.5px; }
+.footer-pro { background: rgba(3,7,18,0.8); padding: 80px 5% 30px; border-top: 1px solid var(--card-border); backdrop-filter: blur(10px); }
+.footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
+.footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px; }
 .footer-brand p { color: var(--text-muted); font-size: 0.95rem; }
-.footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom:
-25px; font-weight: 600; }
+.footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 25px; font-weight: 600; }
 .footer-links ul { list-style: none; }
 .footer-links ul li { margin-bottom: 15px; }
-.footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease;
-font-size: 0.95rem; }
+.footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-size: 0.95rem; }
 .footer-links ul li a:hover { color: var(--text-main); }
 .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-size: 0.95rem; }
 .footer-contact span { color: var(--primary); font-weight: 500; }
-.footer-bottom { text-align: center; padding-top: 30px; color: var(--text-muted); font-size:
-
-0.85rem; }
+.footer-bottom { text-align: center; padding-top: 30px; color: var(--text-muted); font-size: 0.85rem; }
 </style>
 </head>
 <body>
@@ -192,36 +147,30 @@ font-size: 0.95rem; }
 </ul>
 </nav>
 </header>
+
 <main>
 <div class="page-header reveal">
 <h2>Let's Talk <span>Business</span></h2>
-<p>Tell us about your vision. We are ready to build it with precision and modern
-technology.</p>
+<p>Tell us about your vision. We are ready to build it with precision and modern technology.</p>
 </div>
+
 <section class="contact-wrapper">
 <div class="contact-form-container reveal">
 <!-- Success Message Container (Hidden by default) -->
 <div id="success-box" class="success-message">
 <h3>Request Received Successfully!</h3>
-<p>Thank you for reaching out to Pixel Craft Studio. Your project request has been
-
-logged securely in our system.</p>
-
+<p>Thank you for reaching out to Pixel Craft Studio. Your project request has been logged securely in our system.</p>
 <p>Your Project Tracking ID is:</p>
 <div class="order-id" id="display-order-id">---</div>
-<p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 25px;">Our team
-
-will review your requirements and share a secure quotation link with you shortly.</p>
-<button class="btn-modern" onclick="notifyWhatsApp()">Notify Us on
-
-WhatsApp</button>
+<p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 25px;">Our team will review your requirements and share a secure quotation link with you shortly.</p>
+<button class="btn-modern" onclick="notifyWhatsApp()">Notify Us on WhatsApp</button>
 </div>
+
 <!-- Main Form -->
 <div id="form-box">
 <h3>Project Inquiry</h3>
 <form id="projectForm">
 <div class="form-row">
-
 <div class="form-group">
 <label for="name">Your Name</label>
 <input type="text" id="name" placeholder="e.g. John Doe" required>
@@ -231,6 +180,7 @@ WhatsApp</button>
 <input type="email" id="email" placeholder="john@example.com" required>
 </div>
 </div>
+
 <div class="form-row">
 <div class="form-group">
 <label for="phone">Phone / WhatsApp</label>
@@ -241,6 +191,7 @@ WhatsApp</button>
 <input type="text" id="business" placeholder="Company Name (Optional)">
 </div>
 </div>
+
 <div class="form-row">
 <div class="form-group">
 <label for="service">Service Interested In</label>
@@ -249,53 +200,40 @@ WhatsApp</button>
 <option value="Brand Identity / Logo">Brand Identity / Logo</option>
 <option value="UI/UX & Web Design">UI/UX & Web Design</option>
 <option value="Video Production">Video Production</option>
-<option value="Digital Marketing / Social Media">Digital Marketing / Social
-
-Media</option>
-
+<option value="Digital Marketing / Social Media">Digital Marketing / Social Media</option>
 <option value="Commercial Banners">Commercial Banners</option>
 <option value="Print & Packaging">Print & Packaging</option>
 <option value="Multiple Services">Multiple Services</option>
 </select>
 </div>
+
 <div class="form-group">
 <label for="budget">Estimated Budget</label>
 <select id="budget" required>
 <option value="" disabled selected>Select an option...</option>
 <option value="Basic / Starter Budget">Basic / Starter Budget</option>
 <option value="Standard Budget">Standard Budget</option>
-<option value="Premium / Enterprise Budget">Premium / Enterprise
-
-Budget</option>
-
+<option value="Premium / Enterprise Budget">Premium / Enterprise Budget</option>
 <option value="To be discussed">To be discussed</option>
 </select>
 </div>
 </div>
+
 <div class="form-group">
 <label for="message">Project Description</label>
-<textarea id="message" placeholder="Tell us about your project goals, timelines,
-
-and requirements..." required></textarea>
-
+<textarea id="message" placeholder="Tell us about your project goals, timelines, and requirements..." required></textarea>
 </div>
-<button type="submit" class="btn-modern" id="submitBtn">Submit Project
 
-Request</button>
-
+<button type="submit" class="btn-modern" id="submitBtn">Submit Project Request</button>
 </form>
 </div>
 </div>
+
 <div class="contact-info-container" id="info-cards">
 <div class="info-card reveal card-hover">
 <h4>Direct Message</h4>
-<p>Need a quick response? The fastest way to reach our team is directly through
-
-WhatsApp.</p>
-
-<a href="https://wa.link/dgf22q" class="whatsapp-btn" target="_blank">Chat on
-
-WhatsApp</a>
+<p>Need a quick response? The fastest way to reach our team is directly through WhatsApp.</p>
+<a href="https://wa.link/dgf22q" class="whatsapp-btn" target="_blank">Chat on WhatsApp</a>
 </div>
 <div class="info-card reveal card-hover">
 <h4>Contact Details</h4>
@@ -311,32 +249,23 @@ WhatsApp</a>
 </div>
 </section>
 </main>
+
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.link/dgf22q" class="float-wa" target="_blank" title="Chat with us on
-WhatsApp">
-<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92
-13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0
-13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98
-1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0
-01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6
-11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1
-.1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95
-2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85
-1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
+<a href="https://wa.link/dgf22q" class="float-wa" target="_blank" title="Chat with us on WhatsApp">
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92 13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0 13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98 1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0 01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6 11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1 .1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95 2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85 1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
 </a>
+
 <footer class="footer-pro">
 <div class="footer-content">
 <div class="footer-brand">
 <h3>Pixel Craft Studio</h3>
-<p>Crafting next-generation digital experiences and robust brand identities for the modern
-web.</p>
+<p>Crafting next-generation digital experiences and robust brand identities for the modern web.</p>
 </div>
 <div class="footer-links">
 <h4>Navigation</h4>
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="Designs.html">Work</a></li>
-
 <li><a href="Services.html">Services</a></li>
 <li><a href="Contact Us.html">Contact</a></li>
 <li><a href="admin.html">Authorized Persons Only</a></li>
@@ -347,19 +276,19 @@ web.</p>
 <p>Phone: <span>+94 76 639 0768</span></p>
 <p>Email: <span>hello@pixelcraft.lk</span></p>
 <br>
-<a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--text-main);
-text-decoration: none; font-weight: 500;">Facebook ↗</a>
+<a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Facebook ↗</a>
 </div>
 </div>
 <div class="footer-bottom">
 <p>© 2026 Pixel Craft Studio. All Rights Reserved.</p>
 </div>
 </footer>
+
 <!-- --- FIREBASE INTEGRATION SCRIPT --- -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, collection, addDoc, serverTimestamp } from
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
 // IMPORTANT: REPLACE THESE WITH YOUR FIREBASE CONFIG VALUES!
 const firebaseConfig = {
 apiKey: "YOUR_API_KEY",
@@ -369,21 +298,23 @@ storageBucket: "YOUR_PROJECT_ID.appspot.com",
 messagingSenderId: "YOUR_SENDER_ID",
 appId: "YOUR_APP_ID"
 };
+
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 let generatedOrderId = "";
+
 document.getElementById('projectForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 const btn = document.getElementById('submitBtn');
 btn.innerText = 'Submitting Request...';
 btn.disabled = true;
+
 try {
 // Add document to "orders" collection
 const docRef = await addDoc(collection(db, "orders"), {
 name: document.getElementById('name').value,
 email: document.getElementById('email').value,
 phone: document.getElementById('phone').value || 'Not provided',
-
 business: document.getElementById('business').value || 'Not provided',
 service: document.getElementById('service').value,
 client_budget: document.getElementById('budget').value,
@@ -395,11 +326,14 @@ advance: 0,
 timeline: "To be decided",
 createdAt: serverTimestamp()
 });
+
 generatedOrderId = docRef.id;
+
 // Hide form, show success message
 document.getElementById('form-box').style.display = 'none';
 document.getElementById('display-order-id').innerText = generatedOrderId;
 document.getElementById('success-box').style.display = 'block';
+
 } catch(error) {
 console.error("Error writing document: ", error);
 alert("Error submitting your request. Please check your connection and try again.");
@@ -407,23 +341,25 @@ btn.innerText = 'Submit Project Request';
 btn.disabled = false;
 }
 });
+
 // Expose function to global window so the standard onclick works
 window.notifyWhatsApp = function() {
 if(!generatedOrderId) return;
-const msg = encodeURIComponent(`Hi Pixel Craft Studio, I just submitted a project request
-on your website.\n\nMy temporary Project ID is: ${generatedOrderId}\nPlease check and send me
-the quotation link.`);
+const msg = encodeURIComponent(`Hi Pixel Craft Studio, I just submitted a project request on your website.\n\nMy temporary Project ID is: ${generatedOrderId}\nPlease check and send me the quotation link.`);
 window.open(`https://wa.me/94766390768?text=${msg}`, '_blank');
 }
 </script>
+
 <!-- --- UI LOGIC SCRIPT (Kept exactly the same) --- -->
 <script>
 const menuToggle = document.querySelector('#mobile-menu');
 const navLinks = document.querySelector('#nav-links');
+
 menuToggle.addEventListener('click', function() {
 menuToggle.classList.toggle('is-active');
 navLinks.classList.toggle('active');
 });
+
 function reveal() {
 var reveals = document.querySelectorAll(".reveal");
 for (var i = 0; i < reveals.length; i++) {
@@ -436,8 +372,10 @@ reveals[i].classList.add("active");
 }
 }
 }
+
 window.addEventListener("scroll", reveal);
 document.addEventListener("DOMContentLoaded", reveal);
+
 document.getElementById("info-cards").onmousemove = e => {
 for(const card of document.getElementsByClassName("card-hover")) {
 const rect = card.getBoundingClientRect(),
