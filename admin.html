@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Admin - Pixel Craft Studio</title>
+    <!-- Chart.js for Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- html2pdf for Invoice Generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
@@ -524,7 +526,7 @@
             document.getElementById('inv-adv').innerText = document.getElementById('m-advance').value;
             document.getElementById('inv-tot').innerText = document.getElementById('m-budget').value;
 
-            // Generate PDF
+            // Generate PDF with windowWidth fix
             const element = document.getElementById('invoice-template');
             element.style.display = 'block';
             
@@ -532,7 +534,7 @@
                 margin: 10,
                 filename: `Invoice_${order.name.replace(/\s+/g, '_')}.pdf`,
                 image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
+                html2canvas: { scale: 2, windowWidth: 800 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             }).from(element).save().then(() => {
                 element.style.display = 'none'; // hide again
