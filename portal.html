@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Portal - Pixel Craft Studio</title>
+    <link href="Favicon.png" rel="icon" type="image/png">
+    <style>
+        /* --- IMPORT MODERN TECH FONTS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+
+        /* --- MODERN TECH COLOR VARIABLES --- */
+        :root {
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --bg-deep: #030712;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --gradient-text: linear-gradient(135deg, #60a5fa, #c084fc);
+            --gradient-bg: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg-deep); 
+            color: var(--text-main); 
+            font-family: 'Inter', sans-serif; 
+            line-height: 1.7; 
+            padding: 40px 20px;
+            background-image: 
+                radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        .portal-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 800px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+        }
+
+        .header { text-align: center; margin-bottom: 40px; border-bottom: 1px solid var(--card-border); padding-bottom: 30px; }
+        .header h1 { font-size: 2.2rem; margin-bottom: 10px; }
+        .header h1 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header p { color: var(--text-muted); font-size: 1rem; }
+
+        .loader { text-align: center; padding: 50px; font-size: 1.2rem; color: var(--primary); font-weight: 500; }
+        .error-message { display: none; text-align: center; color: #ef4444; background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 10px; border: 1px solid rgba(239, 68, 68, 0.3); margin-bottom: 20px; }
+
+        .content { display: none; } /* Hidden by default until data loads */
+
+        /* Status Tracker */
+        .status-container { margin-bottom: 40px; }
+        .status-container h3 { font-size: 1.2rem; margin-bottom: 20px; color: var(--text-main); }
+        .tracker { display: flex; justify-content: space-between; position: relative; }
+        .tracker::before {
+            content: ''; position: absolute; top: 15px; left: 0; width: 100%; height: 3px; background: var(--card-border); z-index: 1;
+        }
+        .step { position: relative; z-index: 2; text-align: center; width: 25%; }
+        .step-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--bg-deep); border: 2px solid var(--card-border); margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: var(--text-muted); transition: all 0.3s ease; }
+        .step.active .step-icon { background: var(--primary); border-color: var(--primary); color: white; box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+        .step.completed .step-icon { background: var(--success); border-color: var(--success); color: white; }
+        .step-label { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+        .step.active .step-label { color: var(--primary); }
+        
+        @media (max-width: 600px) {
+            .tracker { flex-direction: column; gap: 20px; }
+            .tracker::before { display: none; }
+            .step { width: 100%; display: flex; align-items: center; gap: 15px; text-align: left; }
+            .step-icon { margin: 0; }
+        }
+
+        /* Order Details */
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 40px; }
+        @media (max-width: 600px) { .details-grid { grid-template-columns: 1fr; } }
+        .detail-item { background: rgba(255, 255, 255, 0.02); padding: 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .detail-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 5px; }
+        .detail-value { font-size: 1.1rem; font-weight: 600; color: var(--text-main); }
+        .price-highlight { color: var(--primary); font-size: 1.3rem; }
+
+        /* Payment Section */
+        .payment-section { background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 30px; margin-bottom: 30px; text-align: center; }
+        .payment-section h3 { margin-bottom: 15px; color: var(--primary); }
+        .payment-section p { font-size: 0.95rem; margin-bottom: 20px; color: var(--text-muted); }
+        
+        .bank-details { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; display: inline-block; text-align: left; margin-bottom: 20px; }
+        .bank-details p { margin-bottom: 5px; font-size: 0.9rem; color: var(--text-main); }
+        .bank-details span { color: var(--text-muted); }
+
+        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 14px 30px; text-decoration: none; border-radius: 8px; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); border: none; cursor: pointer; width: 100%; max-width: 300px; margin: 0 auto; }
+        .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
+        
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); box-shadow: none; margin-top: 15px; }
+        .btn-outline:hover { background: rgba(59, 130, 246, 0.1); transform: translateY(-3px); }
+
+    </style>
+</head>
+<body>
+
+    <div class="portal-container">
+        <div class="header">
+            <h1>Pixel<span>Craft</span> Portal</h1>
+            <p>Secure Client Dashboard</p>
+        </div>
+
+        <div id="loader" class="loader">Loading your project details...</div>
+        <div id="error-message" class="error-message">Invalid or missing Order Link. Please contact support.</div>
+
+        <div id="portal-content" class="content">
+            
+            <!-- Status Tracker -->
+            <div class="status-container">
+                <h3>Project Status</h3>
+                <div class="tracker">
+                    <div class="step completed" id="step-1">
+                        <div class="step-icon">✓</div>
+                        <div class="step-label">Reviewed</div>
+                    </div>
+                    <div class="step active" id="step-2">
+                        <div class="step-icon">2</div>
+                        <div class="step-label">Awaiting Advance</div>
+                    </div>
+                    <div class="step" id="step-3">
+                        <div class="step-icon">3</div>
+                        <div class="step-label">In Progress</div>
+                    </div>
+                    <div class="step" id="step-4">
+                        <div class="step-icon">4</div>
+                        <div class="step-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Details -->
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Service</div>
+                    <div class="detail-value" id="disp-service">Brand Identity / Logo</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Timeline</div>
+                    <div class="detail-value" id="disp-timeline">3-5 Business Days</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Total Budget</div>
+                    <div class="detail-value price-highlight" id="disp-budget">Rs. 25,000</div>
+                </div>
+                <div class="detail-item" id="advance-block">
+                    <div class="detail-label">Required Advance (50%)</div>
+                    <div class="detail-value" style="color: var(--warning);" id="disp-advance">Rs. 12,500</div>
+                </div>
+            </div>
+
+            <!-- Payment Action -->
+            <div class="payment-section" id="action-section">
+                <h3>Ready to Start?</h3>
+                <p>To commence work on your project, please secure your order by transferring the advance payment amount.</p>
+                
+                <div class="bank-details">
+                    <p><span>Bank:</span> Commercial Bank</p>
+                    <p><span>Acc Name:</span> Pixel Craft Studio</p>
+                    <p><span>Acc No:</span> 1234567890</p>
+                    <p><span>Branch:</span> Colombo</p>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 15px; align-items: center;">
+                    <a href="#" class="btn-modern" id="upload-slip-btn" onclick="sendSlipWhatsApp()">Send Payment Slip</a>
+                    <button class="btn-modern btn-outline" id="accept-quote-btn" onclick="acceptQuote()">I Accept - Will Pay Later</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Firebase SDK (Modular) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Exact Firebase Config provided
+        const firebaseConfig = {
+            apiKey: "AIzaSyDeB7_uqC-sk3fbNyMZmWe8wZjrbYvyBrY",
+            authDomain: "pixel-craft-c6717.firebaseapp.com",
+            projectId: "pixel-craft-c6717",
+            storageBucket: "pixel-craft-c6717.firebasestorage.app",
+            messagingSenderId: "540712193494",
+            appId: "1:540712193494:web:79afc5be7a96ece0b12877",
+            measurementId: "G-TNNHDKSQDT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Function to grab ID from URL (e.g., domain.com/portal.html?id=12345)
+        const urlParams = new URLSearchParams(window.location.search);
+        const orderId = urlParams.get('id');
+
+        const loader = document.getElementById('loader');
+        const content = document.getElementById('portal-content');
+        const errorMsg = document.getElementById('error-message');
+
+        let orderData = null; // Store data globally for button clicks
+
+        if (!orderId) {
+            loader.style.display = 'none';
+            errorMsg.style.display = 'block';
+        } else {
+            // Fetch data from Firebase
+            loadOrderData(orderId);
+        }
+
+        async function loadOrderData(id) {
+            try {
+                const docRef = doc(db, "orders", id);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    orderData = docSnap.data();
+                    
+                    // Populate UI with fetched data
+                    document.getElementById('disp-service').textContent = orderData.service || "N/A";
+                    document.getElementById('disp-timeline').textContent = orderData.timeline || "TBD";
+                    document.getElementById('disp-budget').textContent = `Rs. ${orderData.budget || 0}`;
+                    
+                    if(orderData.advance > 0) {
+                         document.getElementById('disp-advance').textContent = `Rs. ${orderData.advance}`;
+                    } else {
+                         document.getElementById('disp-advance').textContent = "No Advance Required";
+                         document.getElementById('disp-advance').style.color = "var(--success)";
+                         // Update payment text if no advance
+                         document.querySelector('.payment-section p').textContent = "Please confirm the project details to begin.";
+                         document.getElementById('upload-slip-btn').style.display = "none";
+                         document.querySelector('.bank-details').style.display = "none";
+                         document.getElementById('accept-quote-btn').textContent = "Accept & Start Project";
+                    }
+
+                    // Update Status UI
+                    updateStatusUI(orderData.status);
+
+                    loader.style.display = 'none';
+                    content.style.display = 'block';
+                } else {
+                    loader.style.display = 'none';
+                    errorMsg.textContent = "Order not found. Please check your link.";
+                    errorMsg.style.display = 'block';
+                }
+            } catch (error) {
+                console.error("Error fetching document:", error);
+                loader.style.display = 'none';
+                errorMsg.textContent = "Error loading data. Please try again.";
+                errorMsg.style.display = 'block';
+            }
+        }
+
+        function updateStatusUI(status) {
+            // Statuses: 'reviewed', 'awaiting_advance', 'in_progress', 'completed'
+            const steps = document.querySelectorAll('.step');
+            steps.forEach(step => {
+                step.classList.remove('active', 'completed');
+            });
+
+            if(status === 'reviewed' || status === 'awaiting_advance') {
+                document.getElementById('step-1').classList.add('completed');
+                document.getElementById('step-2').classList.add('active');
+            } else if (status === 'in_progress') {
+                document.getElementById('step-1').classList.add('completed');
+                document.getElementById('step-2').classList.add('completed');
+                document.getElementById('step-3').classList.add('active');
+                document.getElementById('action-section').innerHTML = "<h3>Work in Progress</h3><p>Our team is currently working on your project. We will update you here once it is ready for review.</p>";
+            } else if (status === 'completed') {
+                steps.forEach(s => s.classList.add('completed'));
+                document.getElementById('action-section').innerHTML = "<h3>Project Completed</h3><p>Your project is finished. Please contact us for final file delivery.</p>";
+            }
+        }
+    </script>
+
+    <script>
+        // Normal JS Functions for Buttons
+        function sendSlipWhatsApp() {
+            const orderId = new URLSearchParams(window.location.search).get('id');
+            const msg = encodeURIComponent(`Hello Pixel Craft Studio,\n\nHere is the payment slip for my Order ID: ${orderId}. Please check and confirm.`);
+            window.open(`https://wa.me/94766390768?text=${msg}`, '_blank');
+        }
+
+        function acceptQuote() {
+             const orderId = new URLSearchParams(window.location.search).get('id');
+             const msg = encodeURIComponent(`Hello Pixel Craft Studio,\n\I accept the quote for Order ID: ${orderId}. Let's proceed.`);
+             window.open(`https://wa.me/94766390768?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
