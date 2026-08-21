@@ -128,7 +128,7 @@
         .gallery-card:hover .gallery-overlay p { transform: translateY(0); opacity: 1; }
 
         /* --- MODERN SERVICES GRID --- */
-        .grid-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 120px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .grid-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .card { background: var(--card-bg); border-radius: 20px; padding: 40px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
         
         /* Modern Card Glow Effect */
@@ -143,7 +143,7 @@
         .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; position: relative; z-index: 2; }
 
         /* --- MODERN CTA BANNER --- */
-        .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; }
+        .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; margin-top: 80px; }
         .cta-banner::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%); z-index: 0; pointer-events: none; }
         .cta-banner h2, .cta-banner p, .cta-banner a { position: relative; z-index: 1; }
         .cta-banner h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; color: var(--text-main); letter-spacing: -1px; }
@@ -209,19 +209,25 @@
             </div>
         </section>
 
-        <!-- Modern Tech Ticker Section -->
+        <!-- Modern Tech Ticker Section (Updated 9 Services) -->
         <div class="client-ticker reveal">
             <div class="ticker-track">
                 <span>UI/UX Design</span><span>•</span>
+                <span>Custom AI Agents</span><span>•</span>
+                <span>ERP Systems</span><span>•</span>
+                <span>Video Editing</span><span>•</span>
+                <span>Cloud Setup</span><span>•</span>
                 <span>Web Development</span><span>•</span>
-                <span>Brand Identity</span><span>•</span>
-                <span>Motion Graphics</span><span>•</span>
-                <span>Digital Marketing</span><span>•</span>
+                <span>Graphic Design</span><span>•</span>
+                <span>Social Media</span><span>•</span>
+                <span>Digital Templates</span><span>•</span>
+                <!-- Repeat for smooth scrolling -->
                 <span>UI/UX Design</span><span>•</span>
-                <span>Web Development</span><span>•</span>
-                <span>Brand Identity</span><span>•</span>
-                <span>Motion Graphics</span><span>•</span>
-                <span>Digital Marketing</span>
+                <span>Custom AI Agents</span><span>•</span>
+                <span>ERP Systems</span><span>•</span>
+                <span>Video Editing</span><span>•</span>
+                <span>Cloud Setup</span><span>•</span>
+                <span>Web Development</span>
             </div>
         </div>
 
@@ -254,41 +260,113 @@
             </div>
         </section>
 
-        <!-- Services Section -->
+        <!-- Services Section (Updated 3 Categories) -->
         <div class="section-header reveal">
             <h2>Our <span>Capabilities</span></h2>
-            <p>End-to-end creative solutions designed to scale your business in the digital era.</p>
+            <p>End-to-end creative and technical solutions designed to scale your business in the digital era.</p>
         </div>
-        <section class="grid-container" id="cards">
+
+        <!-- Category 1: Creative & Design -->
+        <div class="reveal" style="text-align: center; margin-bottom: 30px;">
+            <span class="hero-tag" style="background: rgba(139, 92, 246, 0.1); color: var(--secondary); border-color: rgba(139, 92, 246, 0.2);">Creative & Design</span>
+        </div>
+        <section class="grid-container">
             <div class="card reveal card-hover">
                 <div class="card-icon">✦</div>
-                <h3>Brand Identity</h3>
+                <h3>Graphic Design</h3>
                 <p>Creating memorable, modern logos and complete brand guidelines that resonate with your target audience.</p>
             </div>
             <div class="card reveal card-hover">
                 <div class="card-icon">❖</div>
-                <h3>Digital Marketing</h3>
-                <p>Data-driven social media creatives and ad campaigns designed to maximize engagement and ROI.</p>
+                <h3>Social Media Design</h3>
+                <p>Data-driven creatives with perfect font layouts and designs to maximize engagement on all platforms.</p>
             </div>
             <div class="card reveal card-hover">
                 <div class="card-icon">▶</div>
-                <h3>Video Production</h3>
-                <p>High-end video editing and motion graphics to tell your brand's story dynamically across all platforms.</p>
+                <h3>Video Editing</h3>
+                <p>High-end video production, including story-driven AI commercials for new product introductions.</p>
             </div>
             <div class="card reveal card-hover">
                 <div class="card-icon">■</div>
                 <h3>UI/UX Design</h3>
-                <p>Intuitive user interfaces and seamless digital experiences for web and mobile applications.</p>
+                <p>Intuitive user interfaces and seamless digital experiences mapped perfectly for web and mobile.</p>
             </div>
-            <div class="card reveal card-hover">
-                <div class="card-icon">◆</div>
-                <h3>Print & Packaging</h3>
-                <p>Premium print materials, from sleek corporate letterheads to impactful product packaging.</p>
-            </div>
+        </section>
+
+        <!-- Category 2: Tech & Systems -->
+        <div class="reveal" style="text-align: center; margin: 40px 0 30px;">
+            <span class="hero-tag" style="background: rgba(6, 182, 212, 0.1); color: var(--accent); border-color: rgba(6, 182, 212, 0.2);">Tech & Systems</span>
+        </div>
+        <section class="grid-container">
             <div class="card reveal card-hover">
                 <div class="card-icon">▲</div>
                 <h3>Web Development</h3>
                 <p>Fast, responsive, and modern websites built with cutting-edge technologies to drive conversions.</p>
+            </div>
+            <div class="card reveal card-hover">
+                <div class="card-icon">⚙</div>
+                <h3>ERP System Development</h3>
+                <p>Custom-built enterprise resource planning systems to automate and streamline your business operations.</p>
+            </div>
+            <div class="card reveal card-hover">
+                <div class="card-icon">☁</div>
+                <h3>FOSS Cloud Setup</h3>
+                <p>Zero-cost open-source cloud infrastructure setups and server hosting solutions for startups.</p>
+            </div>
+        </section>
+
+        <!-- Category 3: Future Tech & Assets -->
+        <div class="reveal" style="text-align: center; margin: 40px 0 30px;">
+            <span class="hero-tag">AI & Digital Assets</span>
+        </div>
+        <section class="grid-container" style="margin-bottom: 0;">
+            <div class="card reveal card-hover">
+                <div class="card-icon">🤖</div>
+                <h3>Custom AI Agents</h3>
+                <p>Intelligent, custom-trained AI chatbots and automated agents tailored for your specific business needs.</p>
+            </div>
+            <div class="card reveal card-hover">
+                <div class="card-icon">⚡</div>
+                <h3>Digital Templates</h3>
+                <p>Premium, ready-to-use digital templates and assets designed to speed up your everyday workflows.</p>
+            </div>
+        </section>
+
+        <!-- Exclusive Packages Section (New Starter Kit) -->
+        <div class="section-header reveal" style="margin-top: 100px;">
+            <h2>Exclusive <span>Packages</span></h2>
+            <p>Specially crafted starter bundles to launch your new business with a powerful digital presence.</p>
+        </div>
+        <section class="grid-container reveal" style="grid-template-columns: repeat(auto-fit, minmax(350px, 400px)); justify-content: center;">
+            
+            <!-- Business Starter Kit Card -->
+            <div class="card card-hover" style="border: 1px solid var(--primary); position: relative;">
+                <div style="position: absolute; top: -15px; right: 20px; background: var(--gradient-bg); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">BEST VALUE</div>
+                
+                <h3 style="font-size: 1.8rem;">Business Starter Kit</h3>
+                <p style="margin-bottom: 20px;">Everything you need to kickstart your brand.</p>
+                
+                <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 25px;">
+                    <h2 style="font-size: 3rem; color: var(--text-main); line-height: 1;">$299</h2>
+                    <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1.2rem;">$499</span>
+                </div>
+
+                <ul style="list-style: none; color: var(--text-main); margin-bottom: 35px;">
+                    <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+                        <span style="color: var(--primary);">✓</span> Custom Logo Design
+                    </li>
+                    <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+                        <span style="color: var(--primary);">✓</span> 5 Social Media Post Designs
+                    </li>
+                    <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+                        <span style="color: var(--primary);">✓</span> Basic Promo Video (AI Powered)
+                    </li>
+                    <li style="margin-bottom: 12px; display: flex; gap: 10px;">
+                        <span style="color: var(--primary);">✓</span> Brand Font & Color Guide
+                    </li>
+                </ul>
+
+                <a href="Contact Us.html" class="btn-modern" style="width: 100%; text-align: center; box-sizing: border-box;">Claim Discount</a>
             </div>
         </section>
 
@@ -343,8 +421,8 @@
             navLinks.classList.toggle('active');
         });
 
-        // 2. Dynamic Typing Effect
-        const textArray = ["Digital Identity.", "UI/UX Design.", "Motion Graphics.", "Modern Web."];
+        // 2. Dynamic Typing Effect (Updated array)
+        const textArray = ["Digital Identity.", "UI/UX Design.", "ERP Systems.", "Custom AI Agents.", "Cloud Solutions."];
         const typingDelay = 80;
         const erasingDelay = 40;
         const newTextDelay = 2000;
@@ -388,16 +466,18 @@
         }
         window.addEventListener("scroll", reveal);
 
-        // 4. Modern Mouse Glow Effect on Cards (Advanced)
-        document.getElementById("cards").onmousemove = e => {
-            for(const card of document.getElementsByClassName("card-hover")) {
-                const rect = card.getBoundingClientRect(),
-                      x = e.clientX - rect.left,
-                      y = e.clientY - rect.top;
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
-            }
-        };
+        // 4. Modern Mouse Glow Effect on Cards (Updated for multiple containers)
+        document.querySelectorAll(".grid-container").forEach(container => {
+            container.addEventListener("mousemove", e => {
+                for(const card of container.getElementsByClassName("card-hover")) {
+                    const rect = card.getBoundingClientRect(),
+                          x = e.clientX - rect.left,
+                          y = e.clientY - rect.top;
+                    card.style.setProperty("--mouse-x", `${x}px`);
+                    card.style.setProperty("--mouse-y", `${y}px`);
+                }
+            });
+        });
 
         document.addEventListener("DOMContentLoaded", function() { 
             if(textArray.length) setTimeout(type, newTextDelay + 250);
