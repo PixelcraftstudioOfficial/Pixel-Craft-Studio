@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Reviews - Modern Creative Agency</title>
-    
+    <title>Client Reviews - Pixel Craft Studio</title>
     <link rel="icon" type="image/png" href="Favicon.png">
-    
     <style>
         /* --- IMPORT MODERN TECH FONTS --- */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
         /* --- MODERN TECH COLOR VARIABLES --- */
         :root {
-            --primary: #3b82f6; /* Bright Blue */
-            --secondary: #8b5cf6; /* Vibrant Purple */
-            --accent: #06b6d4; /* Cyan */
-            --bg-deep: #030712; /* Very dark slate/black */
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --bg-deep: #030712;
             --card-bg: rgba(255, 255, 255, 0.03);
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --gradient-text: linear-gradient(135deg, #60a5fa, #c084fc);
             --gradient-bg: linear-gradient(135deg, var(--primary), var(--secondary));
-            --star-color: #fbbf24; /* Yellow for stars */
+            --star-color: #fbbf24; /* Golden yellow for stars */
         }
 
         /* --- GENERAL RESET & BACKGROUND --- */
@@ -35,7 +33,6 @@
             font-family: 'Inter', sans-serif; 
             line-height: 1.7; 
             overflow-x: hidden;
-            /* Modern Glowing Background Orbs */
             background-image: 
                 radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
@@ -45,9 +42,6 @@
         h1, h2, h3, h4, .logo { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         /* --- SCROLL REVEAL ANIMATIONS --- */
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        .animate-fade-up { animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards; opacity: 0; }
-        
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -74,43 +68,48 @@
             #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
 
-        /* --- BUTTONS --- */
-        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; width: 100%; text-align: center; }
-        .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
-        .btn-modern:disabled { opacity: 0.7; cursor: not-allowed; }
-
-        /* --- MAIN SPACING & HEADERS --- */
+        /* --- PAGE HEADER --- */
         main { padding-top: 130px; min-height: 80vh; }
         .page-header { text-align: center; padding: 40px 20px 20px; }
         .page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
         .page-header h2 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 400; }
 
-        /* --- REVIEWS LAYOUT --- */
-        .reviews-wrapper { max-width: 900px; margin: 0 auto 100px; padding: 0 5%; }
+        /* Overall Rating Summary */
+        .rating-summary { text-align: center; margin-bottom: 60px; }
+        .rating-summary h3 { font-size: 4rem; font-weight: 800; color: var(--text-main); line-height: 1; margin-bottom: 10px; }
+        .stars-large { color: var(--star-color); font-size: 1.8rem; letter-spacing: 5px; margin-bottom: 10px; }
+        .rating-summary p { color: var(--text-muted); font-size: 1rem; }
 
-        /* Review Form */
-        .review-form-container { background: var(--card-bg); padding: 50px 40px; border-radius: 20px; border: 1px solid var(--card-border); margin-bottom: 80px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
-        .review-form-container h3 { font-size: 1.8rem; margin-bottom: 30px; color: var(--text-main); text-align: center; font-weight: 700; }
-        .form-group { margin-bottom: 25px; }
+        /* --- REVIEWS GRID --- */
+        .reviews-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 100px; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
         
-        label { display: block; margin-bottom: 10px; font-weight: 500; color: var(--text-muted); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; }
-        input[type="text"], select, textarea { width: 100%; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; color: var(--text-main); background-color: rgba(255,255,255,0.02); transition: all 0.3s ease; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: rgba(96, 165, 250, 0.5); background-color: rgba(255,255,255,0.05); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); }
-        select option { background-color: var(--bg-deep); color: var(--text-main); }
-        textarea { resize: vertical; min-height: 120px; }
+        .review-card { background: var(--card-bg); border-radius: 20px; padding: 40px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        
+        /* Modern Card Glow Effect */
+        .review-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 1; }
+        .review-card:hover::before { opacity: 1; }
+        .review-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
+        
+        .stars { color: var(--star-color); font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 20px; position: relative; z-index: 2; }
+        .review-text { font-size: 1.05rem; color: var(--text-main); line-height: 1.8; font-style: italic; margin-bottom: 30px; position: relative; z-index: 2; }
+        
+        .client-info { display: flex; align-items: center; gap: 15px; border-top: 1px solid var(--card-border); padding-top: 20px; position: relative; z-index: 2; }
+        .client-avatar { width: 50px; height: 50px; border-radius: 50%; background: var(--gradient-bg); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; color: #fff; }
+        .client-details h4 { font-size: 1.1rem; color: var(--text-main); margin-bottom: 3px; }
+        .client-details p { font-size: 0.85rem; color: var(--primary); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+        .client-details span { color: var(--text-muted); text-transform: none; font-weight: 400; }
 
-        /* Review Grid Display */
-        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .review-card { background: var(--card-bg); padding: 35px 30px; border-radius: 16px; border: 1px solid var(--card-border); transition: all 0.4s ease; backdrop-filter: blur(10px); }
-        .review-card:hover { transform: translateY(-5px); border-color: rgba(96, 165, 250, 0.3); background: rgba(255,255,255,0.04); box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.2); }
+        /* --- MODERN CTA BANNER --- */
+        .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; margin-bottom: 80px; }
+        .cta-banner::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%); z-index: 0; pointer-events: none; }
+        .cta-banner h2, .cta-banner p, .cta-banner a { position: relative; z-index: 1; }
+        .cta-banner h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; color: var(--text-main); letter-spacing: -1px; }
+        .cta-banner p { font-size: 1.15rem; margin-bottom: 40px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto; }
         
-        .stars { color: var(--star-color); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 2px; }
-        .review-text { font-size: 1rem; color: var(--text-muted); font-style: italic; margin-bottom: 25px; line-height: 1.7; font-weight: 300; }
-        .reviewer-info { border-top: 1px solid var(--card-border); padding-top: 20px; }
-        .reviewer-name { font-weight: 600; color: var(--text-main); font-size: 1.05rem; letter-spacing: 0.5px; }
-        
-        .loading-text { text-align: center; color: var(--primary); width: 100%; grid-column: 1 / -1; font-style: italic; font-weight: 400; padding: 20px; }
+        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; }
+        .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
 
         /* --- FLOATING WHATSAPP BUTTON --- */
         .float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; }
@@ -157,48 +156,118 @@
 
     <main>
         <div class="page-header reveal">
-            <h2>Client <span>Testimonials</span></h2>
-            <p>See what our esteemed clients have to say about partnering with us.</p>
+            <h2>Client <span>Success Stories</span></h2>
+            <p>Don't just take our word for it. See what our partners say about working with Pixel Craft Studio.</p>
         </div>
 
-        <section class="reviews-wrapper">
-            
-            <div class="review-form-container reveal">
-                <h3>Share Your Experience</h3>
-                <form id="addReviewForm">
-                    <div class="form-group">
-                        <label for="reviewerName">Your Name / Company</label>
-                        <input type="text" id="reviewerName" placeholder="e.g. John Doe / XYZ Corp" required>
+        <div class="rating-summary reveal">
+            <h3>4.9</h3>
+            <div class="stars-large">★★★★★</div>
+            <p>Based on over 50+ completed digital projects worldwide.</p>
+        </div>
+
+        <section class="reviews-container" id="cards">
+            <div class="reviews-grid">
+                
+                <!-- Review 1: ERP System -->
+                <div class="review-card reveal card-hover">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"Pixel Craft Studio completely transformed our operations. The custom ERP system they developed automated our entire workflow, saving us hours of manual data entry every single day. Highly recommended for any scaling business."</p>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="reviewRating">Rating</label>
-                        <select id="reviewRating" required>
-                            <option value="5">★★★★★ (5 Stars) - Outstanding</option>
-                            <option value="4">★★★★☆ (4 Stars) - Very Good</option>
-                            <option value="3">★★★☆☆ (3 Stars) - Good</option>
-                            <option value="2">★★☆☆☆ (2 Stars) - Fair</option>
-                            <option value="1">★☆☆☆☆ (1 Star) - Poor</option>
-                        </select>
+                    <div class="client-info">
+                        <div class="client-avatar">JD</div>
+                        <div class="client-details">
+                            <h4>Jason D.</h4>
+                            <p>ERP Development <span>• Tech Startup</span></p>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="reviewText">Your Experience</label>
-                        <textarea id="reviewText" placeholder="Tell us how Pixel Craft Studio helped your brand scale..." required></textarea>
+                <!-- Review 2: UI/UX & Web -->
+                <div class="review-card reveal card-hover">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"The UI/UX design for our new platform was flawless. They didn't just make it look beautiful; they actually mapped out the user journey to ensure high conversion rates. The team was highly professional and met all deadlines."</p>
                     </div>
+                    <div class="client-info">
+                        <div class="client-avatar" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">SM</div>
+                        <div class="client-details">
+                            <h4>Sarah M.</h4>
+                            <p>Web Development <span>• E-Commerce</span></p>
+                        </div>
+                    </div>
+                </div>
 
-                    <button type="submit" id="submitBtn" class="btn-modern">Submit Testimonial</button>
-                </form>
+                <!-- Review 3: AI Video Production -->
+                <div class="review-card reveal card-hover">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"We wanted something unique for our product launch, and the story-driven AI commercial they created blew us away. The engagement on our social media campaigns skyrocketed thanks to their incredible video production."</p>
+                    </div>
+                    <div class="client-info">
+                        <div class="client-avatar" style="background: linear-gradient(135deg, #10b981, #06b6d4);">RP</div>
+                        <div class="client-details">
+                            <h4>Rohan P.</h4>
+                            <p>AI Video Ads <span>• Retail Brand</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 4: Brand Identity -->
+                <div class="review-card reveal card-hover">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"As a new business, we needed a strong identity. The Starter Package they provided gave us a premium logo, flawless font guidelines, and beautiful social media templates that made us look like an established corporate brand from day one."</p>
+                    </div>
+                    <div class="client-info">
+                        <div class="client-avatar" style="background: linear-gradient(135deg, #ec4899, #8b5cf6);">LK</div>
+                        <div class="client-details">
+                            <h4>Lahiru K.</h4>
+                            <p>Brand Identity <span>• Consultant</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 5: Custom AI Agent -->
+                <div class="review-card reveal card-hover">
+                    <div>
+                        <div class="stars">★★★★☆</div>
+                        <p class="review-text">"The custom AI chatbot they integrated into our website handles 80% of our customer inquiries automatically now. It was trained perfectly on our company data and sounds incredibly natural. Great technical expertise."</p>
+                    </div>
+                    <div class="client-info">
+                        <div class="client-avatar" style="background: linear-gradient(135deg, #6366f1, #3b82f6);">EW</div>
+                        <div class="client-details">
+                            <h4>Emma W.</h4>
+                            <p>Custom AI Agent <span>• Real Estate</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 6: Cloud Setup -->
+                <div class="review-card reveal card-hover">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="review-text">"We were spending a fortune on enterprise cloud tools until Pixel Craft set up a secure, zero-cost FOSS cloud infrastructure for us. Their technical knowledge is unmatched, and the transition was seamless."</p>
+                    </div>
+                    <div class="client-info">
+                        <div class="client-avatar" style="background: linear-gradient(135deg, #14b8a6, #22c55e);">AT</div>
+                        <div class="client-details">
+                            <h4>Alex T.</h4>
+                            <p>Cloud Setup <span>• B2B Agency</span></p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+        </section>
 
-            <div class="section-header reveal" style="text-align: center; margin-bottom: 50px;">
-                <h2 style="font-size: 2.5rem;">Recent <span>Reviews</span></h2>
-            </div>
-
-            <div class="reviews-grid reveal" id="reviewsContainer">
-                <div class="loading-text">Syncing with database...</div>
-            </div>
-
+        <!-- CTA Section -->
+        <section class="cta-banner reveal">
+            <h2>Ready to be our next success story?</h2>
+            <p>Join dozens of businesses that trust us to handle their complete digital growth.</p>
+            <br>
+            <a href="Contact Us.html" class="btn-modern">Start Your Project</a>
         </section>
     </main>
 
@@ -213,7 +282,6 @@
                 <h3>Pixel Craft Studio</h3>
                 <p>Crafting next-generation digital experiences and robust brand identities for the modern web.</p>
             </div>
-            
             <div class="footer-links">
                 <h4>Navigation</h4>
                 <ul>
@@ -221,9 +289,9 @@
                     <li><a href="Designs.html">Work</a></li>
                     <li><a href="Services.html">Services</a></li>
                     <li><a href="Contact Us.html">Contact</a></li>
+                    <li><a href="admin.html">Authorized Persons Only</a></li>
                 </ul>
             </div>
-
             <div class="footer-contact">
                 <h4>Connect</h4>
                 <p>Phone: <span>+94 76 639 0768</span></p>
@@ -232,29 +300,27 @@
                 <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Facebook ↗</a>
             </div>
         </div>
-        
         <div class="footer-bottom">
             <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Mobile Menu & Scroll Script -->
     <script>
+        // Mobile Menu Toggle
         const menuToggle = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('#nav-links');
-        
         menuToggle.addEventListener('click', function() {
             menuToggle.classList.toggle('is-active');
             navLinks.classList.toggle('active');
         });
 
+        // Scroll Reveal Animation
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
                 var elementVisible = 100;
-
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
                 }
@@ -262,101 +328,18 @@
         }
         window.addEventListener("scroll", reveal);
         document.addEventListener("DOMContentLoaded", reveal);
-    </script>
 
-    <!-- Firebase Real-time Reviews Script (Untouched Database Logic) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } 
-        from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDeB7_uqC-sk3fbNyMZmWe8wZjrbYvyBrY",
-            authDomain: "pixel-craft-c6717.firebaseapp.com",
-            projectId: "pixel-craft-c6717",
-            storageBucket: "pixel-craft-c6717.firebasestorage.app",
-            messagingSenderId: "540712193494",
-            appId: "1:540712193494:web:79afc5be7a96ece0b12877",
-            measurementId: "G-TNNHDKSQDT"
+        // Modern Mouse Glow Effect on Cards
+        document.getElementById("cards").onmousemove = e => {
+            for(const card of document.getElementsByClassName("card-hover")) {
+                const rect = card.getBoundingClientRect(),
+                      x = e.clientX - rect.left,
+                      y = e.clientY - rect.top;
+                card.style.setProperty("--mouse-x", `${x}px`);
+                card.style.setProperty("--mouse-y", `${y}px`);
+            }
         };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        const reviewForm = document.getElementById('addReviewForm');
-        const reviewsContainer = document.getElementById('reviewsContainer');
-        const submitBtn = document.getElementById('submitBtn');
-        const reviewsCollection = collection(db, "reviews");
-
-        const q = query(reviewsCollection, orderBy("createdAt", "desc"));
-
-        onSnapshot(q, (snapshot) => {
-            reviewsContainer.innerHTML = ''; 
-            
-            if (snapshot.empty) {
-                reviewsContainer.innerHTML = '<div class="loading-text">No reviews yet. Be the first to leave one!</div>';
-                return;
-            }
-
-            let index = 0;
-            snapshot.forEach((doc) => {
-                const review = doc.data();
-                if (!review.name || !review.text) return;
-
-                const rating = parseInt(review.rating) || 5;
-                const goldStars = '★'.repeat(rating);
-                // Lower opacity for empty stars to fit the dark tech theme
-                const greyStars = '☆'.repeat(5 - rating); 
-                
-                const delay = (index * 0.1) + 0.1;
-
-                const card = document.createElement('div');
-                card.className = 'review-card animate-fade-up';
-                card.style.animationDelay = `${delay}s`;
-                
-                card.innerHTML = `
-                    <div class="stars">${goldStars}<span style="color: #333; opacity: 0.5;">${greyStars}</span></div>
-                    <p class="review-text">"${review.text}"</p>
-                    <div class="reviewer-info">
-                        <div class="reviewer-name">${review.name}</div>
-                    </div>
-                `;
-                reviewsContainer.appendChild(card);
-                index++;
-            });
-        }, (error) => {
-            console.error("Error fetching reviews:", error);
-            reviewsContainer.innerHTML = '<div class="loading-text" style="color: #ef4444;">Error syncing with database. Check connection.</div>';
-        });
-
-        reviewForm.addEventListener('submit', async function(e) {
-            e.preventDefault(); 
-            
-            submitBtn.textContent = "Submitting...";
-            submitBtn.disabled = true;
-
-            const name = document.getElementById('reviewerName').value;
-            const rating = parseInt(document.getElementById('reviewRating').value);
-            const text = document.getElementById('reviewText').value;
-
-            try {
-                await addDoc(reviewsCollection, {
-                    name: name,
-                    rating: rating,
-                    text: text,
-                    createdAt: serverTimestamp() 
-                });
-
-                reviewForm.reset();
-                alert("Thank you! Your review has been submitted successfully.");
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                alert("An error occurred. Please try again later.");
-            } finally {
-                submitBtn.textContent = "Submit Testimonial";
-                submitBtn.disabled = false;
-            }
-        });
     </script>
+
 </body>
 </html>
