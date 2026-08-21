@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Work - Modern Creative Agency</title>
+    <title>Our Work - Pixel Craft Studio</title>
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
         /* --- IMPORT MODERN TECH FONTS --- */
@@ -144,54 +144,81 @@
     <main>
         <div class="page-header reveal">
             <h2>Creative <span>Showcase</span></h2>
-            <p>Explore a curated selection of our most impactful digital and branding projects.</p>
+            <p>Explore a curated selection of our most impactful digital and technical projects.</p>
         </div>
 
         <!-- Visual Filter Tabs -->
         <div class="portfolio-filters reveal">
-            <button class="filter-btn active">All Work</button>
-            <button class="filter-btn">Brand Identity</button>
-            <button class="filter-btn">Digital Marketing</button>
-            <button class="filter-btn">Motion Graphics</button>
+            <button class="filter-btn active" data-filter="all">All Work</button>
+            <button class="filter-btn" data-filter="design">Design & UI</button>
+            <button class="filter-btn" data-filter="tech">Tech & Systems</button>
+            <button class="filter-btn" data-filter="ai-video">AI, Video & Assets</button>
         </div>
 
         <section class="gallery-container" id="cards">
             <div class="gallery-grid">
                 
-                <div class="gallery-item reveal card-hover">
-                    <div class="image-wrapper"><img src="Image 1.jpg" alt="Creative Logo Design" style="background-color: #0f172a;"></div>
-                    <h3>Brand Identity</h3>
-                    <p>Minimalist and timeless logo designs engineered to establish a commanding digital presence.</p>
+                <!-- 1. Graphic Design -->
+                <div class="gallery-item reveal card-hover" data-category="design">
+                    <div class="image-wrapper"><img src="Image 1.jpg" alt="Logo Design" style="background-color: #0f172a;"></div>
+                    <h3>Graphic Design</h3>
+                    <p>Memorable, modern logos and brand identities tailored for your target audience.</p>
                 </div>
                 
-                <div class="gallery-item reveal card-hover">
+                <!-- 2. Social Media Posts -->
+                <div class="gallery-item reveal card-hover" data-category="design">
                     <div class="image-wrapper"><img src="Image 2.jpg" alt="Social Media Posts" style="background-color: #0f172a;"></div>
-                    <h3>Social Media Campaigns</h3>
-                    <p>Aesthetic, data-driven digital campaigns crafted to maximize online engagement and ROI.</p>
+                    <h3>Social Media Posts</h3>
+                    <p>Aesthetic, data-driven digital campaigns using precise font layouts and modern designs.</p>
                 </div>
-                
-                <div class="gallery-item reveal card-hover">
-                    <div class="image-wrapper"><img src="image 3.jpg" alt="Professional Video Editing" style="background-color: #0f172a;"></div>
-                    <h3>Cinematic Edits</h3>
-                    <p>Professional, dynamic video editing and motion graphics tailored for high-end platforms.</p>
+
+                <!-- 3. UI/UX Design -->
+                <div class="gallery-item reveal card-hover" data-category="design">
+                    <div class="image-wrapper"><img src="Image 3.jpg" alt="UI UX Design" style="background-color: #0f172a;"></div>
+                    <h3>UI/UX Design</h3>
+                    <p>Intuitive user interfaces and seamless digital experiences mapped for web and mobile.</p>
                 </div>
-                
-                <div class="gallery-item reveal card-hover">
-                    <div class="image-wrapper"><img src="Image 4.jpg" alt="Modern Banner Design" style="background-color: #0f172a;"></div>
-                    <h3>Commercial Banners</h3>
-                    <p>Visually striking banner layouts designed to capture attention and communicate authority.</p>
+
+                <!-- 4. Web Developing -->
+                <div class="gallery-item reveal card-hover" data-category="tech">
+                    <div class="image-wrapper"><img src="Image 4.jpg" alt="Web Development" style="background-color: #0f172a;"></div>
+                    <h3>Web Development</h3>
+                    <p>Fast, responsive, and high-converting websites built with cutting-edge technologies.</p>
                 </div>
-                
-                <div class="gallery-item reveal card-hover">
-                    <div class="image-wrapper"><img src="Image 5.jpg" alt="Company Letterhead" style="background-color: #0f172a;"></div>
-                    <h3>Corporate Identity</h3>
-                    <p>Clean, formal, and strictly branded stationery designed for elite corporate communications.</p>
+
+                <!-- 5. ERP System Developing -->
+                <div class="gallery-item reveal card-hover" data-category="tech">
+                    <div class="image-wrapper"><img src="Image 5.jpg" alt="ERP Systems" style="background-color: #0f172a;"></div>
+                    <h3>ERP Systems</h3>
+                    <p>Custom-built enterprise resource planning systems to automate and scale business operations.</p>
                 </div>
-                
-                <div class="gallery-item reveal card-hover">
-                    <div class="image-wrapper"><img src="Image 6.png" alt="Creative Leaflets" style="background-color: #0f172a;"></div>
-                    <h3>Print Media</h3>
-                    <p>Premium print designs and packaging crafted to physically represent your brand's excellence.</p>
+
+                <!-- 6. FOSS Cloud Setup -->
+                <div class="gallery-item reveal card-hover" data-category="tech">
+                    <div class="image-wrapper"><img src="Image 6.png" alt="Cloud Setup" style="background-color: #0f172a;"></div>
+                    <h3>FOSS Cloud Setup</h3>
+                    <p>Zero-cost open-source cloud infrastructure and secure server setups for new startups.</p>
+                </div>
+
+                <!-- 7. Video Editing -->
+                <div class="gallery-item reveal card-hover" data-category="ai-video">
+                    <div class="image-wrapper"><img src="Image 7.jpg" alt="Video Editing" style="background-color: #0f172a;"></div>
+                    <h3>Video Production</h3>
+                    <p>Story-driven AI commercials and high-end video editing to introduce new products dynamically.</p>
+                </div>
+
+                <!-- 8. Custom AI Agent -->
+                <div class="gallery-item reveal card-hover" data-category="ai-video">
+                    <div class="image-wrapper"><img src="Image 8.jpg" alt="Custom AI Agents" style="background-color: #0f172a;"></div>
+                    <h3>Custom AI Agents</h3>
+                    <p>Intelligent, custom-trained AI chatbots and assistants tailored perfectly for your workflow.</p>
+                </div>
+
+                <!-- 9. Selling Digital Templates -->
+                <div class="gallery-item reveal card-hover" data-category="ai-video">
+                    <div class="image-wrapper"><img src="Image 9.jpg" alt="Digital Templates" style="background-color: #0f172a;"></div>
+                    <h3>Digital Templates</h3>
+                    <p>Premium, ready-to-use digital templates and assets designed to accelerate your projects.</p>
                 </div>
 
             </div>
@@ -258,12 +285,36 @@
         window.addEventListener("scroll", reveal);
         document.addEventListener("DOMContentLoaded", reveal);
         
-        // 3. Filter Button Visual Toggle
+        // 3. Filter Logic (Working with Gallery Items)
         const filterBtns = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                // Remove active class from all buttons
                 filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
                 btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    // Check if item matches the selected filter
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                        setTimeout(() => { 
+                            item.style.opacity = '1'; 
+                            item.style.transform = 'scale(1)'; 
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        // Wait for transition to finish before hiding completely
+                        setTimeout(() => { 
+                            item.style.display = 'none'; 
+                        }, 500); // 500ms matches the CSS transition time
+                    }
+                });
             });
         });
 
