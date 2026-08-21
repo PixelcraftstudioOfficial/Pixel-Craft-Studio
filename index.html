@@ -4,18 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pixel Craft Studio - Modern Creative Agency</title>
+    
+    <!-- Standard SEO -->
+    <meta name="description" content="Pixel Craft Studio is a next-generation creative agency providing UI/UX design, custom AI agents, web development, and brand identity solutions.">
+    <meta name="keywords" content="Creative Agency, UI/UX Design, AI Chatbots, ERP Systems, Web Development, Social Media Marketing, Pixel Craft Studio">
+    <meta name="author" content="Pixel Craft Studio">
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.pixelcraft.lk/">
+    <meta property="og:title" content="Pixel Craft Studio - Modern Creative Agency">
+    <meta property="og:description" content="Elevate your brand with data-driven design, custom AI, and cutting-edge web development.">
+    <meta property="og:image" content="https://www.pixelcraft.lk/OG-Banner.jpg"> <!-- Change this to your actual OG image link -->
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pixel Craft Studio">
+    <meta name="twitter:description" content="Crafting next-generation digital experiences.">
+    <meta name="twitter:image" content="https://www.pixelcraft.lk/OG-Banner.jpg">
+
     <link rel="icon" type="image/png" href="Favicon.png">
     
+    <!-- Meta Pixel Code (Replace YOUR_PIXEL_ID with your actual ID) -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <style>
         /* --- IMPORT MODERN TECH FONTS --- */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
         /* --- MODERN TECH COLOR VARIABLES --- */
         :root {
-            --primary: #3b82f6; /* Bright Blue */
-            --secondary: #8b5cf6; /* Vibrant Purple */
-            --accent: #06b6d4; /* Cyan */
-            --bg-deep: #030712; /* Very dark slate/black */
+            --primary: #3b82f6; 
+            --secondary: #8b5cf6; 
+            --accent: #06b6d4; 
+            --bg-deep: #030712; 
             --card-bg: rgba(255, 255, 255, 0.03);
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #f8fafc;
@@ -33,7 +70,6 @@
             font-family: 'Inter', sans-serif; 
             line-height: 1.7; 
             overflow-x: hidden;
-            /* Modern Glowing Background Orbs */
             background-image: 
                 radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
                 radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
@@ -46,7 +82,6 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* --- GLASSMORPHISM NAVBAR --- */
@@ -84,7 +119,6 @@
         .hero-container { display: flex; align-items: center; justify-content: space-between; max-width: 1300px; margin: 0 auto; padding: 80px 5%; gap: 60px; min-height: 85vh; }
         .hero-content { flex: 1; }
         
-        /* Modern Tag Pill */
         .hero-tag { display: inline-block; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
         
         .hero-content h1 { font-size: 4.5rem; color: var(--text-main); font-weight: 800; line-height: 1.1; margin-bottom: 25px; letter-spacing: -1px; }
@@ -94,9 +128,8 @@
 
         .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 40px; max-width: 550px; font-weight: 400; }
         .hero-buttons { display: flex; gap: 20px; }
-        .hero-image { flex: 1; position: relative; }
-        .hero-image::after { content: ''; position: absolute; inset: -20px; background: var(--gradient-bg); filter: blur(60px); opacity: 0.2; z-index: -1; border-radius: 50%; animation: float 8s infinite alternate; }
-        .hero-image img { width: 100%; max-width: 550px; border-radius: 20px; animation: float 6s ease-in-out infinite; object-fit: cover; border: 1px solid var(--card-border); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        
+        .hero-video-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; }
 
         @media (max-width: 900px) {
             .hero-container { flex-direction: column; text-align: center; padding: 40px 5%; margin-top: 20px; }
@@ -128,7 +161,7 @@
         .gallery-card:hover .gallery-overlay p { transform: translateY(0); opacity: 1; }
 
         /* --- MODERN SERVICES GRID --- */
-        .grid-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 50px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .grid-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .card { background: var(--card-bg); border-radius: 20px; padding: 40px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
         
         /* Modern Card Glow Effect */
@@ -136,14 +169,13 @@
         .card:hover::before { opacity: 1; }
         .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
         
-        /* Icon Placeholder */
         .card-icon { width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; border: 1px solid rgba(59, 130, 246, 0.2); color: var(--primary); font-size: 1.5rem; }
         
         .card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); font-weight: 700; position: relative; z-index: 2; }
         .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; position: relative; z-index: 2; }
 
         /* --- MODERN CTA BANNER --- */
-        .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; margin-top: 80px; }
+        .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; }
         .cta-banner::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%); z-index: 0; pointer-events: none; }
         .cta-banner h2, .cta-banner p, .cta-banner a { position: relative; z-index: 1; }
         .cta-banner h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; color: var(--text-main); letter-spacing: -1px; }
@@ -191,7 +223,7 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
+        <!-- Hero Section with 16:9 Cloudinary Video -->
         <section class="hero-container reveal">
             <div class="hero-content">
                 <span class="hero-tag">Design Meets Technology</span>
@@ -204,12 +236,25 @@
                     <a href="Designs.html" class="btn-outline">View Portfolio</a>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="Image 6.png" alt="Creative Design Graphics" style="background-color: #0f172a;"> 
+            
+            <div class="hero-video-wrapper">
+                <!-- Premium 16:9 Video Container -->
+                <div style="position: relative; width: 100%; max-width: 600px; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid var(--card-border);">
+                    
+                    <!-- Cloudinary HTML5 Video Tag (Add q_auto,f_auto in your link) -->
+                    <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;">
+                        <!-- REPLACE THIS SRC WITH YOUR CLOUDINARY VIDEO LINK -->
+                        <source src="https://res.cloudinary.com/z2eznpxz/video/upload/q_auto,f_auto/v1787308752/Holographic_workspace_interfaces__202608211608.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
+                    <!-- Premium Gradient Overlay (Blends video with the dark theme) -->
+                    <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(3,7,18,0.3) 0%, rgba(3,7,18,0) 50%, rgba(3,7,18,0.3) 100%); pointer-events: none;"></div>
+                </div>
             </div>
         </section>
 
-        <!-- Modern Tech Ticker Section (Updated 9 Services) -->
+        <!-- Modern Tech Ticker Section -->
         <div class="client-ticker reveal">
             <div class="ticker-track">
                 <span>UI/UX Design</span><span>•</span>
@@ -238,29 +283,29 @@
         </div>
         <section class="mini-gallery reveal">
             <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="Image 1.jpg" alt="Logo Work" style="background-color: #0f172a;">
+                <img src="Image 1.jpg" alt="Brand Identity" style="background-color: #0f172a;">
                 <div class="gallery-overlay">
                     <h4>Brand Identity</h4>
                     <p>View Project →</p>
                 </div>
             </div>
             <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="Image 2.jpg" alt="Social Media Work" style="background-color: #0f172a;">
+                <img src="Image 3.jpg" alt="UI UX Design" style="background-color: #0f172a;">
                 <div class="gallery-overlay">
-                    <h4>Digital Campaigns</h4>
+                    <h4>UI/UX Design</h4>
                     <p>View Project →</p>
                 </div>
             </div>
             <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="Image 4.jpg" alt="Video Work" style="background-color: #0f172a;">
+                <img src="Image 4.jpg" alt="Web Development" style="background-color: #0f172a;">
                 <div class="gallery-overlay">
-                    <h4>Motion & Video</h4>
+                    <h4>Web Development</h4>
                     <p>View Project →</p>
                 </div>
             </div>
         </section>
 
-        <!-- Services Section (Updated 3 Categories) -->
+        <!-- Services Section -->
         <div class="section-header reveal">
             <h2>Our <span>Capabilities</span></h2>
             <p>End-to-end creative and technical solutions designed to scale your business in the digital era.</p>
@@ -270,7 +315,7 @@
         <div class="reveal" style="text-align: center; margin-bottom: 30px;">
             <span class="hero-tag" style="background: rgba(139, 92, 246, 0.1); color: var(--secondary); border-color: rgba(139, 92, 246, 0.2);">Creative & Design</span>
         </div>
-        <section class="grid-container">
+        <section class="grid-container" id="cards-1">
             <div class="card reveal card-hover">
                 <div class="card-icon">✦</div>
                 <h3>Graphic Design</h3>
@@ -297,7 +342,7 @@
         <div class="reveal" style="text-align: center; margin: 40px 0 30px;">
             <span class="hero-tag" style="background: rgba(6, 182, 212, 0.1); color: var(--accent); border-color: rgba(6, 182, 212, 0.2);">Tech & Systems</span>
         </div>
-        <section class="grid-container">
+        <section class="grid-container" id="cards-2">
             <div class="card reveal card-hover">
                 <div class="card-icon">▲</div>
                 <h3>Web Development</h3>
@@ -305,7 +350,7 @@
             </div>
             <div class="card reveal card-hover">
                 <div class="card-icon">⚙</div>
-                <h3>ERP System Development</h3>
+                <h3>ERP Systems</h3>
                 <p>Custom-built enterprise resource planning systems to automate and streamline your business operations.</p>
             </div>
             <div class="card reveal card-hover">
@@ -319,7 +364,7 @@
         <div class="reveal" style="text-align: center; margin: 40px 0 30px;">
             <span class="hero-tag">AI & Digital Assets</span>
         </div>
-        <section class="grid-container" style="margin-bottom: 0;">
+        <section class="grid-container" id="cards-3">
             <div class="card reveal card-hover">
                 <div class="card-icon">🤖</div>
                 <h3>Custom AI Agents</h3>
@@ -332,18 +377,17 @@
             </div>
         </section>
 
-        <!-- Exclusive Packages Section (New Starter Kit) -->
-        <div class="section-header reveal" style="margin-top: 100px;">
+        <!-- Exclusive Packages Section -->
+        <div class="section-header reveal" style="margin-top: 80px;">
             <h2>Exclusive <span>Packages</span></h2>
             <p>Specially crafted starter bundles to launch your new business with a powerful digital presence.</p>
         </div>
         <section class="grid-container reveal" style="grid-template-columns: repeat(auto-fit, minmax(350px, 400px)); justify-content: center;">
-            
             <!-- Business Starter Kit Card -->
             <div class="card card-hover" style="border: 1px solid var(--primary); position: relative;">
                 <div style="position: absolute; top: -15px; right: 20px; background: var(--gradient-bg); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">BEST VALUE</div>
                 
-                <h3 style="font-size: 1.8rem;">Business Starter Kit</h3>
+                <h3 style="font-size: 1.8rem; margin-bottom: 5px;">Business Starter Kit</h3>
                 <p style="margin-bottom: 20px;">Everything you need to kickstart your brand.</p>
                 
                 <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 25px;">
@@ -421,7 +465,7 @@
             navLinks.classList.toggle('active');
         });
 
-        // 2. Dynamic Typing Effect (Updated array)
+        // 2. Dynamic Typing Effect (Updated with new services)
         const textArray = ["Digital Identity.", "UI/UX Design.", "ERP Systems.", "Custom AI Agents.", "Cloud Solutions."];
         const typingDelay = 80;
         const erasingDelay = 40;
@@ -468,7 +512,7 @@
 
         // 4. Modern Mouse Glow Effect on Cards (Updated for multiple containers)
         document.querySelectorAll(".grid-container").forEach(container => {
-            container.addEventListener("mousemove", e => {
+            container.onmousemove = e => {
                 for(const card of container.getElementsByClassName("card-hover")) {
                     const rect = card.getBoundingClientRect(),
                           x = e.clientX - rect.left,
@@ -476,7 +520,7 @@
                     card.style.setProperty("--mouse-x", `${x}px`);
                     card.style.setProperty("--mouse-y", `${y}px`);
                 }
-            });
+            };
         });
 
         document.addEventListener("DOMContentLoaded", function() { 
