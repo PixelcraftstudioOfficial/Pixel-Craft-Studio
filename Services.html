@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - Modern Creative Agency</title>
+    <title>Services - Pixel Craft Studio</title>
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
         /* --- IMPORT MODERN TECH FONTS --- */
@@ -78,16 +78,18 @@
         .services-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 100px; }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         
-        .card { background: var(--card-bg); border-radius: 20px; padding: 50px 40px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+        .card { background: var(--card-bg); border-radius: 20px; padding: 40px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
         
         /* Modern Card Glow Effect */
         .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 1; }
         .card:hover::before { opacity: 1; }
         .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
         
-        .card h3 { font-size: 1.5rem; margin-bottom: 20px; color: var(--text-main); font-weight: 700; display: flex; align-items: center; gap: 15px; position: relative; z-index: 2; }
-        .card h3::before { content: '✦'; color: var(--primary); font-size: 1.2rem; }
-        .card p { font-size: 1rem; color: var(--text-muted); line-height: 1.8; font-weight: 400; position: relative; z-index: 2; }
+        /* Card Icons */
+        .card-icon { width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; border: 1px solid rgba(59, 130, 246, 0.2); color: var(--primary); font-size: 1.5rem; }
+
+        .card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); font-weight: 700; position: relative; z-index: 2; }
+        .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; font-weight: 400; position: relative; z-index: 2; }
 
         /* --- MODERN CTA BANNER --- */
         .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; margin-bottom: 80px; }
@@ -145,40 +147,73 @@
     <main>
         <div class="page-header reveal">
             <h2>Our <span>Capabilities</span></h2>
-            <p>End-to-end creative solutions designed to scale your business in the digital era.</p>
+            <p>End-to-end creative and technical solutions designed to scale your business in the digital era.</p>
         </div>
 
         <section class="services-container" id="cards">
             <div class="services-grid">
                 
+                <!-- 1. Graphic Design -->
                 <div class="card reveal card-hover">
-                    <h3>Brand Identity</h3>
-                    <p>We create striking, memorable logos and brand guidelines that capture the core identity of your business and establish digital authority.</p>
+                    <div class="card-icon">✦</div>
+                    <h3>Graphic Design</h3>
+                    <p>We craft memorable, modern custom logos and comprehensive brand guidelines tailored for new businesses to establish immediate digital authority.</p>
                 </div>
 
+                <!-- 2. Social Media Posts -->
                 <div class="card reveal card-hover">
-                    <h3>Social Media Campaigns</h3>
-                    <p>Data-driven, highly aesthetic social media posts and creatives designed specifically to maximize your audience engagement.</p>
+                    <div class="card-icon">❖</div>
+                    <h3>Social Media Design</h3>
+                    <p>Data-driven digital campaigns and creatives utilizing precise font sizes and layouts to maximize audience acquisition and ad engagement.</p>
                 </div>
 
+                <!-- 3. Video Editing & AI -->
                 <div class="card reveal card-hover">
-                    <h3>Motion & Video Edits</h3>
-                    <p>From promotional clips to YouTube content, we edit your raw footage into polished, dynamic, and professional cinematic videos.</p>
+                    <div class="card-icon">▶</div>
+                    <h3>Video Production & AI</h3>
+                    <p>High-end video production, including landscape logo reveals and story-driven AI commercials—like dynamic employee-to-boss product introductions.</p>
                 </div>
 
+                <!-- 4. UI/UX Design -->
                 <div class="card reveal card-hover">
-                    <h3>Digital Banners</h3>
-                    <p>Eye-catching digital and print banners creatively designed to grab attention instantly and communicate your core marketing message.</p>
+                    <div class="card-icon">■</div>
+                    <h3>UI/UX Design</h3>
+                    <p>Intuitive user interfaces and seamless digital experiences mapped perfectly for modern web and mobile applications.</p>
                 </div>
 
+                <!-- 5. Web Developing -->
                 <div class="card reveal card-hover">
-                    <h3>Corporate Stationery</h3>
-                    <p>Clean, formal, and strictly branded letterheads and business cards that ensure your corporate communications look highly prestigious.</p>
+                    <div class="card-icon">▲</div>
+                    <h3>Web Development</h3>
+                    <p>Fast, responsive, and high-converting websites built with cutting-edge technologies to drive sales and build customer trust.</p>
                 </div>
 
+                <!-- 6. ERP System Developing -->
                 <div class="card reveal card-hover">
-                    <h3>Print & Packaging</h3>
-                    <p>Modern leaflet, flyer, and packaging layouts perfect for impactful marketing campaigns and high-end product launches.</p>
+                    <div class="card-icon">⚙</div>
+                    <h3>ERP Systems</h3>
+                    <p>Custom-built enterprise resource planning systems to automate workflows and scale your business operations seamlessly.</p>
+                </div>
+
+                <!-- 7. FOSS Cloud Setup -->
+                <div class="card reveal card-hover">
+                    <div class="card-icon">☁</div>
+                    <h3>FOSS Cloud Setup</h3>
+                    <p>Zero-cost open-source cloud infrastructure and secure server setups, providing enterprise-grade hosting without the heavy price tag.</p>
+                </div>
+
+                <!-- 8. Custom AI Agent -->
+                <div class="card reveal card-hover">
+                    <div class="card-icon">🤖</div>
+                    <h3>Custom AI Agents</h3>
+                    <p>Intelligent, custom-trained AI chatbots and automated assistants tailored to handle your specific customer interactions and lead generation.</p>
+                </div>
+
+                <!-- 9. Digital Templates -->
+                <div class="card reveal card-hover">
+                    <div class="card-icon">⚡</div>
+                    <h3>Digital Templates</h3>
+                    <p>Premium, ready-to-use digital assets, UI kits, and social media templates designed to accelerate your everyday creative workflows.</p>
                 </div>
 
             </div>
@@ -186,10 +221,10 @@
 
         <!-- CTA Section -->
         <section class="cta-banner reveal">
-            <h2>See a service you need?</h2>
+            <h2>Ready to scale your business?</h2>
             <p>Let's discuss how we can tailor our digital expertise to achieve your business goals.</p>
             <br>
-            <a href="Contact Us.html" class="btn-modern">Request a Quote</a>
+            <a href="Contact Us.html" class="btn-modern">Start a Project</a>
         </section>
     </main>
 
