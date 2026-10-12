@@ -3,51 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Craft Studio - Modern Creative Agency</title>
+    <title>Pixel Craft Studio - Modern Creative & Tech Agency</title>
     
-    <!-- Standard SEO -->
-    <meta name="description" content="Pixel Craft Studio is a next-generation creative agency providing UI/UX design, custom AI agents, web development, and brand identity solutions.">
-    <meta name="keywords" content="Creative Agency, UI/UX Design, AI Chatbots, ERP Systems, Web Development, Social Media Marketing, Pixel Craft Studio">
+    <meta name="description" content="Pixel Craft Studio is a next-generation creative agency in Sri Lanka providing UI/UX design, social media marketing, video production, custom AI agents, and web development.">
+    <meta name="keywords" content="Creative Agency Sri Lanka, UI/UX Design, ERP Systems, Web Development Kandy, Social Media Marketing, Pixel Craft Studio, QuadraLK">
     <meta name="author" content="Pixel Craft Studio">
 
-    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.pixelcraft.lk/">
+    <meta property="og:url" content="https://pixelcraftstudioofficial.github.io/Pixel-Craft-Studio/">
     <meta property="og:title" content="Pixel Craft Studio - Modern Creative Agency">
-    <meta property="og:description" content="Elevate your brand with data-driven design, custom AI, and cutting-edge web development.">
-    <meta property="og:image" content="https://www.pixelcraft.lk/OG-Banner.jpg"> <!-- Change this to your actual OG image link -->
-
-    <!-- Twitter Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Pixel Craft Studio">
-    <meta name="twitter:description" content="Crafting next-generation digital experiences.">
-    <meta name="twitter:image" content="https://www.pixelcraft.lk/OG-Banner.jpg">
+    <meta property="og:description" content="Elevate your brand with data-driven design, custom web systems, and high-converting video production.">
+    <meta property="og:image" content="Favicon.png">
 
     <link rel="icon" type="image/png" href="Favicon.png">
-    
-    <!-- Meta Pixel Code (Replace YOUR_PIXEL_ID with your actual ID) -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', 'YOUR_PIXEL_ID');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
 
     <style>
-        /* --- IMPORT MODERN TECH FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
-        /* --- MODERN TECH COLOR VARIABLES --- */
         :root {
             --primary: #3b82f6; 
             --secondary: #8b5cf6; 
@@ -57,11 +29,11 @@
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --success: #10b981;
             --gradient-text: linear-gradient(135deg, #60a5fa, #c084fc);
             --gradient-bg: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
-        /* --- GENERAL RESET & BACKGROUND --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { 
@@ -78,125 +50,128 @@
         
         h1, h2, h3, h4, .logo { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* --- SCROLL REVEAL ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
         
         @keyframes scrollTicker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- GLASSMORPHISM NAVBAR --- */
-        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
-        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3, 7, 18, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 18px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
+        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; text-decoration: none; }
         .navbar .logo span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .nav-links { list-style: none; display: flex; gap: 35px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 30px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: all 0.3s ease; }
         .nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+        .nav-portal-btn { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: #60a5fa !important; padding: 8px 18px; border-radius: 50px; font-weight: 600 !important; }
+        .nav-portal-btn:hover { background: var(--primary); color: #fff !important; }
 
         .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
         .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 850px) {
             .navbar .logo { font-size: 1.5rem; }
             .menu-toggle { display: flex; }
             .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(3, 7, 18, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid var(--card-border); }
-            .nav-links.active { max-height: 400px; padding: 20px 0; }
-            .nav-links a { display: block; padding: 15px 0; }
+            .nav-links.active { max-height: 480px; padding: 20px 0; }
+            .nav-links li { width: 100%; }
+            .nav-links a { display: block; padding: 14px 0; }
+            .nav-portal-btn { display: inline-block !important; margin-top: 10px; padding: 10px 28px !important; }
             #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
             #mobile-menu.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
 
-        /* --- MODERN GLOW BUTTONS --- */
-        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; }
+        /* Buttons */
+        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; text-align: center; }
         .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
         
-        .btn-outline { display: inline-block; border: 1px solid var(--card-border); background: rgba(255,255,255,0.05); color: var(--text-main); padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1rem; font-weight: 500; transition: all 0.3s ease; backdrop-filter: blur(10px); }
-        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+        .btn-outline { display: inline-block; border: 1px solid var(--card-border); background: rgba(255,255,255,0.05); color: var(--text-main); padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1rem; font-weight: 500; transition: all 0.3s ease; backdrop-filter: blur(10px); text-align: center; }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.25); }
 
-        /* --- HERO SECTION --- */
-        main { padding-top: 100px; }
-        .hero-container { display: flex; align-items: center; justify-content: space-between; max-width: 1300px; margin: 0 auto; padding: 80px 5%; gap: 60px; min-height: 85vh; }
+        /* Hero Section */
+        main { padding-top: 90px; }
+        .hero-container { display: flex; align-items: center; justify-content: space-between; max-width: 1300px; margin: 0 auto; padding: 70px 5%; gap: 60px; min-height: 85vh; }
         .hero-content { flex: 1; }
         
-        .hero-tag { display: inline-block; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .hero-tag { display: inline-block; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.25); color: #60a5fa; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
         
-        .hero-content h1 { font-size: 4.5rem; color: var(--text-main); font-weight: 800; line-height: 1.1; margin-bottom: 25px; letter-spacing: -1px; }
+        .hero-content h1 { font-size: 4.2rem; color: var(--text-main); font-weight: 800; line-height: 1.12; margin-bottom: 25px; letter-spacing: -1px; }
         .typing-text { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .cursor { display: inline-block; width: 3px; height: 1em; background-color: var(--primary); animation: blink 1s step-end infinite; vertical-align: bottom; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 40px; max-width: 550px; font-weight: 400; }
-        .hero-buttons { display: flex; gap: 20px; }
+        .hero-content p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 35px; max-width: 560px; }
+        .hero-buttons { display: flex; gap: 18px; flex-wrap: wrap; }
         
         .hero-video-wrapper { flex: 1; display: flex; justify-content: center; align-items: center; }
 
         @media (max-width: 900px) {
-            .hero-container { flex-direction: column; text-align: center; padding: 40px 5%; margin-top: 20px; }
-            .hero-content h1 { font-size: 3rem; }
+            .hero-container { flex-direction: column; text-align: center; padding: 40px 5%; }
+            .hero-content h1 { font-size: 2.9rem; }
             .hero-content p { margin: 0 auto 30px; }
-            .hero-buttons { justify-content: center; flex-wrap: wrap; }
+            .hero-buttons { justify-content: center; }
         }
 
-        /* --- CLIENT LOGO TICKER --- */
-        .client-ticker { background: rgba(255,255,255,0.02); padding: 30px 0; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); overflow: hidden; display: flex; white-space: nowrap; margin-bottom: 100px; backdrop-filter: blur(10px); }
+        /* Ticker */
+        .client-ticker { background: rgba(255,255,255,0.02); padding: 26px 0; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); overflow: hidden; display: flex; white-space: nowrap; margin-bottom: 90px; backdrop-filter: blur(10px); }
         .ticker-track { display: flex; animation: scrollTicker 30s linear infinite; }
-        .ticker-track span { font-size: 1rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-muted); font-weight: 600; margin: 0 50px; text-transform: uppercase; letter-spacing: 2px; }
+        .ticker-track span { font-size: 0.95rem; font-family: 'Plus Jakarta Sans', sans-serif; color: var(--text-muted); font-weight: 600; margin: 0 40px; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- SECTION HEADERS --- */
-        .section-header { text-align: center; margin-bottom: 60px; padding: 0 20px; }
-        .section-header h2 { font-size: 2.8rem; color: var(--text-main); font-weight: 700; margin-bottom: 15px; letter-spacing: -0.5px; }
+        /* Section Headers */
+        .section-header { text-align: center; margin-bottom: 55px; padding: 0 20px; }
+        .section-header h2 { font-size: 2.7rem; color: var(--text-main); font-weight: 800; margin-bottom: 12px; letter-spacing: -0.5px; }
         .section-header h2 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .section-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        .section-header p { font-size: 1.1rem; color: var(--text-muted); max-width: 620px; margin: 0 auto; }
 
-        /* --- MODERN GALLERY --- */
-        .mini-gallery { max-width: 1300px; margin: 0 auto 100px; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .gallery-card { border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; border: 1px solid var(--card-border); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
-        .gallery-card img { width: 100%; height: 350px; object-fit: cover; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); display: block; opacity: 0.8; }
-        .gallery-card:hover img { transform: scale(1.05); opacity: 1; }
+        /* Featured Gallery */
+        .mini-gallery { max-width: 1300px; margin: 0 auto 90px; padding: 0 5%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .gallery-card { display: block; text-decoration: none; border-radius: 16px; overflow: hidden; position: relative; cursor: pointer; border: 1px solid var(--card-border); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5); }
+        .gallery-card img { width: 100%; height: 340px; object-fit: cover; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); display: block; opacity: 0.85; }
+        .gallery-card:hover img { transform: scale(1.06); opacity: 1; }
         .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(3,7,18,0.95) 0%, rgba(3,7,18,0.4) 50%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; transition: all 0.4s ease; }
-        .gallery-overlay h4 { font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; color: var(--text-main); transform: translateY(20px); transition: transform 0.4s ease; }
-        .gallery-overlay p { color: var(--primary); font-size: 0.95rem; font-weight: 500; transform: translateY(20px); opacity: 0; transition: all 0.4s ease; }
-        .gallery-card:hover .gallery-overlay h4 { transform: translateY(0); }
-        .gallery-card:hover .gallery-overlay p { transform: translateY(0); opacity: 1; }
+        .gallery-overlay h4 { font-size: 1.4rem; font-weight: 700; margin-bottom: 5px; color: var(--text-main); }
+        .gallery-overlay span { color: #60a5fa; font-size: 0.95rem; font-weight: 600; }
 
-        /* --- MODERN SERVICES GRID --- */
-        .grid-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 80px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .card { background: var(--card-bg); border-radius: 20px; padding: 40px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
-        
-        /* Modern Card Glow Effect */
+        /* Capabilities Grid */
+        .grid-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 75px; display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 30px; }
+        .card { background: var(--card-bg); border-radius: 20px; padding: 38px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
         .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 1; }
         .card:hover::before { opacity: 1; }
-        .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
+        .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.18); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
         
-        .card-icon { width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; border: 1px solid rgba(59, 130, 246, 0.2); color: var(--primary); font-size: 1.5rem; }
-        
-        .card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); font-weight: 700; position: relative; z-index: 2; }
+        .card-icon { width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; border: 1px solid rgba(59, 130, 246, 0.2); color: var(--primary); font-size: 1.5rem; }
+        .card h3 { font-size: 1.35rem; margin-bottom: 12px; color: var(--text-main); font-weight: 700; position: relative; z-index: 2; }
         .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; position: relative; z-index: 2; }
 
-        /* --- MODERN CTA BANNER --- */
-        .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; }
-        .cta-banner::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%); z-index: 0; pointer-events: none; }
-        .cta-banner h2, .cta-banner p, .cta-banner a { position: relative; z-index: 1; }
-        .cta-banner h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 20px; color: var(--text-main); letter-spacing: -1px; }
-        .cta-banner p { font-size: 1.15rem; margin-bottom: 40px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto; }
+        /* Pricing List */
+        .pkg-list { list-style: none; color: var(--text-main); margin: 22px 0 30px; position: relative; z-index: 2; }
+        .pkg-list li { margin-bottom: 11px; display: flex; gap: 10px; font-size: 0.94rem; }
+        .pkg-list li span { color: var(--primary); font-weight: bold; }
 
-        /* --- FLOATING WHATSAPP BUTTON --- */
+        /* CTA Banner */
+        .cta-banner { background: var(--card-bg); padding: 90px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; }
+        .cta-banner::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%); z-index: 0; pointer-events: none; }
+        .cta-banner h2, .cta-banner p, .cta-banner div { position: relative; z-index: 1; }
+        .cta-banner h2 { font-size: 3.2rem; font-weight: 800; margin-bottom: 18px; color: var(--text-main); letter-spacing: -1px; }
+        .cta-banner p { font-size: 1.15rem; margin-bottom: 35px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        /* Floating WhatsApp */
         .float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; }
         .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5); }
         .float-wa svg { width: 32px; height: 32px; fill: white; }
 
-        /* --- CLEAN FOOTER --- */
-        .footer-pro { background: rgba(3,7,18,0.8); padding: 80px 5% 30px; border-top: 1px solid var(--card-border); backdrop-filter: blur(10px); }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
-        .footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px; }
+        /* Footer */
+        .footer-pro { background: rgba(3,7,18,0.85); padding: 80px 5% 30px; border-top: 1px solid var(--card-border); backdrop-filter: blur(10px); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 45px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
+        .footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 15px; font-weight: 800; }
         .footer-brand p { color: var(--text-muted); font-size: 0.95rem; }
-        .footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 25px; font-weight: 600; }
+        .footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px; font-weight: 600; }
         .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 15px; }
+        .footer-links ul li { margin-bottom: 12px; }
         .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-size: 0.95rem; }
         .footer-links ul li a:hover { color: var(--text-main); }
-        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-size: 0.95rem; }
+        .footer-contact p { margin-bottom: 12px; color: var(--text-muted); font-size: 0.95rem; }
         .footer-contact span { color: var(--primary); font-weight: 500; }
         .footer-bottom { text-align: center; padding-top: 30px; color: var(--text-muted); font-size: 0.85rem; }
     </style>
@@ -205,7 +180,7 @@
 
     <header>
         <nav class="navbar">
-            <h1 class="logo">Pixel<span>Craft</span></h1>
+            <a href="index.html" class="logo">Pixel<span>Craft</span></a>
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -218,208 +193,215 @@
                 <li><a href="About Us.html">Agency</a></li>
                 <li><a href="Reviews.html">Reviews</a></li>
                 <li><a href="Contact Us.html">Contact</a></li>
+                <li><a href="portal.html" class="nav-portal-btn">Track Order</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Hero Section with 16:9 Cloudinary Video -->
+        <!-- Hero Section -->
         <section class="hero-container reveal">
             <div class="hero-content">
                 <span class="hero-tag">Design Meets Technology</span>
                 <h1>Elevate Your Brand With <br>
                     <span class="typing-text" id="typewriter"></span><span class="cursor"></span>
                 </h1>
-                <p>We are a next-gen creative agency specializing in crafting stunning digital experiences, modern branding, and scalable design solutions.</p>
+                <p>We are a next-gen creative and technical agency specializing in high-converting social media campaigns, promotional videos, modern branding, and custom web systems.</p>
                 <div class="hero-buttons">
                     <a href="Contact Us.html" class="btn-modern">Start a Project</a>
-                    <a href="Designs.html" class="btn-outline">View Portfolio</a>
+                    <a href="portal.html" class="btn-outline">🔍 Track Existing Order</a>
                 </div>
             </div>
             
             <div class="hero-video-wrapper">
-                <!-- Premium 16:9 Video Container -->
                 <div style="position: relative; width: 100%; max-width: 600px; aspect-ratio: 16/9; border-radius: 20px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid var(--card-border);">
-                    
-                    <!-- Cloudinary HTML5 Video Tag (Add q_auto,f_auto in your link) -->
                     <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none;">
-                        <!-- REPLACE THIS SRC WITH YOUR CLOUDINARY VIDEO LINK -->
                         <source src="https://res.cloudinary.com/z2eznpxz/video/upload/q_auto,f_auto/v1787308752/Holographic_workspace_interfaces__202608211608.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>
-
-                    <!-- Premium Gradient Overlay (Blends video with the dark theme) -->
                     <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(3,7,18,0.3) 0%, rgba(3,7,18,0) 50%, rgba(3,7,18,0.3) 100%); pointer-events: none;"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Modern Tech Ticker Section -->
+        <!-- Ticker -->
         <div class="client-ticker reveal">
             <div class="ticker-track">
+                <span>Social Media Marketing</span><span>•</span>
+                <span>Video Production</span><span>•</span>
+                <span>Tuition Class Branding</span><span>•</span>
+                <span>Web & ERP Systems</span><span>•</span>
                 <span>UI/UX Design</span><span>•</span>
                 <span>Custom AI Agents</span><span>•</span>
-                <span>ERP Systems</span><span>•</span>
-                <span>Video Editing</span><span>•</span>
-                <span>Cloud Setup</span><span>•</span>
-                <span>Web Development</span><span>•</span>
-                <span>Graphic Design</span><span>•</span>
-                <span>Social Media</span><span>•</span>
-                <span>Digital Templates</span><span>•</span>
-                <!-- Repeat for smooth scrolling -->
-                <span>UI/UX Design</span><span>•</span>
-                <span>Custom AI Agents</span><span>•</span>
-                <span>ERP Systems</span><span>•</span>
-                <span>Video Editing</span><span>•</span>
-                <span>Cloud Setup</span><span>•</span>
-                <span>Web Development</span>
+                <span>Logo & Brand Identity</span><span>•</span>
+                <span>Social Media Marketing</span><span>•</span>
+                <span>Video Production</span><span>•</span>
+                <span>Tuition Class Branding</span><span>•</span>
+                <span>Web & ERP Systems</span>
             </div>
         </div>
 
-        <!-- Portfolio Section -->
+        <!-- Featured Portfolio Section -->
         <div class="section-header reveal">
             <h2>Featured <span>Work</span></h2>
-            <p>A curated selection of our most impactful digital and branding projects.</p>
+            <p>A curated selection of our most impactful digital, video, and technical projects.</p>
         </div>
         <section class="mini-gallery reveal">
-            <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="https://res.cloudinary.com/z2eznpxz/image/upload/v1787307535/Geometric_logo_on_presentation_b__202608211542.jpg" alt="Brand Identity" style="background-color: #0f172a;">
+            <a href="Designs.html" class="gallery-card">
+                <img src="https://res.cloudinary.com/z2eznpxz/image/upload/v1787307535/Geometric_logo_on_presentation_b__202608211542.jpg" alt="Brand Identity">
                 <div class="gallery-overlay">
-                    <h4>Brand Identity</h4>
-                    <p>View Project →</p>
+                    <h4>Brand Identity & Social Media</h4>
+                    <span>Explore Portfolio →</span>
                 </div>
-            </div>
-            <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="https://res.cloudinary.com/z2eznpxz/image/upload/v1787307540/Mobile_app_UI_UX_design_202608211542.jpg" alt="UI UX Design" style="background-color: #0f172a;">
+            </a>
+            <a href="Designs.html" class="gallery-card">
+                <img src="https://res.cloudinary.com/z2eznpxz/image/upload/v1787307540/Mobile_app_UI_UX_design_202608211542.jpg" alt="UI UX Design">
                 <div class="gallery-overlay">
-                    <h4>UI/UX Design</h4>
-                    <p>View Project →</p>
+                    <h4>UI/UX & Web Platforms</h4>
+                    <span>Explore Portfolio →</span>
                 </div>
-            </div>
-            <div class="gallery-card" onclick="window.location='Designs.html';">
-                <img src="https://res.cloudinary.com/z2eznpxz/image/upload/v1787307539/Laptop_projecting_holographic_code_202608211542.jpg" alt="Web Development" style="background-color: #0f172a;">
+            </a>
+            <a href="Designs.html" class="gallery-card">
+                <img src="https://res.cloudinary.com/z2eznpxz/image/upload/v1787307539/Laptop_projecting_holographic_code_202608211542.jpg" alt="Web Development">
                 <div class="gallery-overlay">
-                    <h4>Web Development</h4>
-                    <p>View Project →</p>
+                    <h4>Custom ERP & Cloud Systems</h4>
+                    <span>Explore Portfolio →</span>
                 </div>
-            </div>
+            </a>
         </section>
 
-        <!-- Services Section -->
+        <!-- Services Overview -->
         <div class="section-header reveal">
             <h2>Our <span>Capabilities</span></h2>
-            <p>End-to-end creative and technical solutions designed to scale your business in the digital era.</p>
+            <p>End-to-end creative and technical solutions designed to scale your business in Sri Lanka and beyond.</p>
         </div>
 
-        <!-- Category 1: Creative & Design -->
-        <div class="reveal" style="text-align: center; margin-bottom: 30px;">
-            <span class="hero-tag" style="background: rgba(139, 92, 246, 0.1); color: var(--secondary); border-color: rgba(139, 92, 246, 0.2);">Creative & Design</span>
-        </div>
         <section class="grid-container" id="cards-1">
             <div class="card reveal card-hover">
-                <div class="card-icon">✦</div>
-                <h3>Graphic Design</h3>
-                <p>Creating memorable, modern logos and complete brand guidelines that resonate with your target audience.</p>
-            </div>
-            <div class="card reveal card-hover">
-                <div class="card-icon">❖</div>
-                <h3>Social Media Design</h3>
-                <p>Data-driven creatives with perfect font layouts and designs to maximize engagement on all platforms.</p>
-            </div>
-            <div class="card reveal card-hover">
-                <div class="card-icon">▶</div>
-                <h3>Video Editing</h3>
-                <p>High-end video production, including story-driven AI commercials for new product introductions.</p>
-            </div>
-            <div class="card reveal card-hover">
-                <div class="card-icon">■</div>
-                <h3>UI/UX Design</h3>
-                <p>Intuitive user interfaces and seamless digital experiences mapped perfectly for web and mobile.</p>
-            </div>
-        </section>
-
-        <!-- Category 2: Tech & Systems -->
-        <div class="reveal" style="text-align: center; margin: 40px 0 30px;">
-            <span class="hero-tag" style="background: rgba(6, 182, 212, 0.1); color: var(--accent); border-color: rgba(6, 182, 212, 0.2);">Tech & Systems</span>
-        </div>
-        <section class="grid-container" id="cards-2">
-            <div class="card reveal card-hover">
-                <div class="card-icon">▲</div>
-                <h3>Web Development</h3>
-                <p>Fast, responsive, and modern websites built with cutting-edge technologies to drive conversions.</p>
-            </div>
-            <div class="card reveal card-hover">
-                <div class="card-icon">⚙</div>
-                <h3>ERP Systems</h3>
-                <p>Custom-built enterprise resource planning systems to automate and streamline your business operations.</p>
-            </div>
-            <div class="card reveal card-hover">
-                <div class="card-icon">☁</div>
-                <h3>FOSS Cloud Setup</h3>
-                <p>Zero-cost open-source cloud infrastructure setups and server hosting solutions for startups.</p>
-            </div>
-        </section>
-
-        <!-- Category 3: Future Tech & Assets -->
-        <div class="reveal" style="text-align: center; margin: 40px 0 30px;">
-            <span class="hero-tag">AI & Digital Assets</span>
-        </div>
-        <section class="grid-container" id="cards-3">
-            <div class="card reveal card-hover">
-                <div class="card-icon">🤖</div>
-                <h3>Custom AI Agents</h3>
-                <p>Intelligent, custom-trained AI chatbots and automated agents tailored for your specific business needs.</p>
-            </div>
-            <div class="card reveal card-hover">
-                <div class="card-icon">⚡</div>
-                <h3>Digital Templates</h3>
-                <p>Premium, ready-to-use digital templates and assets designed to speed up your everyday workflows.</p>
-            </div>
-        </section>
-
-        <!-- Exclusive Packages Section -->
-        <div class="section-header reveal" style="margin-top: 80px;">
-            <h2>Exclusive <span>Packages</span></h2>
-            <p>Specially crafted starter bundles to launch your new business with a powerful digital presence.</p>
-        </div>
-        <section class="grid-container reveal" style="grid-template-columns: repeat(auto-fit, minmax(350px, 400px)); justify-content: center;">
-            <!-- Business Starter Kit Card -->
-            <div class="card card-hover" style="border: 1px solid var(--primary); position: relative;">
-                <div style="position: absolute; top: -15px; right: 20px; background: var(--gradient-bg); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold;">BEST VALUE</div>
-                
-                <h3 style="font-size: 1.8rem; margin-bottom: 5px;">Business Starter Kit</h3>
-                <p style="margin-bottom: 20px;">Everything you need to kickstart your brand.</p>
-                
-                <div style="display: flex; align-items: baseline; gap: 10px; margin-bottom: 25px;">
-                    <h2 style="font-size: 3rem; color: var(--text-main); line-height: 1;">Rs. 7,500/-</h2>
-                    <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1.2rem;">Rs. 10,000/-</span>
+                <div>
+                    <div class="card-icon">✦</div>
+                    <h3>Logo & Brand Identity</h3>
+                    <p>Memorable, modern logos, letterheads, packaging labels, and complete brand guidelines that make your business stand out.</p>
                 </div>
+            </div>
+            <div class="card reveal card-hover">
+                <div>
+                    <div class="card-icon">❖</div>
+                    <h3>Social Media & Tuition Marketing</h3>
+                    <p>High-converting Facebook/Instagram posts, student achievement banners, and targeted ad campaigns for businesses and educators.</p>
+                </div>
+            </div>
+            <div class="card reveal card-hover">
+                <div>
+                    <div class="card-icon">▶</div>
+                    <h3>Promotional Video Editing</h3>
+                    <p>Dynamic TikTok/Reels shorts, motion graphics, and story-driven AI commercial videos designed to capture instant attention.</p>
+                </div>
+            </div>
+            <div class="card reveal card-hover">
+                <div>
+                    <div class="card-icon">▲</div>
+                    <h3>Web & Custom ERP Systems</h3>
+                    <p>Fast, responsive websites, client portals, and custom Firebase/PHP management systems to automate your daily operations.</p>
+                </div>
+            </div>
+            <div class="card reveal card-hover">
+                <div>
+                    <div class="card-icon">🤖</div>
+                    <h3>Custom AI Agents & Automation</h3>
+                    <p>Intelligent AI chatbots and automated workflows tailored to answer customer inquiries and capture leads 24/7.</p>
+                </div>
+            </div>
+            <div class="card reveal card-hover">
+                <div>
+                    <div class="card-icon">■</div>
+                    <h3>UI/UX & Digital Templates</h3>
+                    <p>Intuitive mobile/web interfaces and ready-to-use digital assets crafted for maximum user engagement.</p>
+                </div>
+            </div>
+        </section>
 
-                <ul style="list-style: none; color: var(--text-main); margin-bottom: 35px;">
-                    <li style="margin-bottom: 12px; display: flex; gap: 10px;">
-                        <span style="color: var(--primary);">✓</span> Custom Logo Design
-                    </li>
-                    <li style="margin-bottom: 12px; display: flex; gap: 10px;">
-                        <span style="color: var(--primary);">✓</span> 5 Social Media Post Designs
-                    </li>
-                    <li style="margin-bottom: 12px; display: flex; gap: 10px;">
-                        <span style="color: var(--primary);">✓</span> Basic Promo Video (AI Powered)
-                    </li>
-                    <li style="margin-bottom: 12px; display: flex; gap: 10px;">
-                        <span style="color: var(--primary);">✓</span> Brand Font & Color Guide
-                    </li>
-                </ul>
+        <!-- 3-Tier Exclusive Packages Section -->
+        <div class="section-header reveal" style="margin-top: 90px;">
+            <h2>Transparent <span>Packages</span></h2>
+            <p>Choose the perfect package to launch or scale your brand with guaranteed quality and fast turnaround.</p>
+        </div>
 
-                <a href="Contact Us.html" class="btn-modern" style="width: 100%; text-align: center; box-sizing: border-box;">Claim Discount</a>
+        <section class="grid-container reveal" id="cards-2">
+            <!-- Package 1: Starter Kit -->
+            <div class="card card-hover" style="border: 1px solid rgba(59, 130, 246, 0.35);">
+                <div>
+                    <span class="hero-tag" style="margin-bottom: 12px;">One-Time Bundle</span>
+                    <h3 style="font-size: 1.6rem; margin-bottom: 5px;">Business Starter Kit</h3>
+                    <p style="margin-bottom: 20px;">Everything you need to launch a new brand professionally.</p>
+                    
+                    <div style="display: flex; align-items: baseline; gap: 10px;">
+                        <h2 style="font-size: 2.5rem; color: var(--text-main);">Rs. 7,500</h2>
+                        <span style="text-decoration: line-through; color: var(--text-muted); font-size: 1.05rem;">Rs. 10,000</span>
+                    </div>
+
+                    <ul class="pkg-list">
+                        <li><span>✓</span> Custom Modern Logo Design</li>
+                        <li><span>✓</span> 5 Social Media Promotional Posts</li>
+                        <li><span>✓</span> 1 Basic Promo Video (Reels/TikTok)</li>
+                        <li><span>✓</span> Brand Font & Color Palette Guide</li>
+                    </ul>
+                </div>
+                <a href="Contact Us.html?pkg=Starter_Kit" class="btn-modern" style="width: 100%;">Order Starter Kit</a>
+            </div>
+
+            <!-- Package 2: Monthly Retainer (Highlighted) -->
+            <div class="card card-hover" style="border: 2px solid var(--primary); background: rgba(59, 130, 246, 0.05);">
+                <div style="position: absolute; top: 16px; right: 16px; background: var(--gradient-bg); color: white; padding: 4px 14px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">MOST POPULAR</div>
+                <div>
+                    <span class="hero-tag" style="margin-bottom: 12px; background: rgba(139, 92, 246, 0.15); color: #c084fc;">Monthly Retainer</span>
+                    <h3 style="font-size: 1.6rem; margin-bottom: 5px;">Monthly Growth Plan</h3>
+                    <p style="margin-bottom: 20px;">Ideal for ongoing businesses, institutes & tuition classes.</p>
+                    
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <h2 style="font-size: 2.5rem; color: var(--text-main);">Rs. 18,500</h2>
+                        <span style="color: var(--text-muted); font-size: 0.95rem;">/ month</span>
+                    </div>
+
+                    <ul class="pkg-list">
+                        <li><span>✓</span> 10 Creative Social Media Flyers</li>
+                        <li><span>✓</span> 3 Promotional Short Videos (Reels/TikTok)</li>
+                        <li><span>✓</span> Facebook Ad Campaign Setup & Targeting</li>
+                        <li><span>✓</span> Priority Customer Portal & Revision Support</li>
+                    </ul>
+                </div>
+                <a href="Contact Us.html?pkg=Monthly_Growth" class="btn-modern" style="width: 100%;">Start Monthly Plan</a>
+            </div>
+
+            <!-- Package 3: Web & Digital Pro -->
+            <div class="card card-hover" style="border: 1px solid rgba(6, 182, 212, 0.35);">
+                <div>
+                    <span class="hero-tag" style="margin-bottom: 12px; background: rgba(6, 182, 212, 0.15); color: #22d3ee;">Complete System</span>
+                    <h3 style="font-size: 1.6rem; margin-bottom: 5px;">Web & Digital Pro</h3>
+                    <p style="margin-bottom: 20px;">Full website or management system with complete branding.</p>
+                    
+                    <div style="display: flex; align-items: baseline; gap: 8px;">
+                        <h2 style="font-size: 2.5rem; color: var(--text-main);">Rs. 35,000+</h2>
+                    </div>
+
+                    <ul class="pkg-list">
+                        <li><span>✓</span> Custom Responsive Website / Web App</li>
+                        <li><span>✓</span> Admin & Customer Tracking Portal</li>
+                        <li><span>✓</span> Firebase Database & Hosting Setup</li>
+                        <li><span>✓</span> Full Brand Kit + 5 Launch Posts</li>
+                    </ul>
+                </div>
+                <a href="Contact Us.html?pkg=Web_Pro" class="btn-outline" style="width: 100%; border-color: var(--primary);">Request Custom Quote</a>
             </div>
         </section>
 
         <!-- CTA Section -->
         <section class="cta-banner reveal">
             <h2>Ready to build something great?</h2>
-            <p>Join forward-thinking brands that trust Pixel Craft Studio to elevate their digital presence.</p>
-            <br>
-            <a href="Contact Us.html" class="btn-modern">Let's Talk</a>
+            <p>Start your project today and get an instant Order Tracking Number to monitor your samples and final files live.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="Contact Us.html" class="btn-modern">Create New Order</a>
+                <a href="https://wa.me/94766390768?text=Hi%20Pixel%20Craft%20Studio,%20I%20want%20to%20discuss%20a%20new%20project." target="_blank" class="btn-outline">Chat on WhatsApp</a>
+            </div>
         </section>
     </main>
 
@@ -432,32 +414,40 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Pixel Craft Studio</h3>
-                <p>Crafting next-generation digital experiences and robust brand identities for the modern web.</p>
+                <p>Crafting next-generation digital experiences, high-converting media, and robust web systems for modern brands.</p>
             </div>
             <div class="footer-links">
-                <h4>Navigation</h4>
+                <h4>Quick Links</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="Designs.html">Work</a></li>
-                    <li><a href="Services.html">Services</a></li>
-                    <li><a href="About Us.html">Agency</a></li>
+                    <li><a href="Designs.html">Portfolio</a></li>
+                    <li><a href="Services.html">Services & Packages</a></li>
+                    <li><a href="About Us.html">Our Agency & Team</a></li>
+                    <li><a href="Reviews.html">Client Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Client & Staff Portals</h4>
+                <ul>
+                    <li><a href="portal.html" style="color: #60a5fa; font-weight: 600;">🔍 Customer Order Portal</a></li>
+                    <li><a href="Contact Us.html">Start New Project</a></li>
+                    <li><a href="admin.html">🔒 Staff / Admin Login</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
                 <h4>Connect</h4>
-                <p>Phone: <span>+94 76 639 0768</span></p>
-                <p>Email: <span>hello@pixelcraft.lk</span></p>
+                <p>Phone / WA: <span>+94 76 639 0768</span></p>
+                <p>Location: <span>Kandy, Sri Lanka</span></p>
                 <br>
-                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Facebook ↗</a>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" target="_blank" style="color: var(--text-main); text-decoration: none; font-weight: 600;">Facebook Page ↗</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
+            <p>&copy; 2026 Pixel Craft Studio (A QuadraLK Venture). All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // 1. Mobile Menu Toggle
         const menuToggle = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('#nav-links');
         menuToggle.addEventListener('click', function() {
@@ -465,8 +455,7 @@
             navLinks.classList.toggle('active');
         });
 
-        // 2. Dynamic Typing Effect (Updated with new services)
-        const textArray = ["Digital Identity.", "UI/UX Design.", "ERP Systems.", "Custom AI Agents.", "Cloud Solutions."];
+        const textArray = ["Digital Identity.", "Social Media Ads.", "Promo Videos.", "Web & ERP Systems.", "Custom AI Agents."];
         const typingDelay = 80;
         const erasingDelay = 40;
         const newTextDelay = 2000;
@@ -496,21 +485,18 @@
             }
         }
 
-        // 3. Scroll Reveal
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 100) {
                     reveals[i].classList.add("active");
                 }
             }
         }
         window.addEventListener("scroll", reveal);
 
-        // 4. Modern Mouse Glow Effect on Cards (Updated for multiple containers)
         document.querySelectorAll(".grid-container").forEach(container => {
             container.onmousemove = e => {
                 for(const card of container.getElementsByClassName("card-hover")) {
@@ -524,10 +510,9 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() { 
-            if(textArray.length) setTimeout(type, newTextDelay + 250);
+            if(textArray.length) setTimeout(type, 800);
             reveal(); 
         });
     </script>
-
 </body>
 </html>
