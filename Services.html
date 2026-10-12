@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - Pixel Craft Studio</title>
+    <title>Services & Packages - Pixel Craft Studio</title>
     <link rel="icon" type="image/png" href="Favicon.png">
     <style>
-        /* --- IMPORT MODERN TECH FONTS --- */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
-        /* --- MODERN TECH COLOR VARIABLES --- */
         :root {
             --primary: #3b82f6;
             --secondary: #8b5cf6;
@@ -23,7 +21,6 @@
             --gradient-bg: linear-gradient(135deg, var(--primary), var(--secondary));
         }
 
-        /* --- GENERAL RESET & BACKGROUND --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body { 
@@ -40,83 +37,71 @@
         
         h1, h2, h3, h4, .logo { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* --- SCROLL REVEAL ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- GLASSMORPHISM NAVBAR --- */
-        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3, 7, 18, 0.7); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 20px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
-        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.5px; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3, 7, 18, 0.75); backdrop-filter: blur(16px); padding: 18px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
+        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); text-decoration: none; }
         .navbar .logo span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        .nav-links { list-style: none; display: flex; gap: 35px; }
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 30px; }
         .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s ease; }
-        .nav-links a:hover, .nav-links a.active { color: var(--text-main); text-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+        .nav-portal-btn { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: #60a5fa !important; padding: 8px 18px; border-radius: 50px; font-weight: 600 !important; }
+        .nav-portal-btn:hover { background: var(--primary); color: #fff !important; }
 
         .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
         .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 850px) {
             .navbar .logo { font-size: 1.5rem; }
             .menu-toggle { display: flex; }
             .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(3, 7, 18, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid var(--card-border); }
-            .nav-links.active { max-height: 400px; padding: 20px 0; }
-            .nav-links a { display: block; padding: 15px 0; }
+            .nav-links.active { max-height: 480px; padding: 20px 0; }
+            .nav-links li { width: 100%; }
+            .nav-links a { display: block; padding: 14px 0; }
+            .nav-portal-btn { display: inline-block !important; margin-top: 10px; padding: 10px 28px !important; }
             #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
             #mobile-menu.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
             #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
         }
 
-        /* --- PAGE HEADER --- */
         main { padding-top: 130px; min-height: 80vh; }
-        .page-header { text-align: center; padding: 40px 20px 60px; }
-        .page-header h2 { font-size: 3.5rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .page-header { text-align: center; padding: 35px 20px 55px; }
+        .page-header h2 { font-size: 3.4rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
         .page-header h2 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 400; }
+        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 620px; margin: 0 auto; }
 
-        /* --- MODERN SERVICES GRID --- */
-        .services-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 100px; }
+        .services-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 90px; }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         
-        .card { background: var(--card-bg); border-radius: 20px; padding: 40px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+        .card { background: var(--card-bg); border-radius: 20px; padding: 38px; transition: all 0.4s ease; border: 1px solid var(--card-border); backdrop-filter: blur(10px); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; }
+        .card:hover { transform: translateY(-5px); border-color: rgba(96, 165, 250, 0.35); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
         
-        /* Modern Card Glow Effect */
-        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%); opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 1; }
-        .card:hover::before { opacity: 1; }
-        .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.15); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
-        
-        /* Card Icons */
-        .card-icon { width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; border: 1px solid rgba(59, 130, 246, 0.2); color: var(--primary); font-size: 1.5rem; }
+        .card-icon { width: 50px; height: 50px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; border: 1px solid rgba(59, 130, 246, 0.2); color: var(--primary); font-size: 1.5rem; }
+        .card h3 { font-size: 1.4rem; margin-bottom: 12px; color: var(--text-main); font-weight: 700; }
+        .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 22px; }
+        .card-link { color: #60a5fa; text-decoration: none; font-size: 0.9rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+        .card-link:hover { text-decoration: underline; }
 
-        .card h3 { font-size: 1.4rem; margin-bottom: 15px; color: var(--text-main); font-weight: 700; position: relative; z-index: 2; }
-        .card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; font-weight: 400; position: relative; z-index: 2; }
+        .cta-banner { background: var(--card-bg); padding: 90px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); }
+        .cta-banner h2 { font-size: 2.6rem; font-weight: 800; margin-bottom: 15px; }
+        .cta-banner p { font-size: 1.1rem; margin-bottom: 35px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto; }
+        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; }
 
-        /* --- MODERN CTA BANNER --- */
-        .cta-banner { background: var(--card-bg); padding: 100px 5%; text-align: center; border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border); position: relative; overflow: hidden; margin-bottom: 80px; }
-        .cta-banner::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%); z-index: 0; pointer-events: none; }
-        .cta-banner h2, .cta-banner p, .cta-banner a { position: relative; z-index: 1; }
-        .cta-banner h2 { font-size: 2.8rem; font-weight: 800; margin-bottom: 20px; color: var(--text-main); letter-spacing: -1px; }
-        .cta-banner p { font-size: 1.15rem; margin-bottom: 40px; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto; }
-        
-        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); cursor: pointer; }
-        .btn-modern:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
-
-        /* --- FLOATING WHATSAPP BUTTON --- */
         .float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; transition: all 0.3s ease; }
-        .float-wa:hover { transform: scale(1.1); box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5); }
         .float-wa svg { width: 32px; height: 32px; fill: white; }
 
-        /* --- CLEAN FOOTER --- */
-        .footer-pro { background: rgba(3,7,18,0.8); padding: 80px 5% 30px; border-top: 1px solid var(--card-border); backdrop-filter: blur(10px); }
-        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
-        .footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px; font-weight: 800; letter-spacing: -0.5px; }
+        .footer-pro { background: rgba(3,7,18,0.85); padding: 80px 5% 30px; border-top: 1px solid var(--card-border); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 45px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
+        .footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 15px; font-weight: 800; }
         .footer-brand p { color: var(--text-muted); font-size: 0.95rem; }
-        .footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 25px; font-weight: 600; }
+        .footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px; font-weight: 600; }
         .footer-links ul { list-style: none; }
-        .footer-links ul li { margin-bottom: 15px; }
-        .footer-links ul li a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; font-size: 0.95rem; }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; }
         .footer-links ul li a:hover { color: var(--text-main); }
-        .footer-contact p { margin-bottom: 15px; color: var(--text-muted); font-size: 0.95rem; }
+        .footer-contact p { margin-bottom: 12px; color: var(--text-muted); font-size: 0.95rem; }
         .footer-contact span { color: var(--primary); font-weight: 500; }
         .footer-bottom { text-align: center; padding-top: 30px; color: var(--text-muted); font-size: 0.85rem; }
     </style>
@@ -125,14 +110,12 @@
 
     <header>
         <nav class="navbar">
-            <h1 class="logo">Pixel<span>Craft</span></h1>
-            
+            <a href="index.html" class="logo">Pixel<span>Craft</span></a>
             <div class="menu-toggle" id="mobile-menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
                 <span class="bar"></span>
             </div>
-
             <ul class="nav-links" id="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="Designs.html">Portfolio</a></li>
@@ -140,6 +123,7 @@
                 <li><a href="About Us.html">Agency</a></li>
                 <li><a href="Reviews.html">Reviews</a></li>
                 <li><a href="Contact Us.html">Contact</a></li>
+                <li><a href="portal.html" class="nav-portal-btn">Track Order</a></li>
             </ul>
         </nav>
     </header>
@@ -147,88 +131,103 @@
     <main>
         <div class="page-header reveal">
             <h2>Our <span>Capabilities</span></h2>
-            <p>End-to-end creative and technical solutions designed to scale your business in the digital era.</p>
+            <p>End-to-end creative, marketing, and technical solutions designed to grow your business.</p>
         </div>
 
         <section class="services-container" id="cards">
             <div class="services-grid">
                 
-                <!-- 1. Graphic Design -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">✦</div>
-                    <h3>Graphic Design</h3>
-                    <p>We craft memorable, modern custom logos and comprehensive brand guidelines tailored for new businesses to establish immediate digital authority.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">✦</div>
+                        <h3>Brand Identity & Logo Design</h3>
+                        <p>Custom modern logos, letterheads, packaging stickers, and complete brand guidelines tailored for new and growing businesses.</p>
+                    </div>
+                    <a href="Contact Us.html?service=Brand%20Identity%20/%20Logo" class="card-link">Request Service →</a>
                 </div>
 
-                <!-- 2. Social Media Posts -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">❖</div>
-                    <h3>Social Media Design</h3>
-                    <p>Data-driven digital campaigns and creatives utilizing precise font sizes and layouts to maximize audience acquisition and ad engagement.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">❖</div>
+                        <h3>Social Media & Tuition Campaigns</h3>
+                        <p>High-converting Facebook/Instagram flyers, tuition class promotional posters, student achievement banners, and ad management.</p>
+                    </div>
+                    <a href="Contact Us.html?service=Digital%20Marketing%20/%20Social%20Media" class="card-link">Request Service →</a>
                 </div>
 
-                <!-- 3. Video Editing & AI -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">▶</div>
-                    <h3>Video Production & AI</h3>
-                    <p>High-end video production, including landscape logo reveals and story-driven AI commercials—like dynamic employee-to-boss product introductions.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">▶</div>
+                        <h3>Video Production & AI Commercials</h3>
+                        <p>Engaging TikTok/Reels short videos, motion graphic intros, and story-driven AI commercials to showcase your products dynamically.</p>
+                    </div>
+                    <a href="Contact Us.html?service=Video%20Production" class="card-link">Request Service →</a>
                 </div>
 
-                <!-- 4. UI/UX Design -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">■</div>
-                    <h3>UI/UX Design</h3>
-                    <p>Intuitive user interfaces and seamless digital experiences mapped perfectly for modern web and mobile applications.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">▲</div>
+                        <h3>Web Development</h3>
+                        <p>Fast, mobile-responsive websites, e-commerce storefronts, and custom client portals built with modern web technologies.</p>
+                    </div>
+                    <a href="Contact Us.html?service=UI/UX%20%26%20Web%20Design" class="card-link">Request Service →</a>
                 </div>
 
-                <!-- 5. Web Developing -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">▲</div>
-                    <h3>Web Development</h3>
-                    <p>Fast, responsive, and high-converting websites built with cutting-edge technologies to drive sales and build customer trust.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">⚙</div>
+                        <h3>Custom ERP & Management Systems</h3>
+                        <p>Tailor-made Firebase/PHP systems for attendance tracking, invoicing, inventory, and society/institute member management.</p>
+                    </div>
+                    <a href="Contact Us.html?service=ERP%20%26%20Management%20Systems" class="card-link">Request Service →</a>
                 </div>
 
-                <!-- 6. ERP System Developing -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">⚙</div>
-                    <h3>ERP Systems</h3>
-                    <p>Custom-built enterprise resource planning systems to automate workflows and scale your business operations seamlessly.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">■</div>
+                        <h3>UI/UX Design</h3>
+                        <p>Intuitive user interfaces, interactive wireframes, and seamless digital experiences mapped for web and mobile apps.</p>
+                    </div>
+                    <a href="Contact Us.html?service=UI/UX%20%26%20Web%20Design" class="card-link">Request Service →</a>
                 </div>
 
-                <!-- 7. FOSS Cloud Setup -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">☁</div>
-                    <h3>FOSS Cloud Setup</h3>
-                    <p>Zero-cost open-source cloud infrastructure and secure server setups, providing enterprise-grade hosting without the heavy price tag.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">🤖</div>
+                        <h3>Custom AI Agents & Chatbots</h3>
+                        <p>Smart, custom-trained AI assistants for your website or WhatsApp to handle customer inquiries and lead capture 24/7.</p>
+                    </div>
+                    <a href="Contact Us.html?service=Custom%20AI%20Agents" class="card-link">Request Service →</a>
                 </div>
 
-                <!-- 8. Custom AI Agent -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">🤖</div>
-                    <h3>Custom AI Agents</h3>
-                    <p>Intelligent, custom-trained AI chatbots and automated assistants tailored to handle your specific customer interactions and lead generation.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">☁</div>
+                        <h3>FOSS Cloud & Hosting Setup</h3>
+                        <p>Cost-effective cloud infrastructure, domain configuration, and secure hosting setups for startups and agencies.</p>
+                    </div>
+                    <a href="Contact Us.html?service=Cloud%20%26%20Hosting%20Setup" class="card-link">Request Service →</a>
                 </div>
 
-                <!-- 9. Digital Templates -->
-                <div class="card reveal card-hover">
-                    <div class="card-icon">⚡</div>
-                    <h3>Digital Templates</h3>
-                    <p>Premium, ready-to-use digital assets, UI kits, and social media templates designed to accelerate your everyday creative workflows.</p>
+                <div class="card reveal">
+                    <div>
+                        <div class="card-icon">⚡</div>
+                        <h3>Print, Packaging & Digital Assets</h3>
+                        <p>Product box labels, commercial banners, YouTube thumbnails, and ready-to-use digital templates for fast workflows.</p>
+                    </div>
+                    <a href="Contact Us.html?service=Print%20%26%20Packaging" class="card-link">Request Service →</a>
                 </div>
 
             </div>
         </section>
 
-        <!-- CTA Section -->
         <section class="cta-banner reveal">
             <h2>Ready to scale your business?</h2>
-            <p>Let's discuss how we can tailor our digital expertise to achieve your business goals.</p>
-            <br>
+            <p>Submit your project requirements and get your instant Order Tracking ID in seconds.</p>
             <a href="Contact Us.html" class="btn-modern">Start a Project</a>
         </section>
     </main>
 
-    <!-- Floating WhatsApp Button -->
     <a href="https://wa.link/dgf22q" class="float-wa" target="_blank" title="Chat with us on WhatsApp">
         <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92 13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0 13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98 1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0 01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6 11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1 .1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95 2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85 1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
     </a>
@@ -237,32 +236,40 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Pixel Craft Studio</h3>
-                <p>Crafting next-generation digital experiences and robust brand identities for the modern web.</p>
+                <p>Crafting next-generation digital experiences, high-converting media, and robust web systems for modern brands.</p>
             </div>
             <div class="footer-links">
-                <h4>Navigation</h4>
+                <h4>Quick Links</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="Designs.html">Work</a></li>
-                    <li><a href="Services.html">Services</a></li>
-                    <li><a href="About Us.html">Agency</a></li>
+                    <li><a href="Designs.html">Portfolio</a></li>
+                    <li><a href="Services.html">Services & Packages</a></li>
+                    <li><a href="About Us.html">Our Agency & Team</a></li>
+                    <li><a href="Reviews.html">Client Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Client & Staff Portals</h4>
+                <ul>
+                    <li><a href="portal.html" style="color: #60a5fa; font-weight: 600;">🔍 Customer Order Portal</a></li>
+                    <li><a href="Contact Us.html">Start New Project</a></li>
+                    <li><a href="admin.html">🔒 Staff / Admin Login</a></li>
                 </ul>
             </div>
             <div class="footer-contact">
                 <h4>Connect</h4>
-                <p>Phone: <span>+94 76 639 0768</span></p>
-                <p>Email: <span>hello@pixelcraft.lk</span></p>
+                <p>Phone / WA: <span>+94 76 639 0768</span></p>
+                <p>Location: <span>Kandy, Sri Lanka</span></p>
                 <br>
-                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" style="color: var(--text-main); text-decoration: none; font-weight: 500;">Facebook ↗</a>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" target="_blank" style="color: var(--text-main); text-decoration: none; font-weight: 600;">Facebook Page ↗</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Pixel Craft Studio. All Rights Reserved.</p>
+            <p>&copy; 2026 Pixel Craft Studio (A QuadraLK Venture). All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
         const menuToggle = document.querySelector('#mobile-menu');
         const navLinks = document.querySelector('#nav-links');
         menuToggle.addEventListener('click', function() {
@@ -270,32 +277,18 @@
             navLinks.classList.toggle('active');
         });
 
-        // Scroll Reveal Animation
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
                 var windowHeight = window.innerHeight;
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
+                if (elementTop < windowHeight - 100) {
                     reveals[i].classList.add("active");
                 }
             }
         }
         window.addEventListener("scroll", reveal);
         document.addEventListener("DOMContentLoaded", reveal);
-
-        // Modern Mouse Glow Effect on Cards
-        document.getElementById("cards").onmousemove = e => {
-            for(const card of document.getElementsByClassName("card-hover")) {
-                const rect = card.getBoundingClientRect(),
-                      x = e.clientX - rect.left,
-                      y = e.clientY - rect.top;
-                card.style.setProperty("--mouse-x", `${x}px`);
-                card.style.setProperty("--mouse-y", `${y}px`);
-            }
-        };
     </script>
-
 </body>
 </html>
