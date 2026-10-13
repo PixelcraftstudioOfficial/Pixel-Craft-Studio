@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Portal - Pixel Craft Studio</title>
     <link rel="icon" type="image/png" href="Favicon.png">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Pure Vector PDF Engine (jsPDF & AutoTable - Never Clips or Cuts Off!) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         :root {
             --primary: #3b82f6;
+            --secondary: #8b5cf6;
             --bg-deep: #0f172a;
             --card-bg: #1e293b;
             --border: #334155;
@@ -61,9 +65,8 @@
         .action-btn { padding: 6px 12px; font-size: 0.8rem; cursor: pointer; border-radius: 6px; border: 1px solid var(--primary); background: rgba(59, 130, 246, 0.1); color: #60a5fa; font-weight: 600; }
         .action-btn:hover { background: var(--primary); color: #fff; }
 
-        /* Modal */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.82); justify-content: center; align-items: center; z-index: 200; padding: 15px; }
-        .modal-content { background: var(--card-bg); padding: 28px; border-radius: 14px; width: 100%; max-width: 880px; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-height: 92vh; overflow-y: auto; }
+        .modal-content { background: var(--card-bg); padding: 28px; border-radius: 14px; width: 100%; max-width: 940px; border: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 25px; max-height: 94vh; overflow-y: auto; }
         @media (max-width: 750px) { .modal-content { grid-template-columns: 1fr; } .modal-header, .modal-actions { grid-column: span 1 !important; } }
         .modal-header { grid-column: span 2; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
         .close-modal { cursor: pointer; color: var(--text-muted); font-size: 1.5rem; font-weight: bold; }
@@ -71,20 +74,54 @@
         .form-group { margin-bottom: 14px; }
         .form-group label { display: block; margin-bottom: 5px; font-size: 0.82rem; color: var(--text-muted); font-weight: 500; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-deep); color: white; font-size: 0.9rem; }
-        .form-group textarea { height: 75px; resize: vertical; }
+        .form-group textarea { height: 65px; resize: vertical; }
 
-        .log-box { background: var(--bg-deep); padding: 10px; border-radius: 6px; height: 95px; overflow-y: auto; font-size: 0.78rem; border: 1px solid var(--border); }
+        /* Advance Paid Toggle Box */
+        .payment-toggle-box {
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .payment-toggle-box label {
+            margin: 0;
+            color: #34d399;
+            font-weight: 600;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .payment-toggle-box input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #10b981;
+            cursor: pointer;
+        }
+        .live-balance-pill {
+            background: rgba(0,0,0,0.4);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--warning);
+        }
+
+        .client-refs-box { display: flex; gap: 10px; flex-wrap: wrap; background: var(--bg-deep); padding: 10px; border-radius: 8px; border: 1px solid var(--border); min-height: 55px; align-items: center; }
+        .client-ref-thumb { width: 75px; text-align: center; }
+        .client-ref-thumb img { width: 75px; height: 52px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); display: block; margin-bottom: 4px; }
+        .client-ref-thumb a { font-size: 0.72rem; color: #60a5fa; text-decoration: none; font-weight: 600; }
+
+        .log-box { background: var(--bg-deep); padding: 10px; border-radius: 6px; height: 80px; overflow-y: auto; font-size: 0.78rem; border: 1px solid var(--border); }
         .log-entry { margin-bottom: 5px; color: var(--text-muted); border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
         .log-entry span { color: var(--primary); font-weight: 600; }
 
         .modal-actions { grid-column: span 2; display: flex; gap: 12px; border-top: 1px solid var(--border); padding-top: 18px; flex-wrap: wrap; }
-
-        /* Hidden Invoice Template */
-        #invoice-template { display: none; background: white; color: black; padding: 40px; width: 800px; font-family: 'Inter', sans-serif; }
-        .inv-header { display: flex; justify-content: space-between; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 20px; }
-        .inv-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        .inv-table th, .inv-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        .inv-total { text-align: right; margin-top: 20px; font-size: 1.15rem; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -149,7 +186,7 @@
                         <th>Service</th>
                         <th>Status</th>
                         <th>Partner Assigned</th>
-                        <th>Budget (Rs.)</th>
+                        <th>Total / Balance</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -168,9 +205,14 @@
                 <span class="close-modal" onclick="closeModal()">✕</span>
             </div>
             
-            <!-- Left Column: Operations & Pricing -->
+            <!-- Left Column -->
             <div>
                 <input type="hidden" id="m-id">
+                <div class="form-group">
+                    <label>Client Description & Reference Photos</label>
+                    <div id="m-client-msg" style="background:var(--bg-deep); padding:8px 10px; border-radius:6px; font-size:0.82rem; color:var(--text-main); margin-bottom:8px; border:1px solid var(--border);"></div>
+                    <div class="client-refs-box" id="m-client-refs"></div>
+                </div>
                 <div class="form-group">
                     <label>Assign To Partner</label>
                     <select id="m-assignee">
@@ -183,7 +225,7 @@
                 </div>
                 <div class="form-group">
                     <label>Project Status</label>
-                    <select id="m-status">
+                    <select id="m-status" onchange="calcLiveBalance()">
                         <option value="reviewed">1. Reviewed (Pending Quote)</option>
                         <option value="awaiting_advance">2. Awaiting Advance</option>
                         <option value="in_progress">3. In Progress</option>
@@ -194,24 +236,30 @@
                 <div style="display: flex; gap: 10px;">
                     <div class="form-group" style="flex:1;">
                         <label>Total Budget (Rs)</label>
-                        <input type="number" id="m-budget">
+                        <input type="number" id="m-budget" oninput="calcLiveBalance()">
                     </div>
                     <div class="form-group" style="flex:1;">
-                        <label>Required Advance (Rs)</label>
-                        <input type="number" id="m-advance">
+                        <label>Advance Amount (Rs)</label>
+                        <input type="number" id="m-advance" oninput="calcLiveBalance()">
                     </div>
                 </div>
+
+                <!-- NEW: Advance Paid Checkbox with Auto Balance Calculation -->
+                <div class="payment-toggle-box">
+                    <label>
+                        <input type="checkbox" id="m-advance-paid" onchange="calcLiveBalance()">
+                        ✅ Advance Payment Received (Paid)
+                    </label>
+                    <div class="live-balance-pill" id="m-live-balance">Balance: Rs. 0</div>
+                </div>
+
                 <div class="form-group">
                     <label>Timeline</label>
                     <input type="text" id="m-timeline" placeholder="e.g. 3-5 Business Days">
                 </div>
-                <div class="form-group">
-                    <label>Internal Team Notes (Hidden from Client)</label>
-                    <textarea id="m-notes" placeholder="Notes for Lakmal, Pasindu, Shane, Nayanajith..."></textarea>
-                </div>
             </div>
 
-            <!-- Right Column: Samples, Final Delivery & Sharing -->
+            <!-- Right Column -->
             <div>
                 <div class="form-group">
                     <label>🎨 Sample / Watermarked Preview URLs (Comma separated links)</label>
@@ -222,61 +270,27 @@
                     <input type="text" id="m-final-link" placeholder="https://drive.google.com/...">
                 </div>
                 <div class="form-group">
+                    <label>Internal Team Notes / Custom Invoice Description</label>
+                    <textarea id="m-notes" placeholder="Notes for team..."></textarea>
+                </div>
+                <div class="form-group">
                     <label>Activity Log</label>
                     <div class="log-box" id="m-log"></div>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
-                    <button class="btn btn-outline" onclick="copyClientLink()">🔗 Copy Portal Link</button>
-                    <button class="btn" style="background:#8b5cf6;" onclick="generateInvoice()">📄 Download Invoice</button>
+
+                <!-- Separate Quotation & Official Invoice Buttons -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                    <button class="btn" style="background: #0ea5e9;" onclick="generateVectorDocument('QUOTATION')">📋 Download Quotation</button>
+                    <button class="btn" style="background: #8b5cf6;" onclick="generateVectorDocument('INVOICE')">🧾 Download Official Invoice</button>
                 </div>
+                <button class="btn btn-outline" style="margin-top: 10px;" onclick="copyClientLink()">🔗 Copy Client Portal Link</button>
             </div>
 
             <div class="modal-actions">
                 <button class="btn" onclick="saveOrderUpdates()" id="saveBtn" style="flex:2;">💾 Save Order & Update Portal</button>
-                <button class="btn btn-outline" style="flex:1; border-color:#25D366; color:#25D366;" onclick="waManual()">💬 Send Order No on WhatsApp</button>
+                <button class="btn btn-outline" style="flex:1; border-color:#25D366; color:#25D366;" onclick="waManual()">💬 Send Update on WhatsApp</button>
             </div>
         </div>
-    </div>
-
-    <!-- Hidden Invoice HTML -->
-    <div id="invoice-template">
-        <div class="inv-header">
-            <div>
-                <h1 style="color:#3b82f6;">Pixel Craft Studio</h1>
-                <p>Phone: +94 76 639 0768 | Kandy, Sri Lanka</p>
-            </div>
-            <div style="text-align: right;">
-                <h2 style="color:#1e293b;">OFFICIAL INVOICE</h2>
-                <p>Date: <span id="inv-date"></span></p>
-                <p>Order No: <strong id="inv-id" style="color:#3b82f6;"></strong></p>
-            </div>
-        </div>
-        <div style="margin-bottom: 30px;">
-            <h3>Billed To:</h3>
-            <p><strong id="inv-client"></strong></p>
-            <p id="inv-business"></p>
-        </div>
-        <table class="inv-table">
-            <thead>
-                <tr>
-                    <th>Description / Service</th>
-                    <th>Timeline</th>
-                    <th style="text-align:right;">Amount (Rs.)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id="inv-service"></td>
-                    <td id="inv-time"></td>
-                    <td style="text-align:right;" id="inv-amount"></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="inv-total">
-            <p>Required Advance: Rs. <span id="inv-adv" style="color:#ef4444;"></span></p>
-            <p style="margin-top:10px;">Total Amount: Rs. <span id="inv-tot"></span></p>
-        </div>
-        <p style="margin-top:40px; font-size:0.85rem; color:#555; text-align:center;">Track your order live at our Customer Portal using Order No: <strong id="inv-footer-id"></strong></p>
     </div>
 
     <script type="module">
@@ -379,15 +393,23 @@
 
                 let assignee = d.assignee || 'Unassigned';
                 let orderNo = d.orderNo || d.id;
+                let hasImgs = (d.clientImages && d.clientImages.length > 0) ? `<span style="color:#10b981; font-size:0.75rem;">📷 (${d.clientImages.length})</span>` : '';
+
+                let totalB = Number(d.budget || 0);
+                let advB = Number(d.advance || 0);
+                let balB = d.advancePaid ? Math.max(0, totalB - advB) : totalB;
+                if (d.status === 'completed') balB = 0;
+
+                let advTag = d.advancePaid ? `<br><span style="color:#10b981; font-size:0.75rem;">✓ Adv. Paid (Bal: Rs. ${balB.toLocaleString()})</span>` : '';
 
                 html += `
                     <tr class="order-row" data-orderno="${orderNo.toLowerCase()}" data-name="${(d.name||'').toLowerCase()}" data-phone="${d.phone||''}" data-status="${d.status}" data-team="${assignee}">
-                        <td><strong style="color:#60a5fa;">${orderNo}</strong></td>
+                        <td><strong style="color:#60a5fa;">${orderNo}</strong> ${hasImgs}</td>
                         <td><strong>${d.name}</strong><br><span style="font-size:0.8rem; color:var(--text-muted);">${d.business || d.phone || ''}</span></td>
                         <td>${d.service}</td>
                         <td><span class="badge ${sClass}">${sText}</span></td>
                         <td>${assignee}</td>
-                        <td>Rs. ${Number(d.budget || 0).toLocaleString()}</td>
+                        <td><strong>Rs. ${totalB.toLocaleString()}</strong>${advTag}</td>
                         <td><button class="action-btn" onclick="openOrderModal('${d.id}')">Manage</button></td>
                     </tr>
                 `;
@@ -419,14 +441,33 @@
 
             document.getElementById('m-id').value = id;
             document.getElementById('m-title').innerText = `Order ${order.orderNo || id} - ${order.name}`;
+            document.getElementById('m-client-msg').innerText = order.message || "No description provided.";
             document.getElementById('m-assignee').value = order.assignee || 'Unassigned';
             document.getElementById('m-status').value = order.status || 'reviewed';
             document.getElementById('m-budget').value = order.budget || 0;
             document.getElementById('m-advance').value = order.advance || 0;
+            document.getElementById('m-advance-paid').checked = Boolean(order.advancePaid);
             document.getElementById('m-timeline').value = order.timeline || '';
             document.getElementById('m-notes').value = order.internal_notes || '';
             document.getElementById('m-samples').value = Array.isArray(order.samples) ? order.samples.join(', ') : (order.samples || '');
             document.getElementById('m-final-link').value = order.finalLink || '';
+
+            calcLiveBalance();
+
+            const refsBox = document.getElementById('m-client-refs');
+            refsBox.innerHTML = '';
+            if (order.clientImages && order.clientImages.length > 0) {
+                order.clientImages.forEach((imgData, idx) => {
+                    refsBox.innerHTML += `
+                        <div class="client-ref-thumb">
+                            <img src="${imgData}" alt="Ref ${idx+1}">
+                            <a href="${imgData}" download="Ref_${order.orderNo || id}_${idx+1}.jpg">⬇ Save #${idx+1}</a>
+                        </div>
+                    `;
+                });
+            } else {
+                refsBox.innerHTML = '<span style="font-size:0.8rem; color:var(--text-muted);">No reference photos uploaded by client.</span>';
+            }
 
             const logBox = document.getElementById('m-log');
             logBox.innerHTML = '';
@@ -452,12 +493,14 @@
             
             const rawSamples = document.getElementById('m-samples').value;
             const sampleArray = rawSamples.split(',').map(s => s.trim()).filter(Boolean);
+            const isAdvPaid = document.getElementById('m-advance-paid').checked;
 
             const updates = {
                 assignee: document.getElementById('m-assignee').value,
                 status: document.getElementById('m-status').value,
                 budget: Number(document.getElementById('m-budget').value),
                 advance: Number(document.getElementById('m-advance').value),
+                advancePaid: isAdvPaid,
                 timeline: document.getElementById('m-timeline').value,
                 internal_notes: document.getElementById('m-notes').value,
                 samples: sampleArray,
@@ -467,7 +510,8 @@
             const d = new Date();
             const logStr = `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
             const userShort = window.currentUser ? window.currentUser.split('@')[0] : 'Admin';
-            const newLogs = order.logs ? [...order.logs, {date: logStr, msg: `Status -> ${updates.status} (${userShort})`}] : [{date: logStr, msg: `Updated by ${userShort}`}];
+            const advNote = isAdvPaid ? ' [Adv. Paid]' : '';
+            const newLogs = order.logs ? [...order.logs, {date: logStr, msg: `${updates.status}${advNote} (${userShort})`}] : [{date: logStr, msg: `Updated by ${userShort}`}];
             updates.logs = newLogs;
 
             try {
@@ -504,7 +548,9 @@
                     assignee: 'Unassigned',
                     budget: budget,
                     advance: advance,
+                    advancePaid: false,
                     timeline: '3-5 Business Days',
+                    clientImages: [],
                     samples: [],
                     finalLink: '',
                     createdAt: serverTimestamp()
@@ -518,6 +564,27 @@
     </script>
 
     <script>
+        function calcLiveBalance() {
+            const budget = Number(document.getElementById('m-budget').value || 0);
+            const advance = Number(document.getElementById('m-advance').value || 0);
+            const advPaid = document.getElementById('m-advance-paid').checked;
+            const status = document.getElementById('m-status').value;
+
+            // If advancePaid is checked and status is still awaiting_advance, auto-suggest in_progress
+            if (advPaid && status === 'awaiting_advance') {
+                document.getElementById('m-status').value = 'in_progress';
+            }
+
+            let balance = advPaid ? Math.max(0, budget - advance) : budget;
+            if (document.getElementById('m-status').value === 'completed') {
+                balance = 0;
+            }
+
+            const pill = document.getElementById('m-live-balance');
+            pill.innerText = `Balance Due: Rs. ${balance.toLocaleString()}`;
+            pill.style.color = balance === 0 ? '#10b981' : '#fbbf24';
+        }
+
         function filterTable() {
             const term = document.getElementById('searchInput').value.toLowerCase();
             const sFilter = document.getElementById('statusFilter').value;
@@ -558,34 +625,294 @@
             window.open(`https://wa.me/${waNum}?text=${msg}`, '_blank');
         }
 
-        function generateInvoice() {
+        // --- NEXT-LEVEL VECTOR PDF GENERATOR (QUOTATION & OFFICIAL INVOICE) ---
+        function generateVectorDocument(docType) {
             const id = document.getElementById('m-id').value;
             const order = window.allOrders.find(o => o.id === id);
-            const displayId = order.orderNo || id;
-            
-            document.getElementById('inv-date').innerText = new Date().toLocaleDateString();
-            document.getElementById('inv-id').innerText = displayId;
-            document.getElementById('inv-footer-id').innerText = displayId;
-            document.getElementById('inv-client').innerText = order.name;
-            document.getElementById('inv-business').innerText = order.business || '';
-            document.getElementById('inv-service').innerText = order.service;
-            document.getElementById('inv-time').innerText = document.getElementById('m-timeline').value || 'N/A';
-            document.getElementById('inv-amount').innerText = Number(document.getElementById('m-budget').value).toLocaleString();
-            document.getElementById('inv-adv').innerText = Number(document.getElementById('m-advance').value).toLocaleString();
-            document.getElementById('inv-tot').innerText = Number(document.getElementById('m-budget').value).toLocaleString();
+            if (!order) return;
 
-            const element = document.getElementById('invoice-template');
-            element.style.display = 'block';
-            
-            html2pdf().set({
-                margin: 10,
-                filename: `Invoice_${displayId}_${order.name.replace(/\s+/g, '_')}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2, windowWidth: 800 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).from(element).save().then(() => {
-                element.style.display = 'none';
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+
+            // Read live values from Modal inputs so Admin doesn't even have to close modal first
+            const displayId = (order.orderNo || id).toUpperCase();
+            const clientName = order.name || 'Valued Client';
+            const clientBiz = order.business && order.business !== 'Not provided' ? order.business : '';
+            const clientPhone = order.phone && order.phone !== 'Not provided' ? order.phone : '';
+            const serviceName = order.service || 'Digital & Creative Services';
+            const timeline = document.getElementById('m-timeline').value || '3-5 Business Days';
+            const totalBudget = Number(document.getElementById('m-budget').value || 0);
+            const advanceAmt = Number(document.getElementById('m-advance').value || 0);
+            const isAdvPaid = document.getElementById('m-advance-paid').checked;
+            const currentStatus = document.getElementById('m-status').value;
+
+            // Dates: Issue Date & Due Date (+7 Days)
+            const issueDate = new Date();
+            const dueDate = new Date();
+            dueDate.setDate(issueDate.getDate() + 7);
+
+            const formatDate = (d) => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+            const issueDateStr = formatDate(issueDate);
+            const dueDateStr = formatDate(dueDate);
+
+            const isQuote = (docType === 'QUOTATION');
+
+            // 1. Top Corporate Navy Banner
+            doc.setFillColor(15, 23, 42); // #0f172a
+            doc.rect(0, 0, 210, 44, 'F');
+
+            // Accent Strip under Banner
+            if (isQuote) {
+                doc.setFillColor(14, 165, 233); // Cyan/Blue for Quotation
+            } else {
+                doc.setFillColor(59, 130, 246); // Royal Blue for Invoice
+            }
+            doc.rect(0, 44, 210, 2.5, 'F');
+
+            // Brand Name (Left)
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(22);
+            doc.text('PIXEL CRAFT STUDIO', 15, 20);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9.5);
+            doc.setTextColor(148, 163, 184);
+            doc.text('Digital, Media & Web Solutions  |  A QuadraLK Venture', 15, 27);
+            doc.text('Phone / WhatsApp: +94 76 639 0768  |  Kandy, Sri Lanka', 15, 33);
+
+            // Document Title Badge (Right)
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(20);
+            doc.setTextColor(255, 255, 255);
+            doc.text(isQuote ? 'QUOTATION' : 'OFFICIAL INVOICE', 195, 20, { align: 'right' });
+
+            doc.setFontSize(10);
+            doc.setTextColor(96, 165, 250);
+            doc.text(`Order No: ${displayId}`, 195, 28, { align: 'right' });
+
+            // Payment Status Stamp on Header
+            let statusStamp = 'PAYMENT PENDING';
+            let stampColor = [245, 158, 11]; // Amber
+            if (isQuote) {
+                statusStamp = 'OFFICIAL ESTIMATE';
+                stampColor = [56, 189, 248];
+            } else if (currentStatus === 'completed' || (isAdvPaid && totalBudget - advanceAmt <= 0)) {
+                statusStamp = 'PAID IN FULL';
+                stampColor = [16, 185, 129]; // Green
+            } else if (isAdvPaid) {
+                statusStamp = 'ADVANCE PAID';
+                stampColor = [16, 185, 129];
+            }
+            doc.setFontSize(9);
+            doc.setTextColor(stampColor[0], stampColor[1], stampColor[2]);
+            doc.text(statusStamp, 195, 35, { align: 'right' });
+
+            // 2. Client Info (Left) & Dates Info Box (Right)
+            doc.setFillColor(248, 250, 252);
+            doc.setDrawColor(226, 232, 240);
+            doc.roundedRect(15, 55, 95, 34, 2, 2, 'FD');
+            doc.roundedRect(115, 55, 80, 34, 2, 2, 'FD');
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8.5);
+            doc.setTextColor(100, 116, 139);
+            doc.text(isQuote ? 'PREPARED FOR (CLIENT):' : 'BILLED TO (CLIENT):', 20, 62);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(12);
+            doc.setTextColor(15, 23, 42);
+            doc.text(clientName.substring(0, 32), 20, 69);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9.5);
+            doc.setTextColor(71, 85, 105);
+            if (clientBiz) doc.text(clientBiz.substring(0, 36), 20, 75);
+            if (clientPhone) doc.text(`Tel: ${clientPhone}`, 20, clientBiz ? 81 : 75);
+
+            // Right Box: Dates & Reference
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(71, 85, 105);
+            doc.text(isQuote ? 'Quotation Date:' : 'Invoice Date:', 120, 63);
+            doc.text(isQuote ? 'Valid Until (7 Days):' : 'Due Date (7 Days):', 120, 71);
+            doc.text('Portal Tracking ID:', 120, 79);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(15, 23, 42);
+            doc.text(issueDateStr, 190, 63, { align: 'right' });
+            doc.setTextColor(220, 38, 38); // Red highlight for Due Date
+            doc.text(dueDateStr, 190, 71, { align: 'right' });
+            doc.setTextColor(37, 99, 235);
+            doc.text(displayId, 190, 79, { align: 'right' });
+
+            // 3. Line Items Table using AutoTable
+            doc.autoTable({
+                startY: 97,
+                margin: { left: 15, right: 15 },
+                head: [['#', 'Service Description & Deliverables', 'Est. Timeline', 'Amount (LKR)']],
+                body: [
+                    [
+                        '01',
+                        `${serviceName}\nCustom digital production, quality assurance & portal delivery`,
+                        timeline,
+                        `Rs. ${totalBudget.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+                    ]
+                ],
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [15, 23, 42],
+                    textColor: [255, 255, 255],
+                    fontStyle: 'bold',
+                    fontSize: 9.5,
+                    cellPadding: 4
+                },
+                bodyStyles: {
+                    textColor: [30, 41, 59],
+                    fontSize: 9.5,
+                    cellPadding: 5
+                },
+                columnStyles: {
+                    0: { cellWidth: 12, halign: 'center' },
+                    1: { cellWidth: 98 },
+                    2: { cellWidth: 35, halign: 'center' },
+                    3: { cellWidth: 35, halign: 'right', fontStyle: 'bold' }
+                }
             });
+
+            let finalY = doc.lastAutoTable.finalY + 10;
+
+            // 4. Financial Calculation Summary Box (Right Side)
+            const summaryX = 115;
+            doc.setFillColor(248, 250, 252);
+            doc.setDrawColor(203, 213, 225);
+            doc.roundedRect(summaryX, finalY, 80, 42, 2, 2, 'FD');
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9.5);
+            doc.setTextColor(71, 85, 105);
+            doc.text('Total Project Amount:', summaryX + 5, finalY + 10);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(15, 23, 42);
+            doc.text(`Rs. ${totalBudget.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 10, { align: 'right' });
+
+            if (isQuote) {
+                // Quotation shows Required Advance to Start
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(71, 85, 105);
+                doc.text('Advance Required to Start:', summaryX + 5, finalY + 19);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(217, 119, 6);
+                doc.text(`Rs. ${advanceAmt.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 19, { align: 'right' });
+
+                const balOnCompletion = Math.max(0, totalBudget - advanceAmt);
+                doc.setDrawColor(203, 213, 225);
+                doc.line(summaryX + 5, finalY + 25, 190, finalY + 25);
+
+                doc.setFontSize(10.5);
+                doc.setTextColor(15, 23, 42);
+                doc.text('Balance on Completion:', summaryX + 5, finalY + 34);
+                doc.setTextColor(37, 99, 235);
+                doc.text(`Rs. ${balOnCompletion.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 34, { align: 'right' });
+            } else {
+                // Official Invoice: Auto-deducts Advance if marked Paid!
+                const deductedAdvance = isAdvPaid ? advanceAmt : 0;
+                let balanceDue = Math.max(0, totalBudget - deductedAdvance);
+                if (currentStatus === 'completed') balanceDue = 0;
+
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(71, 85, 105);
+                doc.text(isAdvPaid ? 'Less: Advance Paid:' : 'Required Advance:', summaryX + 5, finalY + 19);
+
+                doc.setFont('helvetica', 'bold');
+                if (isAdvPaid) {
+                    doc.setTextColor(16, 185, 129); // Green deduction
+                    doc.text(`- Rs. ${deductedAdvance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 19, { align: 'right' });
+                } else {
+                    doc.setTextColor(217, 119, 6);
+                    doc.text(`Rs. ${advanceAmt.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 19, { align: 'right' });
+                }
+
+                doc.setDrawColor(203, 213, 225);
+                doc.line(summaryX + 5, finalY + 25, 190, finalY + 25);
+
+                doc.setFontSize(11.5);
+                doc.setTextColor(15, 23, 42);
+                doc.text('BALANCE DUE:', summaryX + 5, finalY + 34);
+                doc.setTextColor(balanceDue === 0 ? 16 : 220, balanceDue === 0 ? 185 : 38, balanceDue === 0 ? 129 : 38);
+                doc.text(`Rs. ${balanceDue.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 34, { align: 'right' });
+            }
+
+            // 5. Official Bank Transfer Details Box (Left Side next to Summary)
+            doc.setFillColor(239, 246, 255); // Soft Blue Box
+            doc.setDrawColor(147, 197, 253);
+            doc.roundedRect(15, finalY, 95, 42, 2, 2, 'FD');
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9.5);
+            doc.setTextColor(30, 58, 138);
+            doc.text('BANK TRANSFER DETAILS:', 20, finalY + 8);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.setTextColor(30, 41, 59);
+            doc.text('Account Name:', 20, finalY + 15);
+            doc.text('Bank:', 20, finalY + 21);
+            doc.text('Branch:', 20, finalY + 27);
+            doc.text('Account No:', 20, finalY + 33);
+            doc.text('Payment Ref:', 20, finalY + 39);
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('Lakmal Madhushan Kumara', 48, finalY + 15);
+            doc.text('Bank of Ceylon (BOC)', 48, finalY + 21);
+            doc.text('Peradeniya', 48, finalY + 27);
+            doc.setTextColor(37, 99, 235);
+            doc.text('91493785', 48, finalY + 33);
+            doc.setTextColor(15, 23, 42);
+            doc.text(displayId, 48, finalY + 39);
+
+            // 6. Terms & Instructions Section
+            let termsY = finalY + 54;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9.5);
+            doc.setTextColor(15, 23, 42);
+            doc.text('TERMS & PORTAL INSTRUCTIONS:', 15, termsY);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8.8);
+            doc.setTextColor(71, 85, 105);
+            const termsList = isQuote ? [
+                `1. This quotation is valid for 7 days (until ${dueDateStr}).`,
+                `2. An advance payment of Rs. ${advanceAmt.toLocaleString()} is required to commence work on the project.`,
+                `3. Please mention Order No (${displayId}) as the bank transfer remark and send the slip via WhatsApp to +94 76 639 0768.`,
+                `4. You can track live project progress and review draft samples anytime on our Customer Portal using Order No: ${displayId}.`
+            ] : [
+                `1. Final payment is due on or before ${dueDateStr} (within 7 days of invoice date).`,
+                `2. Please transfer the Balance Due to the BOC account above using Order No (${displayId}) as the payment reference.`,
+                `3. Once completed, all high-resolution final project files are unlocked for instant download on the Customer Portal.`
+            ];
+
+            termsList.forEach((line, idx) => {
+                doc.text(line, 15, termsY + 7 + (idx * 5.5));
+            });
+
+            // 7. Bottom Footer Bar
+            doc.setDrawColor(226, 232, 240);
+            doc.line(15, 272, 195, 272);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.setTextColor(15, 23, 42);
+            doc.text('Thank you for choosing Pixel Craft Studio!', 105, 278, { align: 'center' });
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8);
+            doc.setTextColor(100, 116, 139);
+            doc.text('This is a computer-generated official document and does not require a physical signature.', 105, 283, { align: 'center' });
+
+            const cleanClient = clientName.replace(/[^a-zA-Z0-9]/g, '_');
+            const filePrefix = isQuote ? 'Quotation' : 'Invoice';
+            doc.save(`${filePrefix}_${displayId}_${cleanClient}.pdf`);
         }
     </script>
 </body>
