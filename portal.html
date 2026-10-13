@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Order Portal - Pixel Craft Studio</title>
     <link href="Favicon.png" rel="icon" type="image/png">
+    <!-- Vector PDF Engine so Clients can also download their Invoice/Quote -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
@@ -139,7 +142,7 @@
             .step-icon { margin: 0; }
         }
 
-        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; margin-bottom: 35px; }
+        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 16px; margin-bottom: 35px; }
         .detail-item { background: rgba(255, 255, 255, 0.02); padding: 18px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.06); }
         .detail-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 5px; }
         .detail-value { font-size: 1.05rem; font-weight: 600; color: var(--text-main); }
@@ -180,11 +183,11 @@
         .payment-section h3 { margin-bottom: 10px; color: #60a5fa; }
         .payment-section p { font-size: 0.95rem; margin-bottom: 20px; color: var(--text-muted); }
         
-        .bank-details { background: rgba(0,0,0,0.35); padding: 18px 25px; border-radius: 12px; display: inline-block; text-align: left; margin-bottom: 22px; border: 1px solid var(--card-border); }
-        .bank-details p { margin-bottom: 6px; font-size: 0.92rem; color: var(--text-main); }
-        .bank-details span { color: var(--text-muted); display: inline-block; width: 100px; }
+        .bank-details { background: rgba(0,0,0,0.4); padding: 20px 28px; border-radius: 12px; display: inline-block; text-align: left; margin-bottom: 24px; border: 1px solid rgba(96, 165, 250, 0.25); }
+        .bank-details p { margin-bottom: 7px; font-size: 0.95rem; color: var(--text-main); }
+        .bank-details span { color: var(--text-muted); display: inline-block; width: 120px; }
 
-        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 13px 28px; text-decoration: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; text-align: center; }
+        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 13px 26px; text-decoration: none; border-radius: 10px; font-size: 0.95rem; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; text-align: center; }
         .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.35); }
         .btn-success { background: linear-gradient(135deg, #10b981, #059669); }
         .btn-outline { background: transparent; border: 1px solid var(--primary); color: #60a5fa; }
@@ -219,6 +222,10 @@
                     <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted);">Order Number</div>
                     <div class="order-badge" id="disp-order-no">PCS-0000</div>
                 </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn-modern btn-outline" style="padding: 8px 16px; font-size: 0.85rem;" onclick="downloadClientPDF('QUOTATION')">📋 Quotation PDF</button>
+                    <button class="btn-modern" style="padding: 8px 16px; font-size: 0.85rem;" onclick="downloadClientPDF('INVOICE')">🧾 Official Invoice PDF</button>
+                </div>
                 <div style="text-align: right;">
                     <div class="client-welcome">Client: <strong id="disp-client-name">---</strong></div>
                     <div style="font-size: 0.85rem; color: var(--text-muted);" id="disp-business-name">---</div>
@@ -251,26 +258,27 @@
                 </div>
             </div>
 
+            <!-- 5 Financial & Project Info Cards (Auto-calculates Balance Due!) -->
             <div class="details-grid">
                 <div class="detail-item">
                     <div class="detail-label">Service Package</div>
                     <div class="detail-value" id="disp-service">---</div>
                 </div>
                 <div class="detail-item">
-                    <div class="detail-label">Estimated Timeline</div>
-                    <div class="detail-value" id="disp-timeline">---</div>
-                </div>
-                <div class="detail-item">
                     <div class="detail-label">Total Project Cost</div>
                     <div class="detail-value price-highlight" id="disp-budget">Rs. 0</div>
                 </div>
                 <div class="detail-item">
-                    <div class="detail-label">Required Advance</div>
-                    <div class="detail-value" style="color: var(--warning);" id="disp-advance">Rs. 0</div>
+                    <div class="detail-label" id="disp-adv-label">Advance Status</div>
+                    <div class="detail-value" id="disp-advance">Rs. 0</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Balance Due</div>
+                    <div class="detail-value" style="color: var(--warning); font-size: 1.25rem;" id="disp-balance">Rs. 0</div>
                 </div>
             </div>
 
-            <!-- Client Attached Reference Photos (if any) -->
+            <!-- Client Attached Reference Photos -->
             <div class="portal-section" id="client-refs-section" style="display: none;">
                 <h3>📎 Your Attached Reference Photos</h3>
                 <p class="sub">Reference images submitted with your order:</p>
@@ -293,14 +301,17 @@
             <!-- FINAL PROJECT DELIVERY SECTION -->
             <div id="final-delivery-section" style="display: none;"></div>
 
+            <!-- Official Bank Transfer Section -->
             <div class="payment-section" id="action-section">
-                <h3>Payment & Confirmation</h3>
-                <p>To start your project or unlock final files, please transfer the due amount using your Order Number as the reference and send the slip via WhatsApp.</p>
+                <h3>Bank Transfer & Payment Confirmation</h3>
+                <p>To start your project or unlock final files, please transfer the due amount to our official BOC account below using your Order Number as the reference:</p>
                 
                 <div class="bank-details">
-                    <p><span>Account Name:</span> Pixel Craft Studio</p>
-                    <p><span>WhatsApp:</span> +94 76 639 0768</p>
-                    <p><span>Bank Ref:</span> <strong id="bank-ref" style="color:#60a5fa;">PCS-0000</strong></p>
+                    <p><span>Account Name:</span> <strong>Lakmal Madhushan Kumara</strong></p>
+                    <p><span>Bank:</span> <strong>Bank of Ceylon (BOC)</strong></p>
+                    <p><span>Branch:</span> <strong>Peradeniya</strong></p>
+                    <p><span>Account No:</span> <strong style="color: #60a5fa; font-size: 1.1rem; letter-spacing: 1px;">91493785</strong></p>
+                    <p><span>Transfer Ref:</span> <strong id="bank-ref" style="color: #fbbf24;">PCS-0000</strong></p>
                 </div>
 
                 <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
@@ -392,25 +403,42 @@
 
         function renderPortal(id, data) {
             const displayId = data.orderNo || id;
+            const totalBudget = Number(data.budget || 0);
+            const advanceAmt = Number(data.advance || 0);
+            const isAdvPaid = Boolean(data.advancePaid);
+            const st = data.status || 'reviewed';
+
             document.getElementById('disp-order-no').textContent = displayId;
             document.getElementById('bank-ref').textContent = displayId;
             document.getElementById('disp-client-name').textContent = data.name || "Valued Client";
             document.getElementById('disp-business-name').textContent = data.business || "";
             document.getElementById('disp-service').textContent = data.service || "Custom Project";
-            document.getElementById('disp-timeline').textContent = data.timeline || "To be decided";
-            document.getElementById('disp-budget').textContent = data.budget > 0 ? `Rs. ${Number(data.budget).toLocaleString()}` : "Quotation Pending";
+            document.getElementById('disp-budget').textContent = totalBudget > 0 ? `Rs. ${totalBudget.toLocaleString()}` : "Quotation Pending";
 
-            if (data.advance > 0) {
-                document.getElementById('disp-advance').textContent = `Rs. ${Number(data.advance).toLocaleString()}`;
+            // Advance & Balance Auto-Calculation
+            const advEl = document.getElementById('disp-advance');
+            const balEl = document.getElementById('disp-balance');
+
+            if (isAdvPaid) {
+                advEl.textContent = `✓ Rs. ${advanceAmt.toLocaleString()} (Paid)`;
+                advEl.style.color = "var(--success)";
+            } else if (advanceAmt > 0) {
+                advEl.textContent = `Rs. ${advanceAmt.toLocaleString()} (Required)`;
+                advEl.style.color = "var(--warning)";
             } else {
-                document.getElementById('disp-advance').textContent = "No Advance Required";
-                document.getElementById('disp-advance').style.color = "var(--success)";
+                advEl.textContent = "No Advance Required";
+                advEl.style.color = "var(--success)";
             }
+
+            let balanceDue = isAdvPaid ? Math.max(0, totalBudget - advanceAmt) : totalBudget;
+            if (st === 'completed') balanceDue = 0;
+
+            balEl.textContent = `Rs. ${balanceDue.toLocaleString()}`;
+            balEl.style.color = balanceDue === 0 ? "var(--success)" : "var(--warning)";
 
             const steps = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5'];
             steps.forEach(s => document.getElementById(s).classList.remove('active', 'completed'));
 
-            const st = data.status || 'reviewed';
             if (st === 'reviewed') {
                 document.getElementById('step-1').classList.add('active');
             } else if (st === 'awaiting_advance') {
@@ -493,8 +521,8 @@
                 } else {
                     finalSec.innerHTML = `
                         <div class="final-box locked">
-                            <h3 style="color: var(--warning); font-size: 1.4rem; margin-bottom: 10px;">🔒 Final Project Files Uploaded (Payment Pending)</h3>
-                            <p style="color: var(--text-muted); margin-bottom: 15px;">Your final project files are ready! Please complete any remaining balance payment to unlock the instant download link.</p>
+                            <h3 style="color: var(--warning); font-size: 1.4rem; margin-bottom: 10px;">🔒 Final Project Files Uploaded (Balance Due: Rs. ${balanceDue.toLocaleString()})</h3>
+                            <p style="color: var(--text-muted); margin-bottom: 15px;">Your final project files are ready! Please transfer the remaining balance of Rs. ${balanceDue.toLocaleString()} to unlock the instant download link.</p>
                             <button class="btn-modern" onclick="sendSlipWhatsApp()">🔓 Send Final Payment Slip to Unlock</button>
                         </div>
                     `;
@@ -512,7 +540,7 @@
 
         function sendSlipWhatsApp() {
             const id = getActiveId();
-            const msg = encodeURIComponent(`Hi Pixel Craft Studio,\n\nHere is the payment slip for my Order No: *${id}*. Please check and update my portal.`);
+            const msg = encodeURIComponent(`Hi Pixel Craft Studio,\n\nHere is the BOC payment slip for my Order No: *${id}*. Please check and update my portal.`);
             window.open(`https://wa.me/94766390768?text=${msg}`, '_blank');
         }
 
@@ -532,6 +560,200 @@
             const id = getActiveId();
             const msg = encodeURIComponent(`Hi Pixel Craft Studio,\n\nI reviewed the samples for Order No: *${id}*. I would like to request the following changes:\n1. `);
             window.open(`https://wa.me/94766390768?text=${msg}`, '_blank');
+        }
+
+        // Client-side PDF Generator for Quotation / Invoice
+        function downloadClientPDF(docType) {
+            const order = window.currentOrderData;
+            const id = window.currentOrderId;
+            if (!order) return;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+
+            const displayId = (order.orderNo || id).toUpperCase();
+            const clientName = order.name || 'Valued Client';
+            const clientBiz = order.business && order.business !== 'Not provided' ? order.business : '';
+            const clientPhone = order.phone && order.phone !== 'Not provided' ? order.phone : '';
+            const serviceName = order.service || 'Digital & Creative Services';
+            const timeline = order.timeline || '3-5 Business Days';
+            const totalBudget = Number(order.budget || 0);
+            const advanceAmt = Number(order.advance || 0);
+            const isAdvPaid = Boolean(order.advancePaid);
+            const currentStatus = order.status || 'reviewed';
+
+            const issueDate = new Date();
+            const dueDate = new Date();
+            dueDate.setDate(issueDate.getDate() + 7);
+            const formatDate = (d) => `${String(d.getDate()).padStart(2, '0')}/${String(d.getMonth() + 1).padStart(2, '0')}/${d.getFullYear()}`;
+            const issueDateStr = formatDate(issueDate);
+            const dueDateStr = formatDate(dueDate);
+
+            const isQuote = (docType === 'QUOTATION');
+
+            doc.setFillColor(15, 23, 42);
+            doc.rect(0, 0, 210, 44, 'F');
+            doc.setFillColor(isQuote ? 14 : 59, isQuote ? 165 : 130, isQuote ? 233 : 246);
+            doc.rect(0, 44, 210, 2.5, 'F');
+
+            doc.setTextColor(255, 255, 255);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(22);
+            doc.text('PIXEL CRAFT STUDIO', 15, 20);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9.5);
+            doc.setTextColor(148, 163, 184);
+            doc.text('Digital, Media & Web Solutions  |  A QuadraLK Venture', 15, 27);
+            doc.text('Phone / WhatsApp: +94 76 639 0768  |  Kandy, Sri Lanka', 15, 33);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(20);
+            doc.setTextColor(255, 255, 255);
+            doc.text(isQuote ? 'QUOTATION' : 'OFFICIAL INVOICE', 195, 20, { align: 'right' });
+
+            doc.setFontSize(10);
+            doc.setTextColor(96, 165, 250);
+            doc.text(`Order No: ${displayId}`, 195, 28, { align: 'right' });
+
+            doc.setFillColor(248, 250, 252);
+            doc.setDrawColor(226, 232, 240);
+            doc.roundedRect(15, 55, 95, 34, 2, 2, 'FD');
+            doc.roundedRect(115, 55, 80, 34, 2, 2, 'FD');
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(8.5);
+            doc.setTextColor(100, 116, 139);
+            doc.text(isQuote ? 'PREPARED FOR (CLIENT):' : 'BILLED TO (CLIENT):', 20, 62);
+
+            doc.setFontSize(12);
+            doc.setTextColor(15, 23, 42);
+            doc.text(clientName.substring(0, 32), 20, 69);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9.5);
+            doc.setTextColor(71, 85, 105);
+            if (clientBiz) doc.text(clientBiz.substring(0, 36), 20, 75);
+            if (clientPhone) doc.text(`Tel: ${clientPhone}`, 20, clientBiz ? 81 : 75);
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9);
+            doc.text(isQuote ? 'Quotation Date:' : 'Invoice Date:', 120, 63);
+            doc.text(isQuote ? 'Valid Until (7 Days):' : 'Due Date (7 Days):', 120, 71);
+            doc.text('Portal Tracking ID:', 120, 79);
+
+            doc.setTextColor(15, 23, 42);
+            doc.text(issueDateStr, 190, 63, { align: 'right' });
+            doc.setTextColor(220, 38, 38);
+            doc.text(dueDateStr, 190, 71, { align: 'right' });
+            doc.setTextColor(37, 99, 235);
+            doc.text(displayId, 190, 79, { align: 'right' });
+
+            doc.autoTable({
+                startY: 97,
+                margin: { left: 15, right: 15 },
+                head: [['#', 'Service Description & Deliverables', 'Est. Timeline', 'Amount (LKR)']],
+                body: [[
+                    '01',
+                    `${serviceName}\nCustom digital production, quality assurance & portal delivery`,
+                    timeline,
+                    `Rs. ${totalBudget.toLocaleString('en-US', { minimumFractionDigits: 2 })}`
+                ]],
+                theme: 'grid',
+                headStyles: { fillColor: [15, 23, 42], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: 9.5, cellPadding: 4 },
+                bodyStyles: { textColor: [30, 41, 59], fontSize: 9.5, cellPadding: 5 },
+                columnStyles: {
+                    0: { cellWidth: 12, halign: 'center' },
+                    1: { cellWidth: 98 },
+                    2: { cellWidth: 35, halign: 'center' },
+                    3: { cellWidth: 35, halign: 'right', fontStyle: 'bold' }
+                }
+            });
+
+            let finalY = doc.lastAutoTable.finalY + 10;
+            const summaryX = 115;
+            doc.setFillColor(248, 250, 252);
+            doc.setDrawColor(203, 213, 225);
+            doc.roundedRect(summaryX, finalY, 80, 42, 2, 2, 'FD');
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9.5);
+            doc.setTextColor(71, 85, 105);
+            doc.text('Total Project Amount:', summaryX + 5, finalY + 10);
+            doc.setFont('helvetica', 'bold');
+            doc.setTextColor(15, 23, 42);
+            doc.text(`Rs. ${totalBudget.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 10, { align: 'right' });
+
+            if (isQuote) {
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(71, 85, 105);
+                doc.text('Advance Required to Start:', summaryX + 5, finalY + 19);
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(217, 119, 6);
+                doc.text(`Rs. ${advanceAmt.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 19, { align: 'right' });
+
+                const balOnCompletion = Math.max(0, totalBudget - advanceAmt);
+                doc.line(summaryX + 5, finalY + 25, 190, finalY + 25);
+                doc.setFontSize(10.5);
+                doc.setTextColor(15, 23, 42);
+                doc.text('Balance on Completion:', summaryX + 5, finalY + 34);
+                doc.setTextColor(37, 99, 235);
+                doc.text(`Rs. ${balOnCompletion.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 34, { align: 'right' });
+            } else {
+                const deductedAdvance = isAdvPaid ? advanceAmt : 0;
+                let balanceDue = Math.max(0, totalBudget - deductedAdvance);
+                if (currentStatus === 'completed') balanceDue = 0;
+
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(71, 85, 105);
+                doc.text(isAdvPaid ? 'Less: Advance Paid:' : 'Required Advance:', summaryX + 5, finalY + 19);
+
+                doc.setFont('helvetica', 'bold');
+                if (isAdvPaid) {
+                    doc.setTextColor(16, 185, 129);
+                    doc.text(`- Rs. ${deductedAdvance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 19, { align: 'right' });
+                } else {
+                    doc.setTextColor(217, 119, 6);
+                    doc.text(`Rs. ${advanceAmt.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 19, { align: 'right' });
+                }
+
+                doc.line(summaryX + 5, finalY + 25, 190, finalY + 25);
+                doc.setFontSize(11.5);
+                doc.setTextColor(15, 23, 42);
+                doc.text('BALANCE DUE:', summaryX + 5, finalY + 34);
+                doc.setTextColor(balanceDue === 0 ? 16 : 220, balanceDue === 0 ? 185 : 38, balanceDue === 0 ? 129 : 38);
+                doc.text(`Rs. ${balanceDue.toLocaleString('en-US', { minimumFractionDigits: 2 })}`, 190, finalY + 34, { align: 'right' });
+            }
+
+            // BOC Bank Details Box
+            doc.setFillColor(239, 246, 255);
+            doc.setDrawColor(147, 197, 253);
+            doc.roundedRect(15, finalY, 95, 42, 2, 2, 'FD');
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(9.5);
+            doc.setTextColor(30, 58, 138);
+            doc.text('BANK TRANSFER DETAILS:', 20, finalY + 8);
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.setTextColor(30, 41, 59);
+            doc.text('Account Name:', 20, finalY + 15);
+            doc.text('Bank:', 20, finalY + 21);
+            doc.text('Branch:', 20, finalY + 27);
+            doc.text('Account No:', 20, finalY + 33);
+            doc.text('Payment Ref:', 20, finalY + 39);
+
+            doc.setFont('helvetica', 'bold');
+            doc.text('Lakmal Madhushan Kumara', 48, finalY + 15);
+            doc.text('Bank of Ceylon (BOC)', 48, finalY + 21);
+            doc.text('Peradeniya', 48, finalY + 27);
+            doc.setTextColor(37, 99, 235);
+            doc.text('91493785', 48, finalY + 33);
+            doc.setTextColor(15, 23, 42);
+            doc.text(displayId, 48, finalY + 39);
+
+            doc.save(`${isQuote ? 'Quotation' : 'Invoice'}_${displayId}.pdf`);
         }
     </script>
 </body>
