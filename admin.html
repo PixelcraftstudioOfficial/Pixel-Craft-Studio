@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Portal - Pixel Craft Studio</title>
+    <link rel="icon" type="image/png" href="Favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
@@ -101,8 +102,8 @@
     <div id="dashboard">
         <div class="header-bar">
             <h2>Admin Dashboard <span id="current-user" style="font-size:0.9rem; color:var(--text-muted); font-weight:normal; margin-left:8px;"></span></h2>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn" style="width:auto; background: var(--success);" onclick="openNewOrderModal()">+ New Manual Order</button>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn" style="width:auto; background: var(--success);" onclick="openNewOrderModal()">+ Create Manual Order</button>
                 <button class="btn btn-outline" style="width:auto;" onclick="loadData()">↻ Refresh</button>
                 <button class="btn" style="width:auto; background:var(--danger);" onclick="logoutAdmin()">Logout</button>
             </div>
@@ -242,7 +243,7 @@
         <div class="inv-header">
             <div>
                 <h1 style="color:#3b82f6;">Pixel Craft Studio</h1>
-                <p>Phone: +94 76 639 0768 | Web: pixelcraft.lk</p>
+                <p>Phone: +94 76 639 0768 | Kandy, Sri Lanka</p>
             </div>
             <div style="text-align: right;">
                 <h2 style="color:#1e293b;">OFFICIAL INVOICE</h2>
@@ -481,7 +482,6 @@
             btn.innerText = "💾 Save Order & Update Portal";
         }
 
-        // Quick Manual Order Creation from Admin
         window.openNewOrderModal = async function() {
             const name = prompt("Enter Client Name:");
             if (!name) return;
@@ -504,7 +504,7 @@
                     assignee: 'Unassigned',
                     budget: budget,
                     advance: advance,
-                    timeline: '3-5 Days',
+                    timeline: '3-5 Business Days',
                     samples: [],
                     finalLink: '',
                     createdAt: serverTimestamp()
