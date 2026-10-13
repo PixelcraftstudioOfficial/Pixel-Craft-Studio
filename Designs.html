@@ -77,28 +77,54 @@
         .filter-btn:hover, .filter-btn.active { border-color: rgba(96, 165, 250, 0.5); color: #fff; background: rgba(59, 130, 246, 0.15); }
 
         .gallery-container { padding: 0 5%; max-width: 1300px; margin: 0 auto 100px; }
-        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 35px; }
         
-        .gallery-item { background: var(--card-bg); border-radius: 20px; padding: 24px; border: 1px solid var(--card-border); transition: all 0.4s ease; cursor: pointer; }
+        /* --- NEW MASONRY LAYOUT --- */
+        .gallery-grid { 
+            column-count: 3; 
+            column-gap: 30px; 
+            width: 100%;
+        }
+        @media (max-width: 1100px) { .gallery-grid { column-count: 2; } }
+        @media (max-width: 768px) { .gallery-grid { column-count: 1; } }
+        
+        .gallery-item { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            padding: 24px; 
+            border: 1px solid var(--card-border); 
+            transition: all 0.4s ease; 
+            cursor: pointer; 
+            break-inside: avoid; /* Prevents card breaking across columns */
+            margin-bottom: 30px; 
+            display: inline-block; 
+            width: 100%; 
+            position: relative;
+        }
         .gallery-item:hover { transform: translateY(-5px); border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5); }
         
         .image-wrapper { overflow: hidden; border-radius: 12px; margin-bottom: 20px; position: relative; background: #0f172a; }
-        /* Image/Video inside grid */
-        .gallery-item img, .gallery-item video { width: 100%; height: 250px; object-fit: cover; transition: all 0.5s ease; display: block; }
-        .gallery-item:hover img, .gallery-item:hover video { transform: scale(1.05); }
+        
+        /* Auto Height fixes the crop issue! */
+        .gallery-item img, .gallery-item video { 
+            width: 100%; 
+            height: auto; 
+            object-fit: cover; 
+            transition: all 0.5s ease; 
+            display: block; 
+        }
+        .gallery-item:hover img, .gallery-item:hover video { transform: scale(1.03); }
         
         .gallery-item h3 { font-size: 1.35rem; margin-bottom: 8px; color: var(--text-main); font-weight: 700; }
         .gallery-item p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 14px; }
         .preview-tag { font-size: 0.85rem; color: #60a5fa; font-weight: 600; }
 
-        .loader-box { text-align: center; padding: 60px; grid-column: 1 / -1; }
+        .loader-box { text-align: center; padding: 60px; column-span: all; width: 100%; }
         .spinner { width: 40px; height: 40px; border: 4px solid rgba(59, 130, 246, 0.2); border-top-color: #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 15px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Lightbox Modal */
         .lightbox { display: none; position: fixed; inset: 0; background: rgba(3, 7, 18, 0.92); backdrop-filter: blur(12px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
         .lightbox-box { background: #0f172a; border: 1px solid var(--card-border); border-radius: 20px; max-width: 750px; width: 100%; padding: 25px; text-align: center; position: relative; }
-        /* Preview Elements */
         .lightbox-box img, .lightbox-box video { width: 100%; max-height: 500px; object-fit: contain; border-radius: 12px; margin-bottom: 20px; background: #000; }
         
         .close-lb { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; color: #fff; cursor: pointer; background: rgba(0,0,0,0.5); width: 38px; height: 38px; border-radius: 50%; line-height: 38px; transition: 0.3s; }
@@ -168,11 +194,10 @@
         </section>
     </main>
 
-    <!-- Lightbox Modal with Video Support -->
+    <!-- Lightbox Modal -->
     <div class="lightbox" id="lightbox" onclick="if(event.target===this) closePreview()">
         <div class="lightbox-box">
             <span class="close-lb" onclick="closePreview()">✕</span>
-            <!-- Hidden by default, shown based on media type -->
             <img id="lb-img" src="" alt="Preview" style="display: none;">
             <video id="lb-video" src="" autoplay controls loop muted playsinline style="display: none;"></video>
             
@@ -187,7 +212,6 @@
     </a>
 
     <footer class="footer-pro">
-        <!-- Footer Content... -->
         <div class="footer-content">
             <div class="footer-brand">
                 <h3>Pixel Craft Studio</h3>
@@ -262,7 +286,6 @@
                     const titleStr = (data.title || '').replace(/"/g, '&quot;');
                     const mediaUrl = data.image || '';
                     
-                    // Auto Detect Video vs Image
                     const isVideo = mediaUrl.toLowerCase().includes('.mp4') || mediaUrl.toLowerCase().includes('.webm') || mediaUrl.toLowerCase().includes('/video/upload/');
                     let mediaElement = '';
 
@@ -272,8 +295,9 @@
                         mediaElement = `<img loading="lazy" src="${mediaUrl}" alt="${titleStr}">`;
                     }
 
+                    // Set inline-block here for Masonry filters to work properly
                     html += `
-                        <div class="gallery-item reveal active" data-category="${data.category}" onclick="openPreview('${mediaUrl}', '${titleStr}', '${descStr}')">
+                        <div class="gallery-item reveal active" style="display: inline-block;" data-category="${data.category}" onclick="openPreview('${mediaUrl}', '${titleStr}', '${descStr}')">
                             <div class="image-wrapper">${mediaElement}</div>
                             <h3>${titleStr}</h3>
                             <p>${descStr.substring(0, 70)}${descStr.length > 70 ? '...' : ''}</p>
@@ -305,7 +329,7 @@
 
                     galleryItems.forEach(item => {
                         if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                            item.style.display = 'block';
+                            item.style.display = 'inline-block'; // Required for Masonry layout
                         } else {
                             item.style.display = 'none';
                         }
@@ -335,7 +359,6 @@
         }
         window.addEventListener("scroll", reveal);
 
-        // Smart Preview logic (Supports Video and Image)
         window.openPreview = function(mediaSrc, title, desc) {
             const imgEl = document.getElementById('lb-img');
             const vidEl = document.getElementById('lb-video');
@@ -362,7 +385,6 @@
 
         window.closePreview = function() {
             document.getElementById('lightbox').style.display = 'none';
-            // Reset both sources so video stops playing in background
             document.getElementById('lb-img').src = '';
             document.getElementById('lb-video').src = '';
         }
