@@ -80,7 +80,7 @@
         .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
         .port-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 15px; text-align: center; }
         /* Added support for video tag styling */
-        .port-card img, .port-card video { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border); }
+        .port-card img, .port-card video { width: 100%; height: auto; max-height: 200px; object-fit: contain; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border); background: #000; }
         .port-card h4 { font-size: 1.05rem; margin-bottom: 5px; color: var(--text-main); }
         .port-card p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
 
