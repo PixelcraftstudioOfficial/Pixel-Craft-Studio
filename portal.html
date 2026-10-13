@@ -63,7 +63,6 @@
         .header h1 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .header p { color: var(--text-muted); font-size: 0.98rem; }
 
-        /* Search Bar */
         .search-box {
             display: flex;
             gap: 12px;
@@ -119,7 +118,6 @@
         .order-badge { font-size: 1.35rem; font-weight: 800; color: #60a5fa; letter-spacing: 1px; }
         .client-welcome { font-size: 0.95rem; color: var(--text-main); }
 
-        /* 5-Step Status Tracker */
         .status-container { margin-bottom: 40px; }
         .status-container h3 { font-size: 1.15rem; margin-bottom: 22px; color: var(--text-main); }
         .tracker { display: flex; justify-content: space-between; position: relative; }
@@ -227,7 +225,6 @@
                 </div>
             </div>
 
-            <!-- 5-Step Status Tracker -->
             <div class="status-container">
                 <h3>Live Project Status</h3>
                 <div class="tracker">
@@ -273,6 +270,13 @@
                 </div>
             </div>
 
+            <!-- Client Attached Reference Photos (if any) -->
+            <div class="portal-section" id="client-refs-section" style="display: none;">
+                <h3>📎 Your Attached Reference Photos</h3>
+                <p class="sub">Reference images submitted with your order:</p>
+                <div id="client-refs-grid" class="samples-grid"></div>
+            </div>
+
             <!-- SAMPLES & PREVIEW SECTION -->
             <div class="portal-section" id="samples-section">
                 <h3>🎨 Project Samples & Draft Previews</h3>
@@ -289,7 +293,6 @@
             <!-- FINAL PROJECT DELIVERY SECTION -->
             <div id="final-delivery-section" style="display: none;"></div>
 
-            <!-- Payment & Next Steps -->
             <div class="payment-section" id="action-section">
                 <h3>Payment & Confirmation</h3>
                 <p>To start your project or unlock final files, please transfer the due amount using your Order Number as the reference and send the slip via WhatsApp.</p>
@@ -309,7 +312,6 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
@@ -427,7 +429,25 @@
                 steps.forEach(s => document.getElementById(s).classList.add('completed'));
             }
 
-            // Render Samples
+            // Render Client's Attached Reference Photos
+            const clientRefsSec = document.getElementById('client-refs-section');
+            const clientRefsGrid = document.getElementById('client-refs-grid');
+            clientRefsGrid.innerHTML = '';
+            if (Array.isArray(data.clientImages) && data.clientImages.length > 0) {
+                clientRefsSec.style.display = 'block';
+                data.clientImages.forEach((imgData, idx) => {
+                    clientRefsGrid.innerHTML += `
+                        <div class="sample-card">
+                            <img src="${imgData}" alt="Reference ${idx + 1}">
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">Reference Photo #${idx + 1}</div>
+                        </div>
+                    `;
+                });
+            } else {
+                clientRefsSec.style.display = 'none';
+            }
+
+            // Render Agency Samples
             const samplesList = document.getElementById('samples-list');
             const sampleBtns = document.getElementById('sample-action-btns');
             const samplesSub = document.getElementById('samples-subtext');
@@ -443,10 +463,10 @@
             if (sampleUrls.length > 0) {
                 samplesSub.textContent = "Please review the attached draft samples below and let us know your feedback:";
                 sampleUrls.forEach((url, index) => {
-                    const isImg = /\.(jpg|jpeg|png|webp|gif)$/i.test(url) || url.includes('cloudinary.com');
+                    const isImg = /\.(jpg|jpeg|png|webp|gif)\$/i.test(url) || url.includes('cloudinary.com');
                     samplesList.innerHTML += `
                         <div class="sample-card">
-                            ${isImg ? `<img src="${url}" alt="Sample ${index + 1}">` : `<div style="padding: 35px 10px; color: #60a5fa; font-weight: 700;">📄 Sample Preview #${index + 1}</div>`}
+                            ${isImg ? `<img src="${url}" alt="Sample ${index + 1}">` : `<div style="padding: 35px 10px; color: #60a5fa; font-weight: 700;">📄 Sample Preview #\${index + 1}</div>`}
                             <div style="font-weight: 600; font-size: 0.9rem; margin-bottom: 6px;">Draft Sample #${index + 1}</div>
                             <a href="${url}" target="_blank">🔍 Open Full Preview ↗</a>
                         </div>
