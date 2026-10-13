@@ -17,6 +17,7 @@
             --card-border: rgba(255, 255, 255, 0.08);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --success: #10b981;
             --gradient-text: linear-gradient(135deg, #60a5fa, #c084fc);
             --gradient-bg: linear-gradient(135deg, var(--primary), var(--secondary));
         }
@@ -82,13 +83,32 @@
         input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 15px 18px; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; font-size: 0.98rem; font-family: 'Inter', sans-serif; color: var(--text-main); background-color: rgba(255,255,255,0.03); transition: all 0.3s ease; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: #60a5fa; background-color: rgba(255,255,255,0.06); }
         select option { background-color: var(--bg-deep); color: var(--text-main); }
-        textarea { resize: vertical; min-height: 130px; }
+        textarea { resize: vertical; min-height: 110px; }
+
+        /* Custom Image Upload & Compression Box */
+        .upload-zone {
+            border: 2px dashed rgba(96, 165, 250, 0.35);
+            background: rgba(59, 130, 246, 0.03);
+            border-radius: 12px;
+            padding: 22px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .upload-zone:hover { border-color: #60a5fa; background: rgba(59, 130, 246, 0.08); }
+        .upload-zone p { color: var(--text-main); font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+        .upload-zone span { color: var(--text-muted); font-size: 0.8rem; }
+
+        .preview-grid { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 15px; }
+        .preview-item { position: relative; width: 95px; background: rgba(0,0,0,0.4); border: 1px solid var(--card-border); border-radius: 10px; padding: 6px; text-align: center; }
+        .preview-item img { width: 100%; height: 65px; object-fit: cover; border-radius: 6px; }
+        .preview-size { font-size: 0.7rem; color: var(--success); font-weight: 600; display: block; margin-top: 3px; }
+        .remove-img { position: absolute; top: -6px; right: -6px; background: #ef4444; color: white; border: none; width: 20px; height: 20px; border-radius: 50%; font-size: 0.75rem; cursor: pointer; line-height: 20px; font-weight: bold; }
 
         .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 16px 32px; text-decoration: none; border-radius: 10px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; width: 100%; text-align: center; }
         .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4); }
         .btn-outline { display: inline-block; background: transparent; border: 1px solid #60a5fa; color: #60a5fa; padding: 14px 28px; text-decoration: none; border-radius: 10px; font-weight: 600; width: 100%; text-align: center; margin-top: 12px; cursor: pointer; }
 
-        /* Success Message Box */
         .success-message { display: none; text-align: center; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); padding: 40px 25px; border-radius: 16px; }
         .success-message h3 { color: #10b981; font-size: 1.8rem; margin-bottom: 12px; }
         .success-message p { color: var(--text-main); font-size: 1.05rem; margin-bottom: 10px; }
@@ -143,12 +163,11 @@
     <main>
         <div class="page-header reveal">
             <h2>Let's Talk <span>Business</span></h2>
-            <p>Submit your project request below to get an instant Order Number (PCS-XXXX) and live portal access.</p>
+            <p>Submit your project request and attach reference images to get an instant Order Number (PCS-XXXX).</p>
         </div>
 
         <section class="contact-wrapper">
             <div class="contact-form-container reveal">
-                <!-- Success Box -->
                 <div id="success-box" class="success-message">
                     <h3>🎉 Order Created Successfully!</h3>
                     <p>Save your easy Order Number below to search and track your project, view samples, and download final files:</p>
@@ -158,7 +177,6 @@
                     <button class="btn-outline" onclick="notifyWhatsApp()">💬 Send Order No on WhatsApp</button>
                 </div>
 
-                <!-- Main Form -->
                 <div id="form-box">
                     <h3>New Project Order</h3>
                     <form id="projectForm">
@@ -217,6 +235,18 @@
                         <div class="form-group">
                             <label for="message">Project Details & Requirements *</label>
                             <textarea id="message" placeholder="Tell us about your project, colors, text, or timeline..." required></textarea>
+                        </div>
+
+                        <!-- NEW: Reference Image Upload with Auto-Compression -->
+                        <div class="form-group">
+                            <label>Attach Reference Images / Sketches (Optional - Max 3 Images)</label>
+                            <div class="upload-zone" onclick="document.getElementById('refImagesInput').click()">
+                                <p>📷 Click to Upload Reference Photos / Logos</p>
+                                <span>Images are automatically compressed for fast upload (Max 3 photos)</span>
+                            </div>
+                            <input type="file" id="refImagesInput" accept="image/*" multiple style="display: none;" onchange="handleImageCompression(event)">
+                            <div id="compress-status" style="font-size: 0.82rem; color: #60a5fa; margin-top: 6px; display: none;">Compressing images...</div>
+                            <div class="preview-grid" id="previewGrid"></div>
                         </div>
 
                         <button type="submit" class="btn-modern" id="submitBtn">Create Order & Get Tracking No</button>
@@ -286,6 +316,95 @@
         </div>
     </footer>
 
+    <!-- Client-Side Image Compression Script -->
+    <script>
+        window.compressedImagesArray = [];
+
+        async function handleImageCompression(event) {
+            const files = Array.from(event.target.files);
+            if (!files.length) return;
+
+            if (window.compressedImagesArray.length + files.length > 3) {
+                alert("You can attach a maximum of 3 reference images.");
+                return;
+            }
+
+            const statusEl = document.getElementById('compress-status');
+            statusEl.style.display = 'block';
+            statusEl.textContent = "Compressing & optimizing images...";
+
+            for (const file of files) {
+                if (window.compressedImagesArray.length >= 3) break;
+                try {
+                    const compressedDataUrl = await compressSingleImage(file, 1000, 0.7);
+                    const sizeKB = Math.round((compressedDataUrl.length * 3 / 4) / 1024);
+                    window.compressedImagesArray.push({
+                        name: file.name,
+                        dataUrl: compressedDataUrl,
+                        sizeKB: sizeKB
+                    });
+                } catch (err) {
+                    console.error("Image compression error:", err);
+                }
+            }
+
+            statusEl.style.display = 'none';
+            event.target.value = '';
+            renderCompressedPreviews();
+        }
+
+        function compressSingleImage(file, maxWidth, quality) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+
+                        // Compress to JPEG
+                        const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                        resolve(dataUrl);
+                    };
+                    img.onerror = reject;
+                };
+                reader.onerror = reject;
+            });
+        }
+
+        function renderCompressedPreviews() {
+            const grid = document.getElementById('previewGrid');
+            grid.innerHTML = '';
+            window.compressedImagesArray.forEach((item, index) => {
+                grid.innerHTML += `
+                    <div class="preview-item">
+                        <button type="button" class="remove-img" onclick="removeCompressedImage(${index})">✕</button>
+                        <img src="${item.dataUrl}" alt="${item.name}">
+                        <span class="preview-size">✓ ${item.sizeKB} KB</span>
+                    </div>
+                `;
+            });
+        }
+
+        function removeCompressedImage(index) {
+            window.compressedImagesArray.splice(index, 1);
+            renderCompressedPreviews();
+        }
+    </script>
+
     <!-- Firebase Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -305,7 +424,6 @@
         const db = getFirestore(app);
         let generatedOrderId = "";
 
-        // Auto-select package if URL has ?pkg= or ?service=
         const params = new URLSearchParams(window.location.search);
         const pkg = params.get('pkg');
         const srv = params.get('service');
@@ -325,7 +443,7 @@
         document.getElementById('projectForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
-            btn.innerText = 'Generating Order Number...';
+            btn.innerText = 'Uploading & Creating Order...';
             btn.disabled = true;
 
             const randomNum = Math.floor(1000 + Math.random() * 9000);
@@ -338,6 +456,9 @@
             if (selectedService.includes('18,500')) { presetBudget = 18500; presetAdvance = 9000; }
             if (selectedService.includes('35,000')) { presetBudget = 35000; presetAdvance = 15000; }
 
+            // Extract Base64 strings of compressed client images
+            const clientImages = (window.compressedImagesArray || []).map(item => item.dataUrl);
+
             try {
                 await setDoc(doc(db, "orders", easyOrderId), {
                     orderNo: easyOrderId,
@@ -348,6 +469,7 @@
                     service: selectedService,
                     client_budget: document.getElementById('budget').value,
                     message: document.getElementById('message').value,
+                    clientImages: clientImages,
                     status: 'reviewed',
                     assignee: 'Unassigned',
                     budget: presetBudget,
