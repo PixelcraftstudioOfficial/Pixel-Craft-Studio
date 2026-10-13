@@ -1,69 +1,409 @@
-<!-- --- UPDATED FIREBASE INTEGRATION SCRIPT FOR CONTACT US.HTML --- -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start a Project - Pixel Craft Studio</title>
+    <link rel="icon" type="image/png" href="Favicon.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDeB7_uqC-sk3fbNyMZmWe8wZjrbYvyBrY",
-  authDomain: "pixel-craft-c6717.firebaseapp.com",
-  projectId: "pixel-craft-c6717",
-  storageBucket: "pixel-craft-c6717.firebasestorage.app",
-  messagingSenderId: "540712193494",
-  appId: "1:540712193494:web:79afc5be7a96ece0b12877",
-  measurementId: "G-TNNHDKSQDT"
-};
+        :root {
+            --primary: #3b82f6;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --bg-deep: #030712;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-text: linear-gradient(135deg, #60a5fa, #c084fc);
+            --gradient-bg: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-let generatedOrderId = "";
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 15% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%), radial-gradient(circle at 85% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
 
-document.getElementById('projectForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('submitBtn');
-    btn.innerText = 'Creating Order Number...';
-    btn.disabled = true;
+        h1, h2, h3, h4, .logo { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-    // Generate Easy 4-Digit Order Number (e.g. PCS-4829)
-    const randomNum = Math.floor(1000 + Math.random() * 9000);
-    const easyOrderId = `PCS-${randomNum}`;
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-    try {
-        await setDoc(doc(db, "orders", easyOrderId), {
-            orderNo: easyOrderId,
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value || 'Not provided',
-            business: document.getElementById('business').value || 'Not provided',
-            service: document.getElementById('service').value,
-            client_budget: document.getElementById('budget').value,
-            message: document.getElementById('message').value,
-            status: 'reviewed',
-            assignee: 'Unassigned',
-            budget: 0,
-            advance: 0,
-            timeline: "To be decided",
-            samples: [],
-            finalLink: "",
-            createdAt: serverTimestamp()
+        .navbar { display: flex; justify-content: space-between; align-items: center; background: rgba(3, 7, 18, 0.75); backdrop-filter: blur(16px); padding: 18px 5%; position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px solid var(--card-border); }
+        .navbar .logo { font-size: 1.8rem; font-weight: 800; color: var(--text-main); text-decoration: none; }
+        .navbar .logo span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 30px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-main); }
+        .nav-portal-btn { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4); color: #60a5fa !important; padding: 8px 18px; border-radius: 50px; font-weight: 600 !important; }
+        .nav-portal-btn:hover { background: var(--primary); color: #fff !important; }
+
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 6px; z-index: 1001; }
+        .menu-toggle .bar { width: 30px; height: 2px; background-color: var(--text-main); transition: all 0.3s ease; }
+
+        @media (max-width: 850px) {
+            .navbar .logo { font-size: 1.5rem; }
+            .menu-toggle { display: flex; }
+            .nav-links { position: absolute; top: 100%; left: 0; width: 100%; background: rgba(3, 7, 18, 0.98); flex-direction: column; text-align: center; gap: 0; max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; border-bottom: 1px solid var(--card-border); }
+            .nav-links.active { max-height: 480px; padding: 20px 0; }
+            .nav-links li { width: 100%; }
+            .nav-links a { display: block; padding: 14px 0; }
+            .nav-portal-btn { display: inline-block !important; margin-top: 10px; padding: 10px 28px !important; }
+            #mobile-menu.is-active .bar:nth-child(2) { opacity: 0; }
+            #mobile-menu.is-active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+            #mobile-menu.is-active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+        }
+
+        main { padding-top: 130px; min-height: 80vh; }
+        .page-header { text-align: center; padding: 35px 20px 40px; }
+        .page-header h2 { font-size: 3.4rem; color: var(--text-main); font-weight: 800; margin-bottom: 15px; letter-spacing: -1px; }
+        .page-header h2 span { background: var(--gradient-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .page-header p { font-size: 1.15rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+        .contact-wrapper { max-width: 1300px; margin: 0 auto 100px; padding: 0 5%; display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px; }
+        @media (max-width: 900px) { .contact-wrapper { grid-template-columns: 1fr; } }
+
+        .contact-form-container { background: var(--card-bg); padding: 45px 38px; border-radius: 20px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); }
+        .contact-form-container h3 { font-size: 1.9rem; margin-bottom: 25px; color: var(--text-main); font-weight: 700; }
+        .form-group { margin-bottom: 22px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; gap: 0; } }
+
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        input[type="text"], input[type="email"], input[type="tel"], select, textarea { width: 100%; padding: 15px 18px; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; font-size: 0.98rem; font-family: 'Inter', sans-serif; color: var(--text-main); background-color: rgba(255,255,255,0.03); transition: all 0.3s ease; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #60a5fa; background-color: rgba(255,255,255,0.06); }
+        select option { background-color: var(--bg-deep); color: var(--text-main); }
+        textarea { resize: vertical; min-height: 130px; }
+
+        .btn-modern { display: inline-block; background: var(--gradient-bg); color: #fff; padding: 16px 32px; text-decoration: none; border-radius: 10px; font-size: 1rem; font-weight: 600; transition: all 0.3s ease; border: none; cursor: pointer; width: 100%; text-align: center; }
+        .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4); }
+        .btn-outline { display: inline-block; background: transparent; border: 1px solid #60a5fa; color: #60a5fa; padding: 14px 28px; text-decoration: none; border-radius: 10px; font-weight: 600; width: 100%; text-align: center; margin-top: 12px; cursor: pointer; }
+
+        /* Success Message Box */
+        .success-message { display: none; text-align: center; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); padding: 40px 25px; border-radius: 16px; }
+        .success-message h3 { color: #10b981; font-size: 1.8rem; margin-bottom: 12px; }
+        .success-message p { color: var(--text-main); font-size: 1.05rem; margin-bottom: 10px; }
+        .success-message .order-id { font-size: 1.8rem; font-weight: 800; color: #60a5fa; letter-spacing: 2px; margin: 15px 0; background: rgba(59, 130, 246, 0.15); padding: 12px 28px; border-radius: 12px; display: inline-block; border: 1px solid rgba(59, 130, 246, 0.4); }
+
+        .contact-info-container { display: flex; flex-direction: column; gap: 25px; }
+        .info-card { background: var(--card-bg); padding: 35px 28px; border-radius: 16px; border: 1px solid var(--card-border); backdrop-filter: blur(10px); }
+        .info-card h4 { font-size: 1.35rem; margin-bottom: 12px; color: var(--text-main); font-weight: 700; }
+        .info-card p { color: var(--text-muted); font-size: 0.98rem; margin-bottom: 8px; }
+        .info-card p strong { color: var(--text-main); }
+        .whatsapp-btn { display: inline-block; border: 1px solid #25D366; color: #25D366; background: rgba(37, 211, 102, 0.08); padding: 12px 26px; border-radius: 50px; text-decoration: none; font-weight: 600; margin-top: 15px; transition: 0.3s; font-size: 0.9rem; }
+        .whatsapp-btn:hover { background-color: #25D366; color: #fff; }
+
+        .float-wa { position: fixed; width: 60px; height: 60px; bottom: 30px; right: 30px; background-color: #25d366; color: #FFF; border-radius: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3); z-index: 1000; }
+        .float-wa svg { width: 32px; height: 32px; fill: white; }
+
+        .footer-pro { background: rgba(3,7,18,0.85); padding: 80px 5% 30px; border-top: 1px solid var(--card-border); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 45px; max-width: 1300px; margin: 0 auto; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
+        .footer-brand h3 { color: var(--text-main); font-size: 1.8rem; margin-bottom: 15px; font-weight: 800; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.95rem; }
+        .footer-links h4, .footer-contact h4 { color: var(--text-main); font-size: 1.1rem; margin-bottom: 20px; font-weight: 600; }
+        .footer-links ul { list-style: none; }
+        .footer-links ul li { margin-bottom: 12px; }
+        .footer-links ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.95rem; }
+        .footer-links ul li a:hover { color: var(--text-main); }
+        .footer-contact p { margin-bottom: 12px; color: var(--text-muted); font-size: 0.95rem; }
+        .footer-contact span { color: var(--primary); font-weight: 500; }
+        .footer-bottom { text-align: center; padding-top: 30px; color: var(--text-muted); font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">Pixel<span>Craft</span></a>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Designs.html">Portfolio</a></li>
+                <li><a href="Services.html">Services</a></li>
+                <li><a href="About Us.html">Agency</a></li>
+                <li><a href="Reviews.html">Reviews</a></li>
+                <li><a href="Contact Us.html" class="active">Contact</a></li>
+                <li><a href="portal.html" class="nav-portal-btn">Track Order</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="page-header reveal">
+            <h2>Let's Talk <span>Business</span></h2>
+            <p>Submit your project request below to get an instant Order Number (PCS-XXXX) and live portal access.</p>
+        </div>
+
+        <section class="contact-wrapper">
+            <div class="contact-form-container reveal">
+                <!-- Success Box -->
+                <div id="success-box" class="success-message">
+                    <h3>🎉 Order Created Successfully!</h3>
+                    <p>Save your easy Order Number below to search and track your project, view samples, and download final files:</p>
+                    <div class="order-id" id="display-order-id">PCS-0000</div>
+                    <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 22px;">You can now open your live Customer Portal or notify our team on WhatsApp for fast quotation approval.</p>
+                    <button class="btn-modern" onclick="openCustomerPortal()">🔍 Open My Customer Portal Now</button>
+                    <button class="btn-outline" onclick="notifyWhatsApp()">💬 Send Order No on WhatsApp</button>
+                </div>
+
+                <!-- Main Form -->
+                <div id="form-box">
+                    <h3>New Project Order</h3>
+                    <form id="projectForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name *</label>
+                                <input type="text" id="name" placeholder="e.g. Kasun Perera" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone / WhatsApp *</label>
+                                <input type="tel" id="phone" placeholder="07X XXX XXXX" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" placeholder="you@example.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="business">Business / Institute Name</label>
+                                <input type="text" id="business" placeholder="Brand or Tuition Class Name">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="service">Service / Package *</label>
+                                <select id="service" required>
+                                    <option value="" disabled selected>Select a service or package...</option>
+                                    <option value="Business Starter Kit (Rs. 7,500)">★ Business Starter Kit (Rs. 7,500)</option>
+                                    <option value="Monthly Growth Plan (Rs. 18,500/mo)">★ Monthly Growth Plan (Rs. 18,500/mo)</option>
+                                    <option value="Web & Digital Pro Bundle (Rs. 35,000+)">★ Web & Digital Pro Bundle (Rs. 35,000+)</option>
+                                    <option value="Brand Identity / Logo">Brand Identity / Logo Design</option>
+                                    <option value="Digital Marketing / Social Media">Social Media / Tuition Flyers</option>
+                                    <option value="Video Production">Promotional Video / Reels / TikTok</option>
+                                    <option value="UI/UX & Web Design">Website / UI/UX Design</option>
+                                    <option value="ERP & Management Systems">Custom ERP / Firebase System</option>
+                                    <option value="Custom AI Agents">Custom AI Agent / Chatbot</option>
+                                    <option value="Print & Packaging">Print & Packaging Labels</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="budget">Estimated Budget</label>
+                                <select id="budget" required>
+                                    <option value="Rs. 7,500 (Starter Kit)">Rs. 7,500 (Starter Kit)</option>
+                                    <option value="Rs. 10,000 - Rs. 25,000">Rs. 10,000 - Rs. 25,000</option>
+                                    <option value="Rs. 25,000 - Rs. 50,000">Rs. 25,000 - Rs. 50,000</option>
+                                    <option value="Rs. 50,000+ (Enterprise)">Rs. 50,000+ (Enterprise)</option>
+                                    <option value="Need Quotation">Need Quotation</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Project Details & Requirements *</label>
+                            <textarea id="message" placeholder="Tell us about your project, colors, text, or timeline..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-modern" id="submitBtn">Create Order & Get Tracking No</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="contact-info-container">
+                <div class="info-card reveal">
+                    <h4>Already Have an Order No?</h4>
+                    <p>Check your live project status, preview watermarked samples, and download completed files on our Customer Portal.</p>
+                    <a href="portal.html" class="whatsapp-btn" style="border-color: #60a5fa; color: #60a5fa; background: rgba(59, 130, 246, 0.1);">🔍 Go to Customer Portal</a>
+                </div>
+                <div class="info-card reveal">
+                    <h4>Direct WhatsApp Support</h4>
+                    <p>Need urgent assistance? Message our team directly on WhatsApp.</p>
+                    <a href="https://wa.link/dgf22q" class="whatsapp-btn" target="_blank">💬 Chat on WhatsApp</a>
+                </div>
+                <div class="info-card reveal">
+                    <h4>Contact Details</h4>
+                    <p><strong>Phone / WA:</strong> +94 76 639 0768</p>
+                    <p><strong>Location:</strong> Kandy, Sri Lanka</p>
+                    <p><strong>Hours:</strong> Mon - Sun (9:00 AM - 10:00 PM)</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="https://wa.link/dgf22q" class="float-wa" target="_blank" title="Chat with us on WhatsApp">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M16.01 2.01A13.92 13.92 0 002.08 16c0 2.44.64 4.8 1.83 6.9L2 29.89l7.15-1.89a13.84 13.84 0 006.86 1.8h.01c7.68 0 13.93-6.27 13.93-13.96a14.05 14.05 0 00-4.09-9.87A13.9 13.9 0 0016.01 2.01zm0 2.35c3.08 0 5.98 1.21 8.16 3.4a11.58 11.58 0 013.4 8.21c0 6.38-5.18 11.58-11.56 11.58a11.5 11.5 0 01-5.9-1.62l-.42-.25-4.38 1.16 1.17-4.29-.28-.44a11.56 11.56 0 01-1.76-6.15c0-6.38 5.2-11.6 11.58-11.6zm6.86 9.38c-.37-.19-2.23-1.11-2.58-1.24-.34-.12-.6-.19-.85.19-.25.38-1 .1.24-1.24-1.57-.24-.34-.48-.52-1.2-.19-.72.36-1.12.54-1.3l.02-.01c.42-.99 1.05-1.95 2.14-2.53.86-.45 1.81-.66 2.76-.66.6 0 1.2.1 1.77.29 1.76.58 3.14 2.12 3.46 2.53.33.42 1.48 1.85 1.48 3.48 0 1.63-.84 3.2-1.12 3.58-.29.38-.58.42-.96.24z"/></svg>
+    </a>
+
+    <footer class="footer-pro">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Pixel Craft Studio</h3>
+                <p>Crafting next-generation digital experiences, high-converting media, and robust web systems for modern brands.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Designs.html">Portfolio</a></li>
+                    <li><a href="Services.html">Services & Packages</a></li>
+                    <li><a href="About Us.html">Our Agency & Team</a></li>
+                    <li><a href="Reviews.html">Client Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Client & Staff Portals</h4>
+                <ul>
+                    <li><a href="portal.html" style="color: #60a5fa; font-weight: 600;">🔍 Customer Order Portal</a></li>
+                    <li><a href="Contact Us.html">Start New Project</a></li>
+                    <li><a href="admin.html">🔒 Staff / Admin Login</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Connect</h4>
+                <p>Phone / WA: <span>+94 76 639 0768</span></p>
+                <p>Location: <span>Kandy, Sri Lanka</span></p>
+                <br>
+                <a href="https://www.facebook.com/share/1AGGHs5Pvs/" target="_blank" style="color: var(--text-main); text-decoration: none; font-weight: 600;">Facebook Page ↗</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Pixel Craft Studio (A QuadraLK Venture). All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Firebase Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDeB7_uqC-sk3fbNyMZmWe8wZjrbYvyBrY",
+            authDomain: "pixel-craft-c6717.firebaseapp.com",
+            projectId: "pixel-craft-c6717",
+            storageBucket: "pixel-craft-c6717.firebasestorage.app",
+            messagingSenderId: "540712193494",
+            appId: "1:540712193494:web:79afc5be7a96ece0b12877",
+            measurementId: "G-TNNHDKSQDT"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        let generatedOrderId = "";
+
+        // Auto-select package if URL has ?pkg= or ?service=
+        const params = new URLSearchParams(window.location.search);
+        const pkg = params.get('pkg');
+        const srv = params.get('service');
+        const serviceSelect = document.getElementById('service');
+        if (pkg === 'Starter_Kit') serviceSelect.value = "Business Starter Kit (Rs. 7,500)";
+        if (pkg === 'Monthly_Growth') serviceSelect.value = "Monthly Growth Plan (Rs. 18,500/mo)";
+        if (pkg === 'Web_Pro') serviceSelect.value = "Web & Digital Pro Bundle (Rs. 35,000+)";
+        if (srv) {
+            for (let opt of serviceSelect.options) {
+                if (opt.value.toLowerCase().includes(srv.toLowerCase())) {
+                    serviceSelect.value = opt.value;
+                    break;
+                }
+            }
+        }
+
+        document.getElementById('projectForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = 'Generating Order Number...';
+            btn.disabled = true;
+
+            const randomNum = Math.floor(1000 + Math.random() * 9000);
+            const easyOrderId = `PCS-${randomNum}`;
+
+            let presetBudget = 0;
+            let presetAdvance = 0;
+            const selectedService = document.getElementById('service').value;
+            if (selectedService.includes('7,500')) { presetBudget = 7500; presetAdvance = 3500; }
+            if (selectedService.includes('18,500')) { presetBudget = 18500; presetAdvance = 9000; }
+            if (selectedService.includes('35,000')) { presetBudget = 35000; presetAdvance = 15000; }
+
+            try {
+                await setDoc(doc(db, "orders", easyOrderId), {
+                    orderNo: easyOrderId,
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value || 'Not provided',
+                    phone: document.getElementById('phone').value || 'Not provided',
+                    business: document.getElementById('business').value || 'Not provided',
+                    service: selectedService,
+                    client_budget: document.getElementById('budget').value,
+                    message: document.getElementById('message').value,
+                    status: 'reviewed',
+                    assignee: 'Unassigned',
+                    budget: presetBudget,
+                    advance: presetAdvance,
+                    timeline: "3-5 Business Days",
+                    samples: [],
+                    finalLink: "",
+                    createdAt: serverTimestamp()
+                });
+
+                generatedOrderId = easyOrderId;
+
+                document.getElementById('form-box').style.display = 'none';
+                document.getElementById('display-order-id').innerText = generatedOrderId;
+                document.getElementById('success-box').style.display = 'block';
+
+            } catch(error) {
+                console.error("Error writing document: ", error);
+                alert("Error submitting your request. Please check your connection and try again.");
+                btn.innerText = 'Create Order & Get Tracking No';
+                btn.disabled = false;
+            }
         });
 
-        generatedOrderId = easyOrderId;
+        window.openCustomerPortal = function() {
+            if(!generatedOrderId) return;
+            window.location.href = `portal.html?id=${generatedOrderId}`;
+        };
 
-        document.getElementById('form-box').style.display = 'none';
-        document.getElementById('display-order-id').innerText = generatedOrderId;
-        document.getElementById('success-box').style.display = 'block';
+        window.notifyWhatsApp = function() {
+            if(!generatedOrderId) return;
+            const msg = encodeURIComponent(`Hi Pixel Craft Studio, I just placed an order on your website.\n\n*My Order No:* ${generatedOrderId}\nPlease check and update my Customer Portal.`);
+            window.open(`https://wa.me/94766390768?text=${msg}`, '_blank');
+        };
+    </script>
 
-    } catch(error) {
-        console.error("Error writing document: ", error);
-        alert("Error submitting your request. Please check your connection and try again.");
-        btn.innerText = 'Submit Project Request';
-        btn.disabled = false;
-    }
-});
+    <script>
+        const menuToggle = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('#nav-links');
+        menuToggle.addEventListener('click', function() {
+            menuToggle.classList.toggle('is-active');
+            navLinks.classList.toggle('active');
+        });
 
-window.notifyWhatsApp = function() {
-    if(!generatedOrderId) return;
-    const msg = encodeURIComponent(`Hi Pixel Craft Studio, I just submitted a project request.\n\nMy Order No is: *${generatedOrderId}*\nPlease review and update my Customer Portal.`);
-    window.open(`https://wa.me/94766390768?text=${msg}`, '_blank');
-}
-</script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        document.addEventListener("DOMContentLoaded", reveal);
+    </script>
+</body>
+</html>
