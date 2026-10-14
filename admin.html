@@ -27,7 +27,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { background-color: var(--bg-deep); color: var(--text-main); }
 
-        /* Login Screen */
         #login-screen { position: fixed; width: 100%; height: 100vh; background: var(--bg-deep); display: flex; justify-content: center; align-items: center; z-index: 100; }
         .login-box { background: var(--card-bg); padding: 40px; border-radius: 12px; border: 1px solid var(--border); text-align: center; width: 350px; }
         .login-box input { padding: 12px; width: 100%; margin: 12px 0; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-deep); color: #fff; }
@@ -39,7 +38,6 @@
         .btn-danger { background: rgba(239, 68, 68, 0.15); border: 1px solid var(--danger); color: #f87171; }
         .btn-danger:hover { background: var(--danger); color: #fff; }
 
-        /* Dashboard & Tabs */
         #dashboard { display: none; padding: 30px; max-width: 1380px; margin: 0 auto; }
         .header-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
         
@@ -50,7 +48,6 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* Common Elements */
         .analytics-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; margin-bottom: 30px; }
         @media (max-width: 800px) { .analytics-grid { grid-template-columns: 1fr; } }
         .stats-col { display: flex; flex-direction: column; gap: 15px; }
@@ -71,6 +68,7 @@
         .b-reviewed { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
         .b-awaiting { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
         .b-progress { background: rgba(6, 182, 212, 0.2); color: #22d3ee; }
+        .b-sample { background: rgba(139, 92, 246, 0.2); color: #c084fc; }
         .b-completed { background: rgba(16, 185, 129, 0.2); color: #34d399; }
         
         .action-btn { padding: 6px 12px; font-size: 0.8rem; cursor: pointer; border-radius: 6px; border: 1px solid var(--primary); background: rgba(59, 130, 246, 0.1); color: #60a5fa; font-weight: 600; transition: 0.2s; }
@@ -94,15 +92,17 @@
         .modal-header { grid-column: span 2; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
         .modal-content.single-col .modal-header, .modal-content.single-col .modal-actions { grid-column: span 1; }
         .close-modal { cursor: pointer; color: var(--text-muted); font-size: 1.5rem; font-weight: bold; line-height: 1; }
+        .close-modal:hover { color: #fff; }
         
         .section-sub-title { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: #60a5fa; font-weight: 700; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 5px; }
+
         .form-group { margin-bottom: 12px; }
         .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .form-group label { display: block; margin-bottom: 4px; font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }
         .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 9px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-deep); color: white; font-size: 0.88rem; }
         .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); }
+        .form-group textarea { height: 62px; resize: vertical; }
 
-        /* Advance Paid Toggle Box */
         .payment-toggle-box { background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); padding: 10px 14px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
         .payment-toggle-box label { margin: 0; color: #34d399; font-weight: 600; font-size: 0.86rem; cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .payment-toggle-box input[type="checkbox"] { width: 17px; height: 17px; accent-color: #10b981; cursor: pointer; }
@@ -148,7 +148,7 @@
             </div>
         </div>
 
-        <!-- ==================== ORDERS TAB ==================== -->
+        <!-- ORDERS TAB -->
         <div id="tab-orders" class="tab-content active">
             <div class="analytics-grid">
                 <div class="stats-col">
@@ -169,15 +169,17 @@
                         <option value="reviewed">Reviewed</option>
                         <option value="awaiting_advance">Awaiting Advance</option>
                         <option value="in_progress">In Progress</option>
+                        <option value="sample_ready">Sample Ready</option>
                         <option value="completed">Completed</option>
                     </select>
                     <select id="teamFilter" onchange="filterTable()">
-                        <option value="ALL">All Partners (4)</option>
+                        <option value="ALL">All Partners (5)</option>
                         <option value="Unassigned">Unassigned</option>
                         <option value="Lakmal">Lakmal (Tech & Creative)</option>
                         <option value="Pasindu">Pasindu (Sales & Client)</option>
                         <option value="Shane">Shane (Finance & Admin)</option>
                         <option value="Nayanajith">Nayanajith (Operations)</option>
+                        <option value="Dhananjaya">Dhananjaya (Video & Photo)</option>
                     </select>
                 </div>
                 <button class="btn" style="width:auto; background: var(--success);" onclick="openNewOrderModal()">+ Create Manual Order</button>
@@ -191,7 +193,7 @@
                             <th>Client Details</th>
                             <th>Service</th>
                             <th>Status</th>
-                            <th>Partner Assigned</th>
+                            <th>Partner</th>
                             <th>Total / Balance</th>
                             <th>Actions</th>
                         </tr>
@@ -203,12 +205,12 @@
             </div>
         </div>
 
-        <!-- ==================== PORTFOLIO TAB ==================== -->
+        <!-- PORTFOLIO TAB -->
         <div id="tab-portfolio" class="tab-content">
             <div class="controls" style="justify-content: space-between; align-items: center; background: var(--card-bg); padding: 20px; border-radius: 12px; border: 1px solid var(--border);">
                 <div>
                     <h3 style="margin-bottom: 5px;">Add New Portfolio Item</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-muted);">Upload images or video to Cloudinary and paste the link here.</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted);">Upload Image or Video (.mp4) to Cloudinary and paste the link here.</p>
                 </div>
                 <button class="btn" style="width:auto; background: var(--primary);" onclick="document.getElementById('newPortfolioModal').style.display='flex'">+ Add New Work</button>
             </div>
@@ -219,9 +221,7 @@
         </div>
     </div>
 
-    <!-- ==================== MODALS ==================== -->
-
-    <!-- New Manual Order Modal -->
+    <!-- NEW ORDER MODAL -->
     <div id="newOrderModal" class="modal">
         <div class="modal-content single-col">
             <div class="modal-header">
@@ -244,12 +244,10 @@
                         <label>Select Service *</label>
                         <select id="new-service" onchange="autoFillNewOrderPackage()">
                             <option value="Business Starter Kit (Rs. 7,500)">★ Starter Kit (Rs. 7,500)</option>
-                            <option value="Monthly Growth Plan (Rs. 18,500/mo)">★ Monthly Growth Plan</option>
-                            <option value="Web & Digital Pro Bundle (Rs. 35,000+)">★ Web & Digital Pro</option>
-                            <option value="Brand Identity / Logo" selected>Brand Identity / Logo</option>
-                            <option value="Digital Marketing / Social Media">Social Media</option>
-                            <option value="Video Production">Video Production</option>
-                            <option value="Multiple Services">Multiple Services</option>
+                            <option value="Brand Identity / Logo" selected>Brand Identity / Logo Design</option>
+                            <option value="Digital Marketing / Social Media">Social Media / Tuition Flyers</option>
+                            <option value="Video Production">Promotional Video / Reels</option>
+                            <option value="Web & Digital Pro Bundle (Rs. 35,000+)">★ Web & Digital Pro Bundle</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -260,6 +258,7 @@
                             <option value="Pasindu">Pasindu</option>
                             <option value="Shane">Shane</option>
                             <option value="Nayanajith">Nayanajith</option>
+                            <option value="Dhananjaya">Dhananjaya</option>
                         </select>
                     </div>
                 </div>
@@ -282,7 +281,7 @@
         </div>
     </div>
 
-    <!-- Manage Order Modal (FIXED) -->
+    <!-- MANAGE ORDER MODAL -->
     <div id="orderModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -290,10 +289,8 @@
                 <span class="close-modal" onclick="closeModal()">✕</span>
             </div>
             
-            <!-- Left Column -->
             <div>
                 <input type="hidden" id="m-id">
-                
                 <div class="section-sub-title">Client Personal Info</div>
                 <div class="form-row-2">
                     <div class="form-group"><label>Client Name</label><input type="text" id="m-client-name"></div>
@@ -306,11 +303,7 @@
 
                 <div class="section-sub-title" style="margin-top: 8px;">Service & Financials</div>
                 <div class="form-row-2">
-                    <div class="form-group">
-                        <label>Service / Package</label>
-                        <!-- Keep as input so Admin can type custom services easily -->
-                        <input type="text" id="m-service">
-                    </div>
+                    <div class="form-group"><label>Service / Package</label><input type="text" id="m-service"></div>
                     <div class="form-group">
                         <label>Assign To Partner</label>
                         <select id="m-assignee">
@@ -319,6 +312,7 @@
                             <option value="Pasindu">Pasindu</option>
                             <option value="Shane">Shane</option>
                             <option value="Nayanajith">Nayanajith</option>
+                            <option value="Dhananjaya">Dhananjaya</option>
                         </select>
                     </div>
                 </div>
@@ -348,7 +342,6 @@
                 </div>
             </div>
 
-            <!-- Right Column (FIXED: Missing fields restored) -->
             <div>
                 <div class="section-sub-title">Project Requirements</div>
                 <div class="form-group" style="margin-bottom: 8px;">
@@ -361,24 +354,11 @@
                 </div>
 
                 <div class="section-sub-title">Deliverables & Logs</div>
-                <div class="form-group">
-                    <label>🎨 Sample URLs (Comma separated)</label>
-                    <textarea id="m-samples" placeholder="Paste Cloudinary links..." style="height: 45px;"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>📦 Final Delivery Link (Google Drive / ZIP)</label>
-                    <input type="text" id="m-final-link" placeholder="https://drive.google.com/...">
-                </div>
+                <div class="form-group"><label>🎨 Sample URLs (Comma separated)</label><textarea id="m-samples" placeholder="Paste Cloudinary links..." style="height: 45px;"></textarea></div>
+                <div class="form-group"><label>📦 Final Delivery Link (Google Drive / ZIP)</label><input type="text" id="m-final-link" placeholder="https://drive.google.com/..."></div>
                 
-                <!-- MISSING FIELDS RESTORED HERE -->
-                <div class="form-group">
-                    <label>Internal Team Notes</label>
-                    <input type="text" id="m-notes" placeholder="Notes for Lakmal, Pasindu, Shane, Nayanajith...">
-                </div>
-                <div class="form-group">
-                    <label>Activity Log</label>
-                    <div class="log-box" id="m-log"></div>
-                </div>
+                <div class="form-group"><label>Internal Team Notes</label><input type="text" id="m-notes" placeholder="Notes for Lakmal, Pasindu, Shane, Nayanajith, Dhananjaya..."></div>
+                <div class="form-group"><label>Activity Log</label><div class="log-box" id="m-log"></div></div>
                 
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
                     <button class="btn" style="background: #0ea5e9; font-size:0.8rem;" onclick="generateVectorDocument('QUOTATION')">📋 Download Quotation</button>
@@ -394,7 +374,7 @@
         </div>
     </div>
 
-    <!-- Add Portfolio Modal -->
+    <!-- PORTFOLIO UPLOAD MODAL -->
     <div id="newPortfolioModal" class="modal">
         <div class="modal-content single-col">
             <div class="modal-header">
@@ -430,6 +410,7 @@
         </div>
     </div>
 
+    <!-- Firebase Integration -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
@@ -530,7 +511,7 @@
                 html += `
                     <tr class="order-row" data-orderno="${(d.orderNo||d.id).toLowerCase()}" data-name="${(d.name||'').toLowerCase()}" data-phone="${d.phone||''}" data-status="${d.status}" data-team="${d.assignee||'Unassigned'}">
                         <td><strong style="color:#60a5fa;">${d.orderNo||d.id}</strong></td>
-                        <td><strong>${d.name||'Unnamed'}</strong><br><span style="font-size:0.8rem; color:var(--text-muted);">${d.business || d.phone || ''}</span></td>
+                        <td><strong>${d.name||'Unnamed'}</strong><br><span style="font-size:0.8rem; color:var(--text-muted);">${d.business && d.business !== 'Not provided' ? d.business : (d.phone || '')}</span></td>
                         <td>${d.service||'Custom'}</td>
                         <td><span class="badge ${sClass}">${sText}</span></td>
                         <td>${d.assignee||'Unassigned'}</td>
@@ -595,7 +576,6 @@
             document.getElementById('m-advance-paid').checked = Boolean(order.advancePaid);
             document.getElementById('m-timeline').value = order.timeline || '';
             
-            // These fields were missing in HTML previously, now fixed:
             document.getElementById('m-notes').value = order.internal_notes || '';
             document.getElementById('m-samples').value = Array.isArray(order.samples) ? order.samples.join(', ') : (order.samples || '');
             document.getElementById('m-final-link').value = order.finalLink || '';
@@ -696,7 +676,7 @@
                     service: document.getElementById('new-service').value, assignee: document.getElementById('new-assignee').value,
                     status: document.getElementById('new-status').value, budget: Number(document.getElementById('new-budget').value || 0),
                     advance: Number(document.getElementById('new-advance').value || 0), advancePaid: false, timeline: document.getElementById('new-timeline').value.trim() || '3-5 Business Days',
-                    message: document.getElementById('new-message').value.trim() || 'Manual order created by Admin.', clientImages: [], samples: [], finalLink: '', createdAt: serverTimestamp()
+                    message: '', clientImages: [], samples: [], finalLink: '', createdAt: serverTimestamp()
                 });
                 closeNewOrderModal(); loadData(); alert(`Order Created: ${easyOrderNo}`);
             } catch (e) { alert("Error creating order."); }
@@ -809,12 +789,31 @@
             doc.setFillColor(248, 250, 252); doc.setDrawColor(203, 213, 225); doc.roundedRect(115, fY, 80, 42, 2, 2, 'FD');
             doc.setFontSize(9.5); doc.setTextColor(71, 85, 105); doc.text('Total Amount:', 120, fY + 10);
             doc.setFont('helvetica', 'bold'); doc.setTextColor(15, 23, 42); doc.text(`Rs. ${Number(document.getElementById('m-budget').value).toLocaleString()}`, 190, fY + 10, { align: 'right' });
-            
+
+            const isAdvPaid = document.getElementById('m-advance-paid').checked;
+            const advanceAmt = Number(document.getElementById('m-advance').value);
+            const totalBudget = Number(document.getElementById('m-budget').value);
+
+            if (isQuote) {
+                doc.setFont('helvetica', 'normal'); doc.setTextColor(71, 85, 105); doc.text('Required Advance:', 120, fY + 19);
+                doc.setFont('helvetica', 'bold'); doc.setTextColor(217, 119, 6); doc.text(`Rs. ${advanceAmt.toLocaleString()}`, 190, fY + 19, { align: 'right' });
+            } else {
+                let bal = isAdvPaid ? Math.max(0, totalBudget - advanceAmt) : totalBudget;
+                if(document.getElementById('m-status').value === 'completed') bal = 0;
+                doc.setFont('helvetica', 'normal'); doc.setTextColor(71, 85, 105); doc.text(isAdvPaid ? 'Less: Advance Paid:' : 'Required Advance:', 120, fY + 19);
+                doc.setFont('helvetica', 'bold'); doc.setTextColor(isAdvPaid ? 16 : 217, isAdvPaid ? 185 : 119, isAdvPaid ? 129 : 6);
+                doc.text(`${isAdvPaid?'- ':''}Rs. ${advanceAmt.toLocaleString()}`, 190, fY + 19, { align: 'right' });
+                doc.setDrawColor(203, 213, 225); doc.line(120, fY + 25, 190, fY + 25);
+                doc.setFontSize(11.5); doc.setTextColor(15, 23, 42); doc.text('BALANCE DUE:', 120, fY + 34);
+                doc.setTextColor(bal===0?16:220, bal===0?185:38, bal===0?129:38); doc.text(`Rs. ${bal.toLocaleString()}`, 190, fY + 34, { align: 'right' });
+            }
+
             doc.setFillColor(239, 246, 255); doc.setDrawColor(147, 197, 253); doc.roundedRect(15, fY, 95, 42, 2, 2, 'FD');
             doc.setFontSize(9.5); doc.setTextColor(30, 58, 138); doc.text('BANK TRANSFER DETAILS:', 20, fY + 8);
             doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(30, 41, 59);
-            doc.text('Account Name:\nBank:\nBranch:\nAccount No:', 20, fY + 15, {lineHeightFactor: 1.5});
+            doc.text('Account Name:\nBank:\nBranch:\nAccount No:\nPayment Ref:', 20, fY + 15, {lineHeightFactor: 1.5});
             doc.setFont('helvetica', 'bold'); doc.text('Lakmal Madhushan Kumara\nBank of Ceylon (BOC)\nPeradeniya\n91493785', 48, fY + 15, {lineHeightFactor: 1.5});
+            doc.setTextColor(15, 23, 42); doc.text(displayId, 48, fY + 39, {lineHeightFactor: 1.5});
 
             doc.save(`${isQuote ? 'Quotation' : 'Invoice'}_${displayId}.pdf`);
         }
